@@ -17,7 +17,7 @@ Este es un sitio web estático de portfolio técnico diseñado para GitHub Pages
 - **Proof of Work**: Evidencia documentada del trabajo
 - **Research Pipeline**: Flujo GitHub → Zenodo → ORCID
 - **Futuro**: Zenodo / DOI / publicaciones archivadas
-- **CV descargable**: Botón "Coming soon" hasta que exista PDF
+- **CV descargable**: PDF disponible para descarga directa
 - **Bilingüe**: Toggle completo de idioma (EN/ES) con persistencia en localStorage
 - **Canvas animado**: Red matemática/grafo atómico en hero (respeta reduced-motion)
 - **Ecuación typewriter**: Efecto de escritura matemática en hero
@@ -26,13 +26,14 @@ Este es un sitio web estático de portfolio técnico diseñado para GitHub Pages
 
 ```
 .
-├── index.html    # Página principal con todo el contenido
-├── styles.css    # Estilos con soporte dark/light mode
-├── script.js     # JavaScript para tema, idioma y animaciones
-├── logo.jpg      # Logo de Hanzzel Corp (imagen hero)
-├── favicon.png   # Favicon para pestaña del navegador
-├── og-image.png  # Imagen para Open Graph / Twitter Card
-└── README.md     # Este archivo
+├── index.html           # Página principal con todo el contenido
+├── styles.css           # Estilos con soporte dark/light mode
+├── script.js            # JavaScript para tema, idioma y animaciones
+├── logo.jpg             # Logo de Hanzzel Corp (imagen hero)
+├── favicon.png          # Favicon para pestaña del navegador
+├── og-image.png         # Imagen para Open Graph / Twitter Card
+├── Jose_Zamora_CV.pdf   # CV descargable
+└── README.md            # Este archivo
 ```
 
 ## Características
@@ -51,7 +52,7 @@ Este es un sitio web estático de portfolio técnico diseñado para GitHub Pages
 - **Current Status**: Estado actual de proyectos en desarrollo
 - **Proof of Work**: Lista de evidencia verificable
 - **Research Pipeline**: Visualización del flujo de publicación
-- **CV descargable**: Botón "Coming soon" (badge, no link roto)
+- **CV descargable**: PDF disponible para descarga directa
 - **Badges "coming soon"**: Indicadores visuales para docs/demo/reportes
 - **Bilingüe**: Toggle completo de idioma (EN/ES) con persistencia en localStorage
 - **Canvas animado**: Red matemática atómica en hero (puntos, líneas, símbolos)
@@ -195,7 +196,7 @@ Añade los estilos correspondientes en `styles.css`.
 - **Traducción**: Sistema bilingüe usando atributos `data-en` y `data-es`, persistencia en localStorage
 - **Canvas animado**: Grafo matemático con puntos, conexiones y símbolos flotantes; se desactiva con `prefers-reduced-motion`
 - **Ecuación typewriter**: Efecto de escritura repetitiva; se desactiva con `prefers-reduced-motion`
-- **CV**: Solo badge "Coming soon" hasta que exista `Jose_Zamora_CV.pdf`
+- **CV**: Enlace de descarga directa a `Jose_Zamora_CV.pdf`
 - **Badges**: Indicadores visuales tipo pill para funcionalidades futuras
 
 ## Licencia
