@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hanzzel Corp | Local AI Orchestration & Experimental NCT Research</title>
+  <meta name="description" content="Portfolio of Jose Zamora / Hanzzel Corp focused on local AI orchestration, automation systems, experimental NCT research and reproducible computational tools.">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="Hanzzel Corp | Local AI Orchestration & Experimental NCT Research">
+  <meta property="og:description" content="Portfolio of Jose Zamora / Hanzzel Corp focused on local AI orchestration, automation systems, experimental NCT research and reproducible computational tools.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://hanzzel-corp.github.io/">
+  <meta property="og:image" content="https://hanzzel-corp.github.io/og-image.png">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://hanzzel-corp.github.io/og-image.png">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png">
+  
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <nav class="nav">
+        <a href="#" class="logo">Hanzzel Corp</a>
+        <ul class="nav-links">
+          <li><a href="#about" data-en="About" data-es="Sobre">About</a></li>
+          <li><a href="#services" data-en="Build" data-es="Construyo">Build</a></li>
+          <li><a href="#projects" data-en="Projects" data-es="Proyectos">Projects</a></li>
+          <li><a href="#research" data-en="Research" data-es="Investigación">Research</a></li>
+          <li><a href="#contact" data-en="Contact" data-es="Contacto">Contact</a></li>
+        </ul>
+        <div class="nav-controls">
+          <button class="lang-toggle" id="langToggle" aria-label="Toggle language">
+            <span class="lang-icon">🌐</span>
+            <span class="lang-text">ES</span>
+          </button>
+          <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+            <span class="theme-icon">🌙</span>
+          </button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <canvas class="hero-canvas" id="heroCanvas"></canvas>
+      <div class="container">
+        <img src="logo.jpg" alt="Hanzzel Corp Logo" class="hero-logo">
+        <h1 class="hero-title">Hanzzel Corp</h1>
+        <p class="hero-subtitle" data-en="Local AI orchestration, automation systems and experimental NCT research." data-es="Orquestación de IA local, sistemas de automatización e investigación NCT experimental.">Local AI orchestration, automation systems and experimental NCT research.</p>
+        <p class="hero-description" data-en="I build local AI-assisted tools, Telegram-controlled automation systems, reproducible computational experiments and trend intelligence platforms." data-es="Desarrollo herramientas locales con asistencia de IA, sistemas de automatización controlados por Telegram, experimentos computacionales reproducibles y plataformas de inteligencia de tendencias.">I build local AI-assisted tools, Telegram-controlled automation systems, reproducible computational experiments and trend intelligence platforms.</p>
+        
+        <div class="hero-cta">
+          <a href="https://github.com/Hanzzel-corp" class="btn btn-primary" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="https://orcid.org/0009-0005-3584-1779" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">ORCID</a>
+          <a href="https://www.linkedin.com/in/josepablozamora-/" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href="mailto:hanzzelcorp@gmail.com" class="btn btn-secondary">Contact</a>
+          <a href="https://hanzzel-corp.github.io/hanzzel-store/" class="btn btn-accent" target="_blank" rel="noopener noreferrer">Store / Digital Products</a>
+        </div>
+        
+        <p class="hero-note" data-en="Independent researcher and developer focused on local AI orchestration, automation systems, experimental NCT research and reproducible computational tools." data-es="Investigador y desarrollador independiente enfocado en orquestación de IA local, sistemas de automatización, investigación NCT experimental y herramientas computacionales reproducibles.">Independent researcher and developer focused on local AI orchestration, automation systems, experimental NCT research and reproducible computational tools.</p>
+        
+        <div class="hero-equation" id="heroEquation"></div>
+      </div>
+    </section>
+
+    <!-- About / Who I am -->
+    <section class="about" id="about">
+      <div class="container">
+        <h2 class="section-title" data-en="About Jose Zamora" data-es="Sobre Jose Zamora">About Jose Zamora</h2>
+        <div class="about-content">
+          <p data-en="I am an independent researcher and developer from Argentina, focused on local AI orchestration, automation systems, experimental NCT research and reproducible computational tools." data-es="Soy un investigador y desarrollador independiente de Argentina, enfocado en orquestación de IA local, sistemas de automatización, investigación NCT experimental y herramientas computacionales reproducibles.">I am an independent researcher and developer from Argentina, focused on local AI orchestration, automation systems, experimental NCT research and reproducible computational tools.</p>
+          <p data-en="My work combines practical automation, human-in-the-loop AI systems, local-first software, computational experiments and technical documentation." data-es="Mi trabajo combina automatización práctica, sistemas de IA con intervención humana, software local-first, experimentos computacionales y documentación técnica.">My work combines practical automation, human-in-the-loop AI systems, local-first software, computational experiments and technical documentation.</p>
+          <p class="about-lang" data-en="Available for technical collaboration in English and Spanish." data-es="Disponible para colaboración técnica en inglés y español.">Available for technical collaboration in English and Spanish.</p>
+          <div class="about-links">
+            <span class="btn btn-outline btn-disabled" data-en="CV: Coming soon" data-es="CV: Próximamente">CV: Coming soon</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- What I Build -->
+    <section class="services" id="services">
+      <div class="container">
+        <h2 class="section-title" data-en="What I Build" data-es="Qué Construyo">What I Build</h2>
+        <div class="services-grid">
+          <div class="service-item">
+            <span class="service-icon">🤖</span>
+            <h3 data-en="Local AI Assistants" data-es="Asistentes de IA Local">Local AI Assistants</h3>
+            <p data-en="Local AI assistants and orchestration tools with human-in-the-loop control." data-es="Asistentes de IA locales y herramientas de orquestación con control human-in-the-loop.">Local AI assistants and orchestration tools with human-in-the-loop control.</p>
+          </div>
+          <div class="service-item">
+            <span class="service-icon">📱</span>
+            <h3 data-en="Telegram Automation" data-es="Automatización Telegram">Telegram Automation</h3>
+            <p data-en="Telegram-controlled automation systems for remote monitoring and execution." data-es="Sistemas de automatización controlados por Telegram para monitoreo y ejecución remota.">Telegram-controlled automation systems for remote monitoring and execution.</p>
+          </div>
+          <div class="service-item">
+            <span class="service-icon">📊</span>
+            <h3 data-en="Internal Dashboards" data-es="Dashboards Internos">Internal Dashboards</h3>
+            <p data-en="Internal dashboards and monitoring systems for data visualization." data-es="Dashboards internos y sistemas de monitoreo para visualización de datos.">Internal dashboards and monitoring systems for data visualization.</p>
+          </div>
+          <div class="service-item">
+            <span class="service-icon">🔬</span>
+            <h3 data-en="Research Prototypes" data-es="Prototipos de Investigación">Research Prototypes</h3>
+            <p data-en="Research prototypes and reproducible computational experiments." data-es="Prototipos de investigación y experimentos computacionales reproducibles.">Research prototypes and reproducible computational experiments.</p>
+          </div>
+          <div class="service-item">
+            <span class="service-icon">📡</span>
+            <h3 data-en="Trend Intelligence" data-es="Inteligencia de Tendencias">Trend Intelligence</h3>
+            <p data-en="Trend intelligence and alert systems for emerging phenomena detection." data-es="Inteligencia de tendencias y sistemas de alerta para detección de fenómenos emergentes.">Trend intelligence and alert systems for emerging phenomena detection.</p>
+          </div>
+          <div class="service-item">
+            <span class="service-icon">📝</span>
+            <h3 data-en="AI-Assisted Workflows" data-es="Workflows con Asistencia de IA">AI-Assisted Workflows</h3>
+            <p data-en="AI-assisted documentation and workflow tools for productivity." data-es="Documentación asistida por IA y herramientas de workflow para productividad.">AI-assisted documentation and workflow tools for productivity.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Current Status -->
+    <section class="status" id="status">
+      <div class="container">
+        <h2 class="section-title" data-en="Current Status" data-es="Estado actual">Current Status</h2>
+        <div class="status-content">
+          <ul class="status-list">
+            <li data-en="Building Blue Arrow as a local human-in-the-loop orchestration framework." data-es="Desarrollando Blue Arrow como framework local de orquestación human-in-the-loop.">Building Blue Arrow as a local human-in-the-loop orchestration framework.</li>
+            <li data-en="Preparing selected projects for Zenodo DOI archival." data-es="Preparando proyectos seleccionados para archivo en Zenodo con DOI.">Preparing selected projects for Zenodo DOI archival.</li>
+            <li data-en="Open to technical collaboration, automation projects and AI-assisted tooling work." data-es="Abierto a colaboración técnica, automatización y herramientas asistidas por IA.">Open to technical collaboration, automation projects and AI-assisted tooling work.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Projects -->
+    <section class="projects" id="projects">
+      <div class="container">
+        <h2 class="section-title" data-en="Featured Projects" data-es="Proyectos Destacados">Featured Projects</h2>
+        
+        <div class="projects-grid">
+          <!-- Blue Arrow -->
+          <article class="project-card">
+            <h3 class="project-title">Blue Arrow</h3>
+            <p class="project-subtitle">Local human-in-the-loop AI orchestration framework.</p>
+            <p class="project-description">A modular local orchestration framework for controlled automation, human approval, safety guards, verification and event-driven execution.</p>
+            <div class="project-tags">
+              <span class="tag">Local AI</span>
+              <span class="tag">Automation</span>
+              <span class="tag">Telegram</span>
+              <span class="tag">Human-in-the-loop</span>
+              <span class="tag">Modular Architecture</span>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/Hanzzel-corp/blue-arrow" class="btn btn-small" target="_blank" rel="noopener noreferrer">Repository</a>
+              <a href="https://orcid.org/0009-0005-3584-1779" class="btn btn-small btn-outline" target="_blank" rel="noopener noreferrer">ORCID Work</a>
+            </div>
+            <div class="project-badges">
+              <span class="badge-soon" data-en="Docs coming soon" data-es="Docs próximamente">Docs coming soon</span>
+              <span class="badge-soon" data-en="Release coming soon" data-es="Release próximamente">Release coming soon</span>
+            </div>
+          </article>
+
+          <!-- NCT Depth Motif -->
+          <article class="project-card">
+            <h3 class="project-title">NCT Depth Motif</h3>
+            <p class="project-subtitle">Experimental RGB-D scene validation and motif survival analysis.</p>
+            <p class="project-description">A reproducible computational experiment exploring NCT-inspired depth motif analysis, grouped validation, falsifiability and CUDA-accelerated testing.</p>
+            <div class="project-tags">
+              <span class="tag">NCT</span>
+              <span class="tag">Computer Vision</span>
+              <span class="tag">RGB-D</span>
+              <span class="tag">Falsifiability</span>
+              <span class="tag">Reproducible Research</span>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/Hanzzel-corp/nct-depth-motif" class="btn btn-small" target="_blank" rel="noopener noreferrer">Repository</a>
+              <a href="https://orcid.org/0009-0005-3584-1779" class="btn btn-small btn-outline" target="_blank" rel="noopener noreferrer">ORCID Work</a>
+            </div>
+            <div class="project-badges">
+              <span class="badge-soon" data-en="Report coming soon" data-es="Informe próximamente">Report coming soon</span>
+              <span class="badge-soon" data-en="Reproducibility coming soon" data-es="Reproducibilidad próximamente">Reproducibility coming soon</span>
+            </div>
+          </article>
+
+          <!-- Observatorio Vivo -->
+          <article class="project-card">
+            <h3 class="project-title">Observatorio Vivo</h3>
+            <p class="project-subtitle">Local trend intelligence and emerging phenomena detection system.</p>
+            <p class="project-description">A local system for capturing public signals, detecting emerging trends, organizing observations and generating confidence-based alerts.</p>
+            <div class="project-tags">
+              <span class="tag">Trend Intelligence</span>
+              <span class="tag">FastAPI</span>
+              <span class="tag">SQLite</span>
+              <span class="tag">Signals</span>
+              <span class="tag">Alerts</span>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/Hanzzel-corp/Observatorio.-Vivo" class="btn btn-small" target="_blank" rel="noopener noreferrer">Repository</a>
+              <a href="https://hanzzel-corp.github.io/hanzzel-store/" class="btn btn-small btn-outline" target="_blank" rel="noopener noreferrer">Store / Ecosystem</a>
+            </div>
+            <div class="project-badges">
+              <span class="badge-soon" data-en="Demo coming soon" data-es="Demo próximamente">Demo coming soon</span>
+            </div>
+          </article>
+
+          <!-- SAT Engine v7 -->
+          <article class="project-card">
+            <h3 class="project-title">SAT Engine v7</h3>
+            <p class="project-subtitle">Experimental computational engine using C++ and Python orchestration.</p>
+            <p class="project-description">An experimental engine for computational exploration, hybrid solver design, phase-transition analysis and structured problem-solving workflows.</p>
+            <div class="project-tags">
+              <span class="tag">C++</span>
+              <span class="tag">Python</span>
+              <span class="tag">Solver</span>
+              <span class="tag">Experimental Computing</span>
+              <span class="tag">Research</span>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/Hanzzel-corp/SAT-Engine-v7" class="btn btn-small" target="_blank" rel="noopener noreferrer">Repository</a>
+              <a href="https://orcid.org/0009-0005-3584-1779" class="btn btn-small btn-outline" target="_blank" rel="noopener noreferrer">ORCID Work</a>
+            </div>
+            <div class="project-badges">
+              <span class="badge-soon" data-en="Docs coming soon" data-es="Docs próximamente">Docs coming soon</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Proof of Work -->
+    <section class="proof" id="proof">
+      <div class="container">
+        <h2 class="section-title" data-en="Proof of Work" data-es="Evidencia de Trabajo">Proof of Work</h2>
+        <div class="proof-content">
+          <ul class="proof-list">
+            <li data-en="<strong>Public GitHub repositories</strong> with active development and versioned releases" data-es="<strong>Repositorios públicos de GitHub</strong> con desarrollo activo y versiones"><strong>Public GitHub repositories</strong> with active development and versioned releases</li>
+            <li data-en="<strong>ORCID profile</strong> with registered software works and formal authorship" data-es="<strong>Perfil ORCID</strong> con trabajos de software registrados y autoría formal"><strong>ORCID profile</strong> with registered software works and formal authorship</li>
+            <li data-en="<strong>Modular automation framework:</strong> Blue Arrow (human-in-the-loop AI orchestration)" data-es="<strong>Framework de automatización modular:</strong> Blue Arrow (orquestación de IA con intervención humana)"><strong>Modular automation framework:</strong> Blue Arrow (human-in-the-loop AI orchestration)</li>
+            <li data-en="<strong>Reproducible experimental repository:</strong> NCT Depth Motif (RGB-D scene validation)" data-es="<strong>Repositorio experimental reproducible:</strong> NCT Depth Motif (validación de escenas RGB-D)"><strong>Reproducible experimental repository:</strong> NCT Depth Motif (RGB-D scene validation)</li>
+            <li data-en="<strong>Local trend intelligence tool:</strong> Observatorio Vivo (emerging phenomena detection)" data-es="<strong>Herramienta local de inteligencia de tendencias:</strong> Observatorio Vivo (detección de fenómenos emergentes)"><strong>Local trend intelligence tool:</strong> Observatorio Vivo (emerging phenomena detection)</li>
+            <li data-en="<strong>Upcoming DOI archival</strong> through Zenodo for long-term preservation" data-es="<strong>Próximo archivo DOI</strong> a través de Zenodo para preservación a largo plazo"><strong>Upcoming DOI archival</strong> through Zenodo for long-term preservation</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Research Identity -->
+    <section class="research" id="research">
+      <div class="container">
+        <h2 class="section-title" data-en="Research Identity" data-es="Identidad de Investigación">Research Identity</h2>
+        <div class="research-content">
+          <p data-en="<strong>ORCID</strong> is used as my public research identity for formal authorship and software works." data-es="<strong>ORCID</strong> se utiliza como mi identidad de investigación pública para autoría formal y trabajos de software."><strong>ORCID</strong> is used as my public research identity for formal authorship and software works.</p>
+          <p data-en="<strong>GitHub</strong> hosts the code, repositories and technical evidence of my work." data-es="<strong>GitHub</strong> aloja el código, repositorios y evidencia técnica de mi trabajo."><strong>GitHub</strong> hosts the code, repositories and technical evidence of my work.</p>
+          <p data-en="<strong>Future Zenodo</strong> records will archive selected releases with DOI identifiers for long-term preservation." data-es="Los registros futuros de <strong>Zenodo</strong> archivarán versiones seleccionadas con identificadores DOI para preservación a largo plazo."><strong>Future Zenodo</strong> records will archive selected releases with DOI identifiers for long-term preservation.</p>
+          
+          <div class="pipeline">
+            <h3 data-en="Research & Publication Pipeline" data-es="Pipeline de Investigación y Publicación">Research & Publication Pipeline</h3>
+            <div class="pipeline-flow">
+              <span class="pipeline-step">GitHub Release</span>
+              <span class="pipeline-arrow">→</span>
+              <span class="pipeline-step">Zenodo DOI</span>
+              <span class="pipeline-arrow">→</span>
+              <span class="pipeline-step">ORCID Work</span>
+              <span class="pipeline-arrow">→</span>
+              <span class="pipeline-step">Portfolio Archive</span>
+            </div>
+            <p class="pipeline-note" data-en="Selected projects are developed publicly on GitHub. Stable releases will be archived through Zenodo to obtain DOI identifiers, then connected to ORCID as formal software works." data-es="Los proyectos seleccionados se desarrollan públicamente en GitHub. Las versiones estables se archivarán a través de Zenodo para obtener identificadores DOI, luego conectados a ORCID como trabajos de software formales.">Selected projects are developed publicly on GitHub. Stable releases will be archived through Zenodo to obtain DOI identifiers, then connected to ORCID as formal software works.</p>
+          </div>
+          
+          <div class="research-links">
+            <a href="https://orcid.org/0009-0005-3584-1779" class="btn btn-secondary" target="_blank" rel="noopener noreferrer" data-en="View ORCID" data-es="Ver ORCID">View ORCID</a>
+            <a href="https://github.com/Hanzzel-corp" class="btn btn-secondary" target="_blank" rel="noopener noreferrer" data-en="View GitHub" data-es="Ver GitHub">View GitHub</a>
+            <span class="btn btn-outline btn-disabled" data-en="Zenodo / DOI: Coming soon" data-es="Zenodo / DOI: Próximamente">Zenodo / DOI: Coming soon</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Technical Focus -->
+    <section class="focus" id="focus">
+      <div class="container">
+        <h2 class="section-title" data-en="Technical Focus" data-es="Enfoque Técnico">Technical Focus</h2>
+        <div class="focus-grid">
+          <span class="focus-badge">Local AI orchestration</span>
+          <span class="focus-badge">Human-in-the-loop automation</span>
+          <span class="focus-badge">Modular automation systems</span>
+          <span class="focus-badge">Experimental NCT research</span>
+          <span class="focus-badge">Computational experiments</span>
+          <span class="focus-badge">Reproducible research</span>
+          <span class="focus-badge">Python</span>
+          <span class="focus-badge">C++</span>
+          <span class="focus-badge">FastAPI</span>
+          <span class="focus-badge">SQLite</span>
+          <span class="focus-badge">Telegram bots</span>
+          <span class="focus-badge">AI-assisted tooling</span>
+          <span class="focus-badge">Trend intelligence</span>
+          <span class="focus-badge">Falsifiability</span>
+          <span class="focus-badge">Computer vision</span>
+          <span class="focus-badge">Depth analysis</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ecosystem Map -->
+    <section class="ecosystem" id="ecosystem">
+      <div class="container">
+        <h2 class="section-title" data-en="Ecosystem Map" data-es="Mapa del Ecosistema">Ecosystem Map</h2>
+        <div class="ecosystem-grid">
+          <div class="ecosystem-card">
+            <div class="ecosystem-icon">💻</div>
+            <h3>GitHub</h3>
+            <p data-en="Code, repositories, releases and technical evidence." data-es="Código, repositorios, releases y evidencia técnica.">Code, repositories, releases and technical evidence.</p>
+            <a href="https://github.com/Hanzzel-corp" target="_blank" rel="noopener noreferrer">github.com/Hanzzel-corp →</a>
+          </div>
+          <div class="ecosystem-card">
+            <div class="ecosystem-icon">🆔</div>
+            <h3>ORCID</h3>
+            <p data-en="Research identity, software works and formal authorship." data-es="Identidad de investigación, trabajos de software y autoría formal.">Research identity, software works and formal authorship.</p>
+            <a href="https://orcid.org/0009-0005-3584-1779" target="_blank" rel="noopener noreferrer">orcid.org/0009-0005-3584-1779 →</a>
+          </div>
+          <div class="ecosystem-card">
+            <div class="ecosystem-icon">🔗</div>
+            <h3>LinkedIn</h3>
+            <p data-en="Professional profile, public narrative and opportunities." data-es="Perfil profesional, narrativa pública y oportunidades.">Professional profile, public narrative and opportunities.</p>
+            <a href="https://www.linkedin.com/in/josepablozamora-/" target="_blank" rel="noopener noreferrer">linkedin.com/in/josepablozamora →</a>
+          </div>
+          <div class="ecosystem-card">
+            <div class="ecosystem-icon">🛒</div>
+            <h3>Portfolio / Store</h3>
+            <p data-en="Digital products, consulting and commercial experiments." data-es="Productos digitales, consultoría y experimentos comerciales.">Digital products, consulting and commercial experiments.</p>
+            <a href="https://hanzzel-corp.github.io/hanzzel-store/" target="_blank" rel="noopener noreferrer">hanzzel-store →</a>
+          </div>
+          <div class="ecosystem-card ecosystem-card-future">
+            <div class="ecosystem-icon">📚</div>
+            <h3>Zenodo</h3>
+            <p data-en="Future DOI-based archival of selected software releases." data-es="Archivo futuro basado en DOI de versiones de software seleccionadas.">Future DOI-based archival of selected software releases.</p>
+            <span class="coming-soon" data-en="Coming soon" data-es="Próximamente">Coming soon</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact / CTA -->
+    <section class="contact" id="contact">
+      <div class="container">
+        <h2 class="section-title" data-en="Get in Touch" data-es="Contactar">Get in Touch</h2>
+        <p class="contact-text" data-en="Interested in local AI orchestration, automation systems, experimental research or technical collaboration?" data-es="¿Interesado en orquestación de IA local, sistemas de automatización, investigación experimental o colaboración técnica?">Interested in local AI orchestration, automation systems, experimental research or technical collaboration?</p>
+        
+        <div class="contact-links">
+          <a href="mailto:hanzzelcorp@gmail.com" class="btn btn-primary" data-en="Email" data-es="Email">Email</a>
+          <a href="https://www.linkedin.com/in/josepablozamora-/" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href="https://github.com/Hanzzel-corp" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p data-en="&copy; 2026 Hanzzel Corp / Jose Zamora. All rights reserved." data-es="&copy; 2026 Hanzzel Corp / Jose Zamora. Todos los derechos reservados.">&copy; 2026 Hanzzel Corp / Jose Zamora. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
