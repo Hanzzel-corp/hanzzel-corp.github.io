@@ -16,7 +16,7 @@ Este es un sitio web estático de portfolio técnico diseñado para GitHub Pages
 - **Proyectos principales**: Blue Arrow, NCT Depth Motif, Observatorio Vivo, SAT Engine v7
 - **Proof of Work**: Evidencia documentada del trabajo
 - **Research Pipeline**: Flujo GitHub → Zenodo → ORCID
-- **Futuro**: Zenodo / DOI / publicaciones archivadas
+- **Zenodo / DOI**: Blue Arrow y NCT Depth Motif archivados con DOI
 - **CV descargable**: PDF disponible para descarga directa
 - **Bilingüe**: Toggle completo de idioma (EN/ES) con persistencia en localStorage
 - **Canvas animado**: Red matemática/grafo atómico en hero (respeta reduced-motion)
@@ -61,7 +61,14 @@ Este es un sitio web estático de portfolio técnico diseñado para GitHub Pages
 ## Cómo ejecutar localmente
 
 1. Clona o descarga el repositorio
-2. Abre `index.html` en tu navegador:
+2. Asegúrate de tener todos los archivos necesarios:
+
+```bash
+# Verificar archivos estáticos
+ls favicon.png og-image.png Jose_Zamora_CV.pdf
+```
+
+3. Abre `index.html` en tu navegador:
 
 ```bash
 # Opción 1: Abrir directamente
@@ -84,7 +91,7 @@ npx serve .
 
 ```bash
 git init
-git add index.html styles.css script.js logo.jpg README.md
+git add index.html styles.css script.js logo.jpg favicon.png og-image.png Jose_Zamora_CV.pdf README.md
 git commit -m "Initial portfolio commit"
 git branch -M main
 git remote add origin https://github.com/Hanzzel-corp/hanzzel-corp.github.io.git
