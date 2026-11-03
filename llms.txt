@@ -1,6 +1,9 @@
-# Hanzzel Corp — José Zamora
+# Hanzzel Corp — José Pablo Zamora
 
 > Public directory for practical software, automation, local AI tools, NCT research, and mathematical-computational experiments.
+
+## Knowledge graph
+- Knowledge map — source-linked relationships between research, methods, experiments, software, publications and products: https://hanzzel-corp.github.io/knowledge-map/
 
 ## Primary websites
 - Portfolio: https://hanzzel-corp.github.io/
