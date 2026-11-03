@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NCT Depth Motif: validación de motivos discretos en mapas de profundidad | Hanzzel Corp</title>
+<meta name="description" content="Ficha técnica del experimento NCT Depth Motif: descriptores locales Sx, Sy, Sz, cuatro estados discretos, 64 motivos, validación grouped split y leave-one-cluster-out sobre NYU Depth V2, resultados y limitaciones.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://hanzzel-corp.github.io/research/nct-depth-motif/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NCT Depth Motif — validación experimental de motivos discretos">
+<meta property="og:description" content="Método, resultados cuantitativos, reproducción y límites de un reporte técnico exploratorio sobre mapas RGB-D.">
+<meta property="og:url" content="https://hanzzel-corp.github.io/research/nct-depth-motif/">
+<script type="application/ld+json">
+{
+ "@context":"https://schema.org",
+ "@type":"ScholarlyArticle",
+ "@id":"https://hanzzel-corp.github.io/research/nct-depth-motif/#report",
+ "headline":"NCT — Discrete Symbolic Motif Validation on Depth Maps",
+ "description":"Exploratory technical report on a discrete symbolic representation of local depth descriptors evaluated on NYU Depth V2.",
+ "author":{"@type":"Person","name":"José Zamora","url":"https://hanzzel-corp.github.io/"},
+ "publisher":{"@type":"Organization","name":"Hanzzel Corp","url":"https://hanzzel-corp.github.io/"},
+ "identifier":"https://doi.org/10.5281/zenodo.20045645",
+ "isAccessibleForFree":true,
+ "inLanguage":["es","en"],
+ "about":["Depth maps","RGB-D computer vision","Discrete symbolic representation","Experimental validation"]
+}
+</script>
+<link rel="stylesheet" href="../../styles.css">
+<style>
+.knowledge{max-width:980px;margin:auto;padding:28px 20px 70px;line-height:1.72}
+.knowledge nav{display:flex;gap:16px;flex-wrap:wrap;border-bottom:1px solid #8885;padding-bottom:16px}
+.knowledge h1{font-size:clamp(2rem,5vw,3rem);line-height:1.15;margin-top:42px}
+.knowledge h2{margin-top:38px;border-bottom:1px solid #8885;padding-bottom:8px}
+.knowledge h3{margin-top:24px}
+.knowledge .lead{font-size:1.15rem;max-width:850px}
+.knowledge .note{padding:14px 18px;border-left:3px solid #22a6b3;background:#22a6b310;margin:22px 0}
+.knowledge pre{overflow:auto;padding:16px;border-radius:10px;background:#8882}
+.knowledge code{overflow-wrap:anywhere}
+.knowledge table{width:100%;border-collapse:collapse;display:block;overflow-x:auto}
+.knowledge th,.knowledge td{border:1px solid #8885;padding:9px;text-align:left;vertical-align:top}
+.knowledge .lang{margin-top:54px;padding-top:28px;border-top:3px solid #8885}
+.knowledge .links{display:flex;gap:14px;flex-wrap:wrap;margin:20px 0}
+</style>
+</head>
+<body><main class="knowledge">
+<nav aria-label="Navegación"><a href="https://hanzzel-corp.github.io/">Hanzzel Corp</a><a href="../">Índice de investigación</a><a href="https://github.com/Hanzzel-corp/nct-depth-motif">Repositorio</a><a href="https://doi.org/10.5281/zenodo.20045645">Registro Zenodo / DOI</a></nav>
+<article>
+<header>
+<p><strong>Ficha técnica de investigación · Experimento computacional · NCT</strong></p>
+<h1>NCT Depth Motif: validación de motivos discretos en mapas de profundidad</h1>
+<p class="lead">NCT Depth Motif es un experimento computacional que evalúa una representación simbólica discreta de descriptores locales de profundidad sobre NYU Depth V2. Cada píxel se representa mediante un motivo de tres componentes —gradiente horizontal, gradiente vertical y laplaciano local— cuantizadas en cuatro estados: <code>{+, −, 0, ~}</code>.</p>
+<div class="links"><a href="https://github.com/Hanzzel-corp/nct-depth-motif">Código fuente y resultados</a><a href="https://doi.org/10.5281/zenodo.20045645">Registro DOI en Zenodo</a><a href="https://github.com/Hanzzel-corp/nct-depth-motif/blob/main/docs/METHOD.md">Método detallado</a><a href="https://github.com/Hanzzel-corp/nct-depth-motif/blob/main/docs/INTERPRETATION.md">Interpretación de resultados</a></div>
+</header>
+<aside class="note"><strong>Estado:</strong> reporte técnico exploratorio, no revisado por pares. El repositorio informa resultados estadísticamente significativos frente a permutaciones aleatorias, pero de magnitud práctica modesta. No se ha presentado este experimento como un detector superior al estado del arte.</aside>
+
+<h2>1. Pregunta experimental</h2>
+<p>La pregunta es si una tabla de pesos aprendida para motivos discretos contiene información útil para estimar discontinuidades geométricas en mapas de profundidad, y si su rendimiento en un conjunto de prueba independiente supera al de permutaciones aleatorias de esos mismos pesos.</p>
+<p>La hipótesis nula publicada sostiene que los pesos aprendidos no son distinguibles de pesos permutados al azar en las métricas evaluadas. La alternativa sostiene que la asociación motivo → target ofrece una mejora estadísticamente detectable.</p>
+
+<h2>2. Representación y método</h2>
+<ol>
+<li><strong>Entrada:</strong> mapas de profundidad NYU Depth V2 en PNG de 16 bits, convertidos a metros.</li>
+<li><strong>Descriptores locales:</strong> cálculo de <code>Sx</code> (gradiente horizontal), <code>Sy</code> (gradiente vertical) y <code>Sz</code> (laplaciano local).</li>
+<li><strong>Cuantización:</strong> cada componente se asigna a uno de cuatro estados: <code>+</code>, <code>−</code>, <code>0</code> o <code>~</code> (transición).</li>
+<li><strong>Motivos:</strong> la tupla ordenada <code>(Sx,Sy,Sz)</code> genera 4³ = 64 combinaciones posibles.</li>
+<li><strong>Entrenamiento:</strong> se estima el lift medio de cada motivo respecto del target, con shrinkage para regularizar motivos poco frecuentes; el resultado es una tabla de 64 pesos.</li>
+<li><strong>Evaluación:</strong> se aplica una corrección residual con gate de ambigüedad y se compara con el delta clásico, pesos permutados al azar, variantes discretas y una tabla fija previa.</li>
+</ol>
+<p>La forma publicada de la corrección es:</p>
+<pre><code>score = delta + alpha * ambiguity_gate * weight_table[motif]</code></pre>
+<p>El gate triangular reduce la corrección cuando el delta clásico ya discrimina con claridad. La documentación del proyecto especifica además la definición del target, los umbrales y los hiperparámetros.</p>
+
+<h2>3. Resultados informados</h2>
+<h3>Grouped numeric block split — 30 ejecuciones</h3>
+<p>El README informa 3 valores de alpha × 10 seeds, bloques de 50 frames consecutivos, 654 frames del test set de NYU Depth V2 y 256 baselines aleatorios.</p>
+<table><thead><tr><th>Modelo</th><th>p_F1</th><th>p_AUC</th><th>p_Spearman</th><th>Runs con p&lt;0.05</th><th>ΔAUC vs random</th><th>ΔF1 vs random</th></tr></thead><tbody>
+<tr><td><code>motif_survival</code></td><td>0.0039</td><td>0.0079</td><td>0.0039</td><td>30/30</td><td>+0.0038</td><td>+0.0052</td></tr>
+<tr><td><code>motif_survival_binary</code></td><td>0.0039</td><td>0.0039</td><td>0.0039</td><td>30/30</td><td>+0.0070</td><td>+0.0054</td></tr>
+<tr><td><code>motif_survival_pos_only</code></td><td>0.0042</td><td>0.0926</td><td>0.0525</td><td>F1: 30/30; AUC: 1/30</td><td>+0.0024</td><td>+0.0042</td></tr>
+<tr><td><code>motif_survival_neg_only</code></td><td>0.1540</td><td>0.2432</td><td>0.0660</td><td>0/30</td><td>+0.0015</td><td>+0.0013</td></tr>
+</tbody></table>
+<h3>Leave-one-cluster-out — 24 ejecuciones</h3>
+<p>El repositorio informa 3 valores de alpha × 8 clusters RGB generados mediante k-means, 654 frames y 256 baselines aleatorios.</p>
+<table><thead><tr><th>Modelo</th><th>p_F1</th><th>p_AUC</th><th>p_Spearman</th><th>Runs con p&lt;0.05</th><th>ΔAUC vs random</th><th>ΔF1 vs random</th></tr></thead><tbody>
+<tr><td><code>motif_survival</code></td><td>0.0087</td><td>0.0168</td><td>0.0084</td><td>24/24</td><td>+0.0038</td><td>+0.0052</td></tr>
+<tr><td><code>motif_survival_binary</code></td><td>0.0090</td><td>0.0078</td><td>0.0078</td><td>24/24</td><td>+0.0071</td><td>+0.0054</td></tr>
+</tbody></table>
+<p>Estos valores son los resultados reportados en el README y los documentos de interpretación del repositorio. No representan una reproducción independiente realizada por esta página.</p>
+
+<h2>4. Qué significan —y qué no significan— los resultados</h2>
+<p>Los p-values informados indican que, bajo el procedimiento de permutación descrito, los modelos principales superaron consistentemente a los pesos permutados. La mejora absoluta es pequeña: aproximadamente +0.004 en AUC y +0.005 en F1 frente al baseline aleatorio para el modelo principal. El modelo binario, que conserva principalmente el signo de los pesos, obtiene resultados competitivos o superiores en algunas métricas.</p>
+<p>La conclusión acotada es que, en el dominio y las particiones descritas, la representación de motivos contiene una señal estadística detectable frente a esos baselines aleatorios. Esto no demuestra que sea la cuantización óptima, que generalice a otros datasets ni que supere a detectores clásicos.</p>
+
+<h2>5. Limitaciones explícitas</h2>
+<ul>
+<li><strong>Efecto modesto:</strong> ΔF1 es aproximadamente +0.005 frente al baseline aleatorio.</li>
+<li><strong>Sin benchmark clásico:</strong> no hay comparación directa en el mismo benchmark contra Canny, Sobel o HED.</li>
+<li><strong>Clusters no semánticos:</strong> el leave-one-cluster-out utiliza ocho clusters k-means sobre RGB, no las etiquetas semánticas oficiales de NYU; el README marca la validación con <code>scene_types.txt</code> como pendiente.</li>
+<li><strong>Un dataset:</strong> los resultados publicados corresponden a NYU Depth V2; no se informa validación cross-dataset en ScanNet, KITTI o SUN RGB-D.</li>
+<li><strong>Target derivado del depth map:</strong> el target de ruptura se deriva del propio mapa de profundidad y no de anotaciones manuales de bordes.</li>
+<li><strong>Estado académico:</strong> reporte técnico exploratorio, no revisado por pares.</li>
+</ul>
+
+<h2>6. Reproducción</h2>
+<p>El dataset NYU Depth V2 no está incluido en el repositorio. Debe obtenerse desde su <a href="https://cs.nyu.edu/~silberman/datasets/nyu_depth_v2.html">fuente oficial</a> y ubicarse según la estructura descrita por el proyecto. El README especifica Python 3.9+, NumPy, Pillow y SciPy; PyTorch con CUDA es opcional para acelerar el cálculo.</p>
+<pre><code>git clone https://github.com/Hanzzel-corp/nct-depth-motif.git
+cd nct-depth-motif
+pip install -r requirements.txt
+
+# Ejemplo grouped split: parámetros publicados en el README
+python3 src/motif_survival_grouped.py \
+  --depth ./dataset/depth \
+  --target combined \
+  --alpha 0.02,0.03,0.04 \
+  --seeds 11,22,33,44,55,66,77,88,99,111 \
+  --random-baselines 256 \
+  --device cuda \
+  --split-mode grouped \
+  --group-strategy numeric_block \
+  --group-size 50 \
+  --depth-scale 1000 \
+  --fx 518.8579 --fy 519.4696 --cx 325.5824 --cy 253.7362</code></pre>
+<p>Para la evaluación leave-one-cluster-out, consultar el comando completo en <a href="https://github.com/Hanzzel-corp/nct-depth-motif/blob/main/README.md">README.md</a> y los scripts de ejemplo. La disponibilidad de GPU, memoria y dataset afecta el tiempo de ejecución. Esta ficha no afirma que se haya vuelto a ejecutar el experimento durante su publicación.</p>
+
+<h2>7. Fuentes primarias y artefactos</h2>
+<ul>
+<li><a href="https://github.com/Hanzzel-corp/nct-depth-motif">Repositorio público</a> — código, README y resultados de referencia.</li>
+<li><a href="https://github.com/Hanzzel-corp/nct-depth-motif/tree/main/src">Scripts de experimentación</a>.</li>
+<li><a href="https://github.com/Hanzzel-corp/nct-depth-motif/tree/main/results">CSV de resultados publicados</a>.</li>
+<li><a href="https://github.com/Hanzzel-corp/nct-depth-motif/tree/main/docs">Método, interpretación e historial</a>.</li>
+<li><a href="https://doi.org/10.5281/zenodo.20045645">Registro DOI en Zenodo</a>.</li>
+<li><a href="https://cs.nyu.edu/~silberman/datasets/nyu_depth_v2.html">Dataset NYU Depth V2</a>.</li>
+</ul>
+
+<h2>8. Contexto NCT</h2>
+<p>El proyecto se originó en el marco simbólico NCT desarrollado por su autor. Para este experimento específico, lo que se evalúa es una representación discreta concreta y su procedimiento de validación. El propio README contextualiza sus equivalencias técnicas —producto cartesiano finito, cuantización vectorial y clasificación mediante tabla de consulta— y aclara que el resultado validado aquí no debe presentarse como una nueva matemática demostrada.</p>
+</article>
+
+<section class="lang" lang="en">
+<p><strong>English version · Technical research brief</strong></p>
+<h2>NCT Depth Motif: experimental validation of discrete motifs on depth maps</h2>
+<p class="lead">NCT Depth Motif evaluates a discrete symbolic representation of local depth descriptors on NYU Depth V2. Each pixel is represented by a three-component motif — horizontal gradient, vertical gradient and local Laplacian — quantized into four states: <code>{+, −, 0, ~}</code>, yielding 64 possible motifs.</p>
+<h3>Research question and method</h3>
+<p>The experiment asks whether weights learned for discrete motifs carry useful information for estimating geometric discontinuities on depth maps, and whether they outperform random permutations of those weights on independent test data. The pipeline computes Sx, Sy and Sz, discretizes each component into four states, estimates a 64-entry weight table with shrinkage, and applies a gated residual correction:</p>
+<pre><code>score = delta + alpha * ambiguity_gate * weight_table[motif]</code></pre>
+<h3>Reported results</h3>
+<p>The repository reports a grouped numeric block split with 30 runs (3 alpha values × 10 seeds), 654 NYU Depth V2 test frames and 256 random baselines. For <code>motif_survival</code>, reported p-values are 0.0039 (F1), 0.0079 (AUC) and 0.0039 (Spearman), with ΔAUC +0.0038 and ΔF1 +0.0052 versus random. The binary variant reports p-values 0.0039, 0.0039 and 0.0039, with ΔAUC +0.0070 and ΔF1 +0.0054.</p>
+<p>A leave-one-cluster-out experiment reports 24 runs across eight automatically generated RGB clusters. The main and binary models report p-values below 0.017 for the listed metrics. These are repository-reported results, not an independent reproduction performed by this page.</p>
+<h3>Interpretation and limitations</h3>
+<p>The reported permutation tests show a consistent statistical signal against the specified random baselines, but the absolute effect is small. The project has not been directly compared with Canny, Sobel or HED in the same benchmark; uses only NYU Depth V2; uses RGB k-means clusters rather than official semantic scene labels; and derives its rupture target from the depth map itself rather than manually annotated edges. The report is exploratory and not peer-reviewed. It does not establish state-of-the-art performance, cross-dataset generalization or a proven new mathematical theory.</p>
+<h3>Reproduction</h3>
+<p>The dataset is not included. Obtain NYU Depth V2 from its <a href="https://cs.nyu.edu/~silberman/datasets/nyu_depth_v2.html">official source</a>, follow the setup and commands in the <a href="https://github.com/Hanzzel-corp/nct-depth-motif">repository README</a>, and inspect the <a href="https://github.com/Hanzzel-corp/nct-depth-motif/tree/main/src">source scripts</a>, <a href="https://github.com/Hanzzel-corp/nct-depth-motif/tree/main/results">result files</a> and <a href="https://github.com/Hanzzel-corp/nct-depth-motif/tree/main/docs">technical documents</a>.</p>
+<h3>Primary records</h3>
+<p><a href="https://github.com/Hanzzel-corp/nct-depth-motif">GitHub repository</a> · <a href="https://doi.org/10.5281/zenodo.20045645">Zenodo DOI record</a> · <a href="https://github.com/Hanzzel-corp/nct-depth-motif/blob/main/docs/METHOD.md">Method</a> · <a href="https://github.com/Hanzzel-corp/nct-depth-motif/blob/main/docs/INTERPRETATION.md">Results interpretation</a>.</p>
+</section>
+<footer class="note">Esta ficha distingue resultados informados por el repositorio de validaciones independientes. Para auditar el experimento, utilizar los scripts, CSV y documentos originales.</footer>
+</main></body></html>
