@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blue Arrow: arquitectura de orquestación local con control humano | Hanzzel Corp</title>
+<meta name="description" content="Documentación técnica de Blue Arrow: orquestación local de acciones de escritorio, terminal, navegador y documentos mediante Telegram, módulos desacoplados, aprobación humana y verificación de ejecución.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://hanzzel-corp.github.io/research/blue-arrow/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Blue Arrow — Orquestación local con control humano">
+<meta property="og:description" content="Arquitectura, flujo de ejecución, tecnologías, casos de uso y límites documentados del framework Blue Arrow.">
+<meta property="og:url" content="https://hanzzel-corp.github.io/research/blue-arrow/">
+<script type="application/ld+json">
+{
+ "@context":"https://schema.org",
+ "@type":"SoftwareSourceCode",
+ "@id":"https://hanzzel-corp.github.io/research/blue-arrow/#software",
+ "name":"Blue Arrow",
+ "description":"Framework local de orquestación de acciones de escritorio, terminal, navegador y documentos con aprobación humana, controles de seguridad y verificación de ejecución.",
+ "codeRepository":"https://github.com/Hanzzel-corp/blue-arrow",
+ "programmingLanguage":["JavaScript","Python"],
+ "runtimePlatform":["Node.js 20+","Python 3.11+"],
+ "license":"https://github.com/Hanzzel-corp/blue-arrow/blob/main/LICENSE",
+ "author":{"@type":"Person","name":"José Zamora","url":"https://hanzzel-corp.github.io/"},
+ "publisher":{"@type":"Organization","name":"Hanzzel Corp","url":"https://hanzzel-corp.github.io/"},
+ "sameAs":["https://doi.org/10.5281/zenodo.20045432"]
+}
+</script>
+<link rel="stylesheet" href="../../styles.css">
+<style>
+.knowledge{max-width:980px;margin:auto;padding:28px 20px 70px;line-height:1.72}
+.knowledge nav{display:flex;gap:16px;flex-wrap:wrap;border-bottom:1px solid #8885;padding-bottom:16px}
+.knowledge h1{font-size:clamp(2rem,5vw,3rem);line-height:1.15;margin-top:42px}
+.knowledge h2{margin-top:38px;border-bottom:1px solid #8885;padding-bottom:8px}
+.knowledge h3{margin-top:24px}
+.knowledge .lead{font-size:1.15rem;max-width:850px}
+.knowledge .note{padding:14px 18px;border-left:3px solid #22a6b3;background:#22a6b310;margin:22px 0}
+.knowledge pre{overflow:auto;padding:16px;border-radius:10px;background:#8882}
+.knowledge code{overflow-wrap:anywhere}
+.knowledge table{width:100%;border-collapse:collapse;display:block;overflow-x:auto}
+.knowledge th,.knowledge td{border:1px solid #8885;padding:9px;text-align:left;vertical-align:top}
+.knowledge .lang{margin-top:54px;padding-top:28px;border-top:3px solid #8885}
+.knowledge .links{display:flex;gap:14px;flex-wrap:wrap;margin:20px 0}
+</style>
+</head>
+<body><main class="knowledge">
+<nav aria-label="Navegación"><a href="https://hanzzel-corp.github.io/">Hanzzel Corp</a><a href="../">Índice de investigación</a><a href="https://github.com/Hanzzel-corp/blue-arrow">Repositorio</a><a href="https://doi.org/10.5281/zenodo.20045432">Registro Zenodo / DOI</a></nav>
+<article>
+<header>
+<p><strong>Ficha técnica de proyecto · Software práctico · Hanzzel Corp</strong></p>
+<h1>Blue Arrow: orquestación local de acciones con control humano</h1>
+<p class="lead">Blue Arrow es un framework de orquestación local que permite controlar acciones de escritorio, terminal, navegador, sistema y documentos mediante una interfaz de Telegram. Su principio central es <strong>human-in-the-loop</strong>: la IA puede asistir en la interpretación y planificación, pero las acciones reales pasan por controles, aprobación, workers y verificación.</p>
+<div class="links"><a href="https://github.com/Hanzzel-corp/blue-arrow">Código fuente en GitHub</a><a href="https://doi.org/10.5281/zenodo.20045432">Registro DOI en Zenodo</a><a href="https://github.com/Hanzzel-corp/blue-arrow/blob/main/README.md">README y documentación primaria</a></div>
+</header>
+<aside class="note"><strong>Estado y alcance.</strong> La documentación del repositorio describe una arquitectura modular operativa y una migración en curso desde un flujo token-based hacia un modelo state-driven. No debe interpretarse el diseño objetivo como una migración ya finalizada. La existencia del repositorio y del registro DOI tampoco equivale a una auditoría de seguridad independiente ni a una certificación de producción.</aside>
+
+<h2>1. Problema que aborda</h2>
+<p>Las automatizaciones que interpretan instrucciones en lenguaje natural y ejecutan acciones sobre un equipo pueden producir efectos no deseados si la interpretación, la autorización y la ejecución quedan mezcladas. Blue Arrow aborda ese problema separando la recepción de comandos, la planificación, los controles de seguridad, la aprobación, el enrutamiento a workers y la comprobación del resultado.</p>
+
+<h2>2. Objetivo y casos de uso</h2>
+<p>El objetivo es ofrecer una capa local y modular para coordinar tareas asistidas por IA sin entregar a la IA la autoridad final sobre las acciones. Los casos de uso descritos en el repositorio incluyen:</p>
+<ul>
+<li>Control de aplicaciones locales mediante Telegram o CLI.</li>
+<li>Ejecución de acciones aprobadas en terminal y sistema.</li>
+<li>Automatización de flujos de navegador mediante Playwright.</li>
+<li>Búsqueda de archivos y consulta de información del sistema.</li>
+<li>Generación y escritura de documentos mediante LibreOffice Writer.</li>
+<li>Integración opcional con modelos locales mediante Ollama/LLaMA.</li>
+</ul>
+
+<h2>3. Arquitectura documentada</h2>
+<p>El sistema separa el <em>runtime</em>, los módulos y el blueprint declarativo. El runtime central, desarrollado en Node.js, descubre módulos y enruta mensajes. Los módulos especializados pueden estar implementados en Node.js o Python. La topología y sus conexiones se declaran en <code>blueprints/system.v0.json</code>.</p>
+<table><thead><tr><th>Componente</th><th>Responsabilidad descrita</th></tr></thead><tbody>
+<tr><td>Runtime (Node.js)</td><td>Bootstrap, descubrimiento de módulos, enrutamiento, gestión de procesos y logging.</td></tr>
+<tr><td>Blueprint (JSON)</td><td>Declara módulos y conexiones entre puertos.</td></tr>
+<tr><td>Bus (JSON Lines)</td><td>Intercambio de mensajes entre procesos mediante stdin/stdout.</td></tr>
+<tr><td>Planner y Agent</td><td>Interpretación y transformación de comandos en planes de acción.</td></tr>
+<tr><td>Safety Guard y Approval</td><td>Controles y circuito de aprobación antes del enrutamiento de acciones.</td></tr>
+<tr><td>Router y Workers</td><td>Distribución y ejecución de acciones especializadas.</td></tr>
+<tr><td>Verifier Engine y Supervisor</td><td>Comprobación de resultados y coordinación del cierre de tareas.</td></tr>
+</tbody></table>
+<p>El flujo de alto nivel documentado es:</p>
+<pre><code>Telegram / CLI
+    → Planner
+    → Agent
+    → Safety Guard / Approval
+    → Router
+    → Workers (desktop / terminal / browser / system)
+    → Verifier (cuando corresponde)
+    → Supervisor
+    → respuesta a la interfaz</code></pre>
+<p>La documentación técnica también establece comunicación por puertos declarados, mensajes JSON Lines y metadatos de trazabilidad como <code>trace_id</code>. El supervisor se describe como autoridad única para cerrar tareas, mientras los workers informan resultados y eventos.</p>
+
+<h2>4. Tecnologías y requisitos publicados</h2>
+<ul><li>Node.js 20 o superior para el runtime.</li><li>Python 3.11 o superior para módulos y workers Python.</li><li>Telegram como interfaz de control.</li><li>Playwright para automatización del navegador.</li><li>Ollama/LLaMA como integración opcional de IA local.</li><li>LibreOffice Writer para el flujo de documentos descrito.</li></ul>
+<p>La configuración detallada, variables de entorno y dependencias deben consultarse en <a href="https://github.com/Hanzzel-corp/blue-arrow/blob/main/DEVELOPMENT.md">DEVELOPMENT.md</a>, <a href="https://github.com/Hanzzel-corp/blue-arrow/blob/main/OLLAMA_SETUP.md">OLLAMA_SETUP.md</a> y <a href="https://github.com/Hanzzel-corp/blue-arrow/blob/main/.env.example">.env.example</a>.</p>
+
+<h2>5. Cómo inspeccionar y reproducir</h2>
+<ol>
+<li>Clonar el repositorio público.</li>
+<li>Seguir la guía de desarrollo y configurar las variables requeridas en el entorno local.</li>
+<li>Elegir un perfil de ejecución (minimal, standard o full) según la documentación.</li>
+<li>Ejecutar los health checks y pruebas definidos por el proyecto.</li>
+<li>Inspeccionar el blueprint y los flujos con <code>blueprint_flow_inspector.py</code>.</li>
+</ol>
+<pre><code>git clone https://github.com/Hanzzel-corp/blue-arrow.git
+cd blue-arrow
+npm start
+npm run health
+npm run test:all</code></pre>
+<p>Estos comandos reflejan los scripts publicados en el README; los requisitos adicionales y la configuración previa deben verificarse en la documentación del repositorio. No se afirma aquí que una ejecución nueva haya sido realizada durante esta publicación.</p>
+
+<h2>6. Pruebas, evidencia y estado</h2>
+<p>El README del proyecto enumera pruebas Node.js y Python, verificación de sintaxis, smoke tests y health checks. También documenta logs estructurados y archivos de estado. Esta ficha describe esos mecanismos publicados; no sustituye los resultados de CI ni certifica que todos los tests pasen en cualquier entorno o en el commit más reciente.</p>
+<ul>
+<li><a href="https://github.com/Hanzzel-corp/blue-arrow/actions">Ejecuciones de GitHub Actions</a></li>
+<li><a href="https://github.com/Hanzzel-corp/blue-arrow/tree/main/tests">Código de pruebas</a></li>
+<li><a href="https://github.com/Hanzzel-corp/blue-arrow/tree/main/docs">Documentación técnica del repositorio</a></li>
+<li><a href="https://doi.org/10.5281/zenodo.20045432">Registro archivado en Zenodo</a></li>
+</ul>
+
+<h2>7. Límites y cuestiones pendientes</h2>
+<ul>
+<li>La migración state-driven se describe como transición en curso; coexisten elementos del modelo anterior y del objetivo.</li>
+<li>Una capa de aprobación y verificación no constituye por sí sola una garantía formal de seguridad.</li>
+<li>La compatibilidad depende del sistema operativo, permisos, aplicaciones y dependencias del entorno.</li>
+<li>La integración local con Ollama/LLaMA es opcional y requiere configuración propia.</li>
+<li>Las capacidades documentadas deben distinguirse de las que estén plenamente implementadas y verificadas en cada versión.</li>
+</ul>
+
+<h2>8. Relaciones con otros recursos</h2>
+<ul>
+<li><a href="https://hanzzel-corp.github.io/">Portfolio Hanzzel Corp</a> — identidad y proyectos.</li>
+<li><a href="../">Directorio de investigación</a> — índice de software e investigación pública.</li>
+<li><a href="https://orcid.org/0009-0005-3584-1779">ORCID de José Zamora</a> — registro de actividad académica y de investigación.</li>
+</ul>
+</article>
+
+<section class="lang" lang="en">
+<p><strong>English version · Project technical brief</strong></p>
+<h2>Blue Arrow: local action orchestration with human control</h2>
+<p class="lead">Blue Arrow is a local orchestration framework for controlling desktop, terminal, browser, system and document actions through Telegram. Its central principle is <strong>human-in-the-loop execution</strong>: AI may assist with interpretation and planning, while real actions pass through safety checks, approval flows, workers and execution verification.</p>
+<h3>Problem and objective</h3>
+<p>The project separates command intake, planning, safety checks, approval, worker routing and result verification. This separation is intended to reduce the risk of mixing natural-language interpretation with unrestricted execution. The human remains the final decision-maker.</p>
+<h3>Architecture</h3>
+<p>The repository documents a central Node.js runtime, specialized Node.js/Python modules, a declarative JSON blueprint and JSON Lines messaging over stdin/stdout. The high-level path is:</p>
+<pre><code>Telegram / CLI → Planner → Agent → Safety Guard / Approval
+→ Router → Workers → Verifier (where applicable)
+→ Supervisor → interface response</code></pre>
+<p>Documented workers cover desktop, terminal, browser and system tasks. The project also describes optional Ollama/LLaMA integration, Playwright browser automation, and LibreOffice Writer workflows.</p>
+<h3>Current status and limitations</h3>
+<p>The repository describes a migration from a token-based flow toward a state-driven architecture as work in progress. The target design must not be mistaken for a completed migration. Published tests, health checks and CI workflows are inspectable in the source repository; this page does not claim a fresh test run or independent security certification.</p>
+<h3>How to inspect the project</h3>
+<p>Start with the <a href="https://github.com/Hanzzel-corp/blue-arrow">source repository</a>, its <a href="https://github.com/Hanzzel-corp/blue-arrow/blob/main/README.md">README</a>, <a href="https://github.com/Hanzzel-corp/blue-arrow/tree/main/docs">technical documentation</a>, <a href="https://github.com/Hanzzel-corp/blue-arrow/tree/main/tests">tests</a> and <a href="https://github.com/Hanzzel-corp/blue-arrow/actions">GitHub Actions</a>. The project has a <a href="https://doi.org/10.5281/zenodo.20045432">Zenodo DOI record</a>.</p>
+<h3>Reproduction commands</h3>
+<pre><code>git clone https://github.com/Hanzzel-corp/blue-arrow.git
+cd blue-arrow
+npm start
+npm run health
+npm run test:all</code></pre>
+<p>These commands are listed by the project README. Environment setup and prerequisites must be checked in the repository documentation. No new execution is claimed by this page.</p>
+</section>
+<footer class="note">Esta ficha resume documentación y recursos públicos del repositorio. Para cambios, versiones y evidencia actualizada, la fuente primaria es GitHub.</footer>
+</main></body></html>
