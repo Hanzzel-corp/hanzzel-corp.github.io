@@ -18,6 +18,10 @@
 - Blue Arrow — architecture, execution flow, use cases, setup and limitations: https://hanzzel-corp.github.io/research/blue-arrow/
 - NCT Depth Motif — method, reported results, reproduction steps and limitations: https://hanzzel-corp.github.io/research/nct-depth-motif/
 
+## Detailed project documentation
+- Observatorio Vivo — multi-source trend collection, outbreak scoring, traceability, API and limitations: https://hanzzel-corp.github.io/research/observatorio-vivo/
+- SAT Engine — SAT algorithms, Python/C++ architecture, phase-transition experiments and implementation caveats: https://hanzzel-corp.github.io/research/sat-engine/
+
 ## Practical software and systems
 - Blue Arrow — local human-in-the-loop AI orchestration: https://github.com/Hanzzel-corp/blue-arrow
 - Observatorio Vivo — local trend intelligence and alerts: https://github.com/Hanzzel-corp/Observatorio.-Vivo
