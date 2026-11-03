@@ -15,7 +15,7 @@
  "description":"Implementación experimental de generación de expresiones con símbolos C0–C3, visualización ASCII 21×21, transformación tanh de valores aleatorios y exportación JSON/TXT. El repositorio declara que no incluye un solver cuaternario real.",
  "codeRepository":"https://github.com/Hanzzel-corp/NCT_MILENIO_SOLVER",
  "programmingLanguage":"Python","runtimePlatform":"Python 3.8+; NumPy 1.20+",
- "author":{"@type":"Person","name":"José Zamora","url":"https://hanzzel-corp.github.io/"},
+ "author":{"@type":"Organization","name":"Hanzzel Corp","url":"https://hanzzel-corp.github.io/"},
  "publisher":{"@type":"Organization","name":"Hanzzel Corp","url":"https://hanzzel-corp.github.io/"},
  "license":"https://github.com/Hanzzel-corp/NCT_MILENIO_SOLVER/blob/main/LICENSE"
 }
@@ -33,6 +33,7 @@
 <p class="lead">El repositorio público NCT_MILENIO_SOLVER presenta una implementación experimental denominada <strong>NCT Visual Engine</strong>. El código genera expresiones simbólicas con estados C0–C3, crea una matriz ASCII de 21×21, transforma una serie de valores mediante tangente hiperbólica y exporta un historial a JSON y texto. Su README aclara expresamente que esta entrega no contiene un solver cuaternario real.</p>
 <p><a href="https://github.com/Hanzzel-corp/NCT_MILENIO_SOLVER">Código fuente</a> · <a href="https://github.com/Hanzzel-corp/NCT_MILENIO_SOLVER/blob/main/README.md">README</a> · <a href="https://github.com/Hanzzel-corp/NCT_MILENIO_SOLVER/tree/main/docs">Documentación</a> · <a href="https://github.com/Hanzzel-corp/NCT_MILENIO_SOLVER/blob/main/nct_visual_engine.py">Motor principal</a></p>
 <aside class="note"><strong>Precisión sobre el nombre:</strong> aunque el repositorio se llama “NCT Milenio Solver”, el propio README lo denomina “NCT Visual Engine” y declara que no incluye un solver cuaternario real, memoria CQM, ADN cuántico evolutivo ni una ecuación unificada completa. El nombre no debe interpretarse como una afirmación de que resuelve los Problemas del Milenio. El README define su propósito como demostrativo y conceptual.</aside>
+<aside class="note"><strong>Discrepancia de autoría en la fuente:</strong> el README y varios documentos del repositorio acreditan a “Pablo Zamora”, mientras que el encabezado de <code>nct_visual_engine.py</code> indica “José Zamora”. Esta ficha no resuelve esa diferencia por inferencia; se atribuye a Hanzzel Corp como repositorio institucional hasta que la metadata del proyecto sea normalizada.</aside>
 
 <h2>1. Propósito declarado</h2>
 <p>El proyecto busca ilustrar una representación simbólica de expresiones mediante cuatro etiquetas de estado, operadores seleccionados y visualizaciones de consola. La documentación lo sitúa dentro de una exploración conceptual de geometrías emergentes y del marco NCT. El objetivo declarado no es resolver los Problemas del Milenio, sino mostrar una forma de organizar y visualizar expresiones en ese vocabulario.</p>
@@ -102,8 +103,9 @@ python nct_visual_engine.py</code></pre>
 <p><strong>English version · Technical project brief</strong></p>
 <h2>NCT Milenio Solver: what the public NCT Visual Engine actually implements</h2>
 <p class="lead">The public NCT_MILENIO_SOLVER repository contains an experimental implementation named NCT Visual Engine. Its Python code generates symbolic expressions using C0–C3 labels, renders a 21×21 ASCII matrix, applies a hyperbolic-tangent transform to numeric values, and exports records to JSON and text. The README explicitly states that this release does not include a real quaternary solver.</p>
-<h3>Name and scope clarification</h3>
+<h3>Name, scope and attribution clarification</h3>
 <p>Although the repository is named “NCT Milenio Solver”, its README calls the implementation “NCT Visual Engine” and describes it as demonstrative and conceptual. It explicitly lists a real quaternary solver, CQM memory, evolutionary quantum DNA and a complete unified equation as not included. The repository name must not be read as a claim that the Millennium Prize Problems have been solved.</p>
+<p>The README and several documentation files credit “Pablo Zamora”, while the header in <code>nct_visual_engine.py</code> says “José Zamora”. This page does not infer which attribution is correct; its structured author is therefore Hanzzel Corp pending metadata normalization in the source repository.</p>
 <h3>Implemented components</h3>
 <ul><li><code>generate_equation()</code> randomly selects three coefficients, three C0–C3 labels and two operators, then returns a formatted string. It does not evaluate the expression.</li><li><code>ascii_matrix(seed_val)</code> generates a NumPy 21×21 normal-distribution matrix and maps normalized values to ASCII characters.</li><li><code>frontier_curve(history)</code> applies <code>tanh(values / standard_deviation)</code> to the history's numeric values.</li><li><code>save_json()</code> serializes the generated history; <code>linkedin_export()</code> writes the expressions to a text file.</li></ul>
 <h3>Execution flow</h3>
