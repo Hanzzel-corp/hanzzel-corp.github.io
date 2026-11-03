@@ -22,6 +22,10 @@
 - Observatorio Vivo — multi-source trend collection, outbreak scoring, traceability, API and limitations: https://hanzzel-corp.github.io/research/observatorio-vivo/
 - SAT Engine — SAT algorithms, Python/C++ architecture, phase-transition experiments and implementation caveats: https://hanzzel-corp.github.io/research/sat-engine/
 
+## Detailed project documentation
+- NCT Milenio Solver / NCT Visual Engine — implementation scope, C0–C3 expression generation, ASCII visualization, exports and explicit limitations (not a real quaternary solver): https://hanzzel-corp.github.io/research/nct-milenio-solver/
+- NCT Dossiers — guide to three executive PDF summaries, reported claims, code relationships and copyright limits: https://hanzzel-corp.github.io/research/nct-dossiers/
+
 ## Practical software and systems
 - Blue Arrow — local human-in-the-loop AI orchestration: https://github.com/Hanzzel-corp/blue-arrow
 - Observatorio Vivo — local trend intelligence and alerts: https://github.com/Hanzzel-corp/Observatorio.-Vivo
