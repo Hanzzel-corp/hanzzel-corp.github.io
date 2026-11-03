@@ -1,46 +1,19 @@
-// Language Toggle Functionality
+// Language Toggle: each language has a stable, indexable URL (/ and /en/).
 document.addEventListener('DOMContentLoaded', () => {
   const langToggle = document.getElementById('langToggle');
+  if (!langToggle) return;
   const langText = langToggle.querySelector('.lang-text');
   const html = document.documentElement;
-  
-  // Get saved language or default to English
-  const getLang = () => {
-    return localStorage.getItem('lang') || 'en';
-  };
-  
-  // Apply language
-  const applyLang = (lang) => {
-    html.setAttribute('data-lang', lang);
-    html.setAttribute('lang', lang);
-    langText.textContent = lang === 'en' ? 'ES' : 'EN';
-    
-    // Update all elements with data-en and data-es attributes
-    const translatableElements = document.querySelectorAll('[data-en][data-es]');
-    translatableElements.forEach(el => {
-      const text = el.getAttribute(`data-${lang}`);
-      if (text) {
-        // Simplified: use innerHTML if contains HTML tags, else textContent
-        if (text.includes('<') && text.includes('>')) {
-          el.innerHTML = text;
-        } else {
-          el.textContent = text;
-        }
-      }
-    });
-  };
-  
-  // Initialize language
-  const currentLang = getLang();
-  applyLang(currentLang);
-  
-  // Toggle language on button click
+  const currentLang = window.location.pathname.startsWith('/en/') ? 'en' : 'es';
+  html.setAttribute('lang', currentLang);
+  html.setAttribute('data-lang', currentLang);
+  if (langText) langText.textContent = currentLang === 'en' ? 'ES' : 'EN';
+  document.querySelectorAll('[data-en][data-es]').forEach((el) => {
+    const value = el.getAttribute('data-' + currentLang);
+    if (value !== null) el.innerHTML = value;
+  });
   langToggle.addEventListener('click', () => {
-    const current = html.getAttribute('data-lang') || 'en';
-    const newLang = current === 'en' ? 'es' : 'en';
-    
-    applyLang(newLang);
-    localStorage.setItem('lang', newLang);
+    window.location.assign(currentLang === 'en' ? '/' : '/en/');
   });
 });
 
