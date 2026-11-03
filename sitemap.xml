@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://hanzzel-corp.github.io/</loc></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://hanzzel-corp.github.io/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hanzzel-corp.github.io/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hanzzel-corp.github.io/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hanzzel-corp.github.io/"/>
+  </url>
+  <url><loc>https://hanzzel-corp.github.io/en/</loc></url>
+  <url><loc>https://hanzzel-corp.github.io/hanzzel-store/</loc></url>
+  <url><loc>https://hanzzel-corp.github.io/camino-cuaternario/</loc></url>
   <url><loc>https://hanzzel-corp.github.io/research/</loc></url>
   <url><loc>https://hanzzel-corp.github.io/research/blue-arrow/</loc></url>
   <url><loc>https://hanzzel-corp.github.io/research/nct-depth-motif/</loc></url>

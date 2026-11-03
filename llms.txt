@@ -8,7 +8,9 @@
 ## Primary websites
 - Portfolio: https://hanzzel-corp.github.io/
 - Complete public research directory: https://hanzzel-corp.github.io/research/
-- Store: https://hanzzel-corp.github.io/hanzzel-store/
+- Store: https://hanzzel-corp.github.io/hanzzel-store/ (digital books are requested by email; full book PDFs are not exposed as public downloads)
+- Independent fundraising initiative — Camino Cuaternario, goal 500,000 USD: https://hanzzel-corp.github.io/camino-cuaternario/
+- English portfolio: https://hanzzel-corp.github.io/en/
 
 ## Research identity and public records
 - GitHub organization: https://github.com/Hanzzel-corp
@@ -55,7 +57,10 @@
 - Experimento 10 — Resonancia Phi-Sync: https://github.com/Hanzzel-corp/Experimento10_ResonanciaPhiSync
 
 ## Commercial and educational material
-- NCT books and consulting: https://hanzzel-corp.github.io/hanzzel-store/
+- NCT books and consulting: https://hanzzel-corp.github.io/hanzzel-store/ (email-request delivery; no public full-book PDF links)
+
+## Independent fundraising
+- Camino Cuaternario — separate fundraising initiative, goal 500,000 USD; current progress is published separately: https://hanzzel-corp.github.io/camino-cuaternario/
 
 ## Interpretation and status
 - This index lists public repositories only; private repositories and unpublished projects are intentionally excluded.
