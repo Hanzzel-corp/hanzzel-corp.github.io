@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NCT Milenio Solver: NCT Visual Engine experimental | Hanzzel Corp</title>
+<meta name="description" content="Ficha técnica del NCT Milenio Solver: generador de expresiones C0–C3, visualización ASCII 21×21, curva tanh y exportación JSON/TXT. Alcance y límites del código público.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://hanzzel-corp.github.io/research/nct-milenio-solver/">
+<meta property="og:type" content="article"><meta property="og:title" content="NCT Milenio Solver — NCT Visual Engine"><meta property="og:description" content="Implementación, flujo de ejecución, código, reproducibilidad y límites de la versión pública."><meta property="og:url" content="https://hanzzel-corp.github.io/research/nct-milenio-solver/">
+<script type="application/ld+json">
+{
+ "@context":"https://schema.org","@type":"SoftwareSourceCode",
+ "@id":"https://hanzzel-corp.github.io/research/nct-milenio-solver/#software",
+ "name":"NCT Milenio Solver — NCT Visual Engine",
+ "description":"Implementación experimental de generación de expresiones con símbolos C0–C3, visualización ASCII 21×21, transformación tanh de valores aleatorios y exportación JSON/TXT. El repositorio declara que no incluye un solver cuaternario real.",
+ "codeRepository":"https://github.com/Hanzzel-corp/NCT_MILENIO_SOLVER",
+ "programmingLanguage":"Python","runtimePlatform":"Python 3.8+; NumPy 1.20+",
+ "author":{"@type":"Person","name":"José Zamora","url":"https://hanzzel-corp.github.io/"},
+ "publisher":{"@type":"Organization","name":"Hanzzel Corp","url":"https://hanzzel-corp.github.io/"},
+ "license":"https://github.com/Hanzzel-corp/NCT_MILENIO_SOLVER/blob/main/LICENSE"
+}
+</script>
+<link rel="stylesheet" href="../../styles.css">
+<style>
+.k{max-width:980px;margin:auto;padding:28px 20px 70px;line-height:1.72}.k nav{display:flex;gap:16px;flex-wrap:wrap;border-bottom:1px solid #8885;padding-bottom:16px}.k h1{font-size:clamp(2rem,5vw,3rem);line-height:1.15;margin-top:42px}.k h2{margin-top:38px;border-bottom:1px solid #8885;padding-bottom:8px}.k .lead{font-size:1.15rem}.k .note{padding:14px 18px;border-left:3px solid #22a6b3;background:#22a6b310;margin:22px 0}.k pre{overflow:auto;padding:16px;border-radius:10px;background:#8882}.k table{width:100%;border-collapse:collapse;display:block;overflow-x:auto}.k th,.k td{border:1px solid #8885;padding:9px;text-align:left;vertical-align:top}.k .en{margin-top:54px;padding-top:28px;border-top:3px solid #8885}
+</style>
+</head>
+<body><main class="k">
+<nav><a href="https://hanzzel-corp.github.io/">Hanzzel Corp</a><a href="../">Índice de investigación</a><a href="https://github.com/Hanzzel-corp/NCT_MILENIO_SOLVER">Repositorio</a></nav>
+<article>
+<p><strong>Ficha técnica · Investigación NCT · Hanzzel Corp</strong></p>
+<h1>NCT Milenio Solver: qué implementa realmente el NCT Visual Engine</h1>
+<p class="lead">El repositorio público NCT_MILENIO_SOLVER presenta una implementación experimental denominada <strong>NCT Visual Engine</strong>. El código genera expresiones simbólicas con estados C0–C3, crea una matriz ASCII de 21×21, transforma una serie de valores mediante tangente hiperbólica y exporta un historial a JSON y texto. Su README aclara expresamente que esta entrega no contiene un solver cuaternario real.</p>
+<p><a href="https://github.com/Hanzzel-corp/NCT_MILENIO_SOLVER">Código fuente</a> · <a href="https://github.com/Hanzzel-corp/NCT_MILENIO_SOLVER/blob/main/README.md">README</a> · <a href="https://github.com/Hanzzel-corp/NCT_MILENIO_SOLVER/tree/main/docs">Documentación</a> · <a href="https://github.com/Hanzzel-corp/NCT_MILENIO_SOLVER/blob/main/nct_visual_engine.py">Motor principal</a></p>
+<aside class="note"><strong>Precisión sobre el nombre:</strong> aunque el repositorio se llama “NCT Milenio Solver”, el propio README lo denomina “NCT Visual Engine” y declara que no incluye un solver cuaternario real, memoria CQM, ADN cuántico evolutivo ni una ecuación unificada completa. El nombre no debe interpretarse como una afirmación de que resuelve los Problemas del Milenio. El README define su propósito como demostrativo y conceptual.</aside>
+
+<h2>1. Propósito declarado</h2>
+<p>El proyecto busca ilustrar una representación simbólica de expresiones mediante cuatro etiquetas de estado, operadores seleccionados y visualizaciones de consola. La documentación lo sitúa dentro de una exploración conceptual de geometrías emergentes y del marco NCT. El objetivo declarado no es resolver los Problemas del Milenio, sino mostrar una forma de organizar y visualizar expresiones en ese vocabulario.</p>
+
+<h2>2. Componentes implementados</h2>
+<table><thead><tr><th>Componente</th><th>Comportamiento visible en el código</th><th>Alcance verificable</th></tr></thead><tbody>
+<tr><td><code>generate_equation()</code></td><td>Elige tres coeficientes aleatorios entre −3 y 3, tres etiquetas de estado C0–C3 y dos operadores de una lista fija; devuelve una cadena formateada.</td><td>Generador sintáctico de expresiones. No evalúa algebraicamente la expresión.</td></tr>
+<tr><td><code>ascii_matrix(seed_val)</code></td><td>Genera una matriz NumPy 21×21 con distribución normal, normaliza sus valores y los convierte en caracteres ASCII.</td><td>Visualización estocástica reproducible para una semilla dada; no es una geometría calculada a partir de la ecuación generada.</td></tr>
+<tr><td><code>frontier_curve(history)</code></td><td>Extrae el campo <code>val</code> de cada registro y aplica <code>tanh(arr / std(arr))</code>.</td><td>Transformación no lineal de valores numéricos; el programa principal asigna esos valores aleatoriamente.</td></tr>
+<tr><td><code>save_json()</code></td><td>Serializa la lista de registros.</td><td>Persistencia de ecuación, iteración, valor y timestamp.</td></tr>
+<tr><td><code>linkedin_export()</code></td><td>Escribe un resumen textual de las expresiones generadas.</td><td>Exportación de texto; no constituye por sí misma una publicación científica.</td></tr>
+</tbody></table>
+
+<h2>3. Flujo de ejecución</h2>
+<pre><code>Inicio
+  → generar 40 expresiones simbólicas aleatorias
+  → asignar a cada expresión un valor aleatorio independiente
+  → generar una matriz ASCII 21×21 usando una semilla derivada del último valor
+  → aplicar tanh a la serie de valores
+  → guardar historial en JSON
+  → exportar expresiones a TXT</code></pre>
+<p>El flujo anterior se observa en <code>nct_visual_engine.py</code>. La matriz visual depende de una semilla numérica; la curva depende de los valores aleatorios del historial. El código no muestra una función que traduzca una expresión NCT a una evaluación matemática ni un procedimiento de búsqueda de soluciones.</p>
+
+<h2>4. Vocabulario simbólico de esta versión</h2>
+<p>La implementación define <code>C = ["C0", "C1", "C2", "C3"]</code> y <code>OPS = ["⊕", "⊗", "+", "−"]</code>. La documentación asigna interpretaciones conceptuales a C0–C3 y describe ⊕ como suma no conmutativa y ⊗ como producto tensorial. Sin embargo, en el código principal estos operadores se seleccionan y se insertan como caracteres en una cadena: no se implementan funciones que definan o ejecuten sus propiedades algebraicas.</p>
+<aside class="note"><strong>Relación con el marco NCT general:</strong> esta ficha conserva literalmente el vocabulario C0–C3 que usa el repositorio público. No lo presenta como una redefinición del marco general ni lo equipara automáticamente con otras especificaciones NCT. La relación formal entre ambas notaciones requiere una definición versionada del autor.</aside>
+
+<h2>5. Instalación y reproducción</h2>
+<p>El repositorio declara Python 3.8 o superior y NumPy 1.20 o superior. La ejecución documentada es:</p>
+<pre><code>git clone https://github.com/Hanzzel-corp/NCT_MILENIO_SOLVER.git
+cd NCT_MILENIO_SOLVER
+python -m venv .venv
+# Windows PowerShell:
+.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+python nct_visual_engine.py</code></pre>
+<p>El programa está diseñado para imprimir 40 expresiones, una matriz ASCII, una curva transformada y confirmar la escritura de dos archivos. La salida depende de generadores aleatorios sin una semilla global fijada para las expresiones y los valores.</p>
+
+<h2>6. Observaciones técnicas del código</h2>
+<ul>
+<li><strong>Expresiones no evaluadas:</strong> <code>generate_equation()</code> devuelve texto; no existe un parser ni un evaluador algebraico en el archivo principal.</li>
+<li><strong>Valores independientes:</strong> el campo <code>val</code> se obtiene con <code>random.uniform(-3, 3)</code>, no del cálculo de la expresión asociada.</li>
+<li><strong>Curva descriptiva:</strong> <code>frontier_curve()</code> aplica una transformación tanh a esos valores; el nombre “frontera crítica” es una interpretación del proyecto, no una detección de transición crítica demostrada por el código.</li>
+<li><strong>Semilla global NumPy:</strong> <code>ascii_matrix()</code> llama a <code>np.random.seed()</code>, lo que reinicia el generador aleatorio global de NumPy.</li>
+<li><strong>Serie constante:</strong> si todos los valores de entrada a <code>frontier_curve()</code> son iguales, la desviación estándar es cero y la división puede producir valores no finitos.</li>
+<li><strong>Estado de pruebas:</strong> el repositorio contiene documentación y ejemplos, pero esta ficha no afirma que se haya ejecutado una batería de tests independiente ni una validación matemática externa.</li>
+</ul>
+
+<h2>7. Qué no demuestra esta versión</h2>
+<ul>
+<li>No implementa un solver cuaternario que resuelva ecuaciones.</li>
+<li>No demuestra equivalencia entre problemas matemáticos clásicos ni una unificación de los Problemas del Milenio.</li>
+<li>No implementa en este repositorio la memoria CQM, ADN cuántico evolutivo ni una ecuación unificada completa; el README los enumera como ausentes.</li>
+<li>No demuestra propiedades algebraicas de ⊕ o ⊗ mediante operaciones ejecutables o pruebas formales.</li>
+<li>No constituye, por sí sola, validación física, cuántica o matemática independiente del marco NCT.</li>
+</ul>
+
+<h2>8. Fuentes primarias</h2>
+<ul>
+<li><a href="https://github.com/Hanzzel-corp/NCT_MILENIO_SOLVER/blob/main/README.md">README principal</a> — propósito, características y límites declarados.</li>
+<li><a href="https://github.com/Hanzzel-corp/NCT_MILENIO_SOLVER/blob/main/nct_visual_engine.py">nct_visual_engine.py</a> — implementación ejecutable consultada para esta ficha.</li>
+<li><a href="https://github.com/Hanzzel-corp/NCT_MILENIO_SOLVER/blob/main/requirements.txt">requirements.txt</a> — dependencia declarada.</li>
+<li><a href="https://github.com/Hanzzel-corp/NCT_MILENIO_SOLVER/blob/main/docs/arquitectura.md">Arquitectura</a>, <a href="https://github.com/Hanzzel-corp/NCT_MILENIO_SOLVER/blob/main/docs/api.md">API</a> y <a href="https://github.com/Hanzzel-corp/NCT_MILENIO_SOLVER/blob/main/docs/nct-framework.md">documento del marco NCT</a>.</li>
+</ul>
+</article>
+<section class="en" lang="en">
+<p><strong>English version · Technical project brief</strong></p>
+<h2>NCT Milenio Solver: what the public NCT Visual Engine actually implements</h2>
+<p class="lead">The public NCT_MILENIO_SOLVER repository contains an experimental implementation named NCT Visual Engine. Its Python code generates symbolic expressions using C0–C3 labels, renders a 21×21 ASCII matrix, applies a hyperbolic-tangent transform to numeric values, and exports records to JSON and text. The README explicitly states that this release does not include a real quaternary solver.</p>
+<h3>Name and scope clarification</h3>
+<p>Although the repository is named “NCT Milenio Solver”, its README calls the implementation “NCT Visual Engine” and describes it as demonstrative and conceptual. It explicitly lists a real quaternary solver, CQM memory, evolutionary quantum DNA and a complete unified equation as not included. The repository name must not be read as a claim that the Millennium Prize Problems have been solved.</p>
+<h3>Implemented components</h3>
+<ul><li><code>generate_equation()</code> randomly selects three coefficients, three C0–C3 labels and two operators, then returns a formatted string. It does not evaluate the expression.</li><li><code>ascii_matrix(seed_val)</code> generates a NumPy 21×21 normal-distribution matrix and maps normalized values to ASCII characters.</li><li><code>frontier_curve(history)</code> applies <code>tanh(values / standard_deviation)</code> to the history's numeric values.</li><li><code>save_json()</code> serializes the generated history; <code>linkedin_export()</code> writes the expressions to a text file.</li></ul>
+<h3>Execution flow</h3>
+<pre><code>Generate 40 random symbolic expressions
+→ assign an independent random value to each record
+→ render a seeded 21×21 ASCII matrix
+→ transform the values with tanh
+→ export JSON and TXT</code></pre>
+<p>The numeric values are generated independently with <code>random.uniform(-3, 3)</code>; they are not computed by evaluating the corresponding expression. The matrix is seeded from the last record's value and is not calculated from the expression's symbolic structure.</p>
+<h3>Symbolic vocabulary</h3>
+<p>This repository defines <code>C0</code> through <code>C3</code> and the operator strings <code>⊕</code>, <code>⊗</code>, <code>+</code> and <code>−</code>. The documentation assigns conceptual meanings to them, but the main Python file inserts the operators into strings rather than implementing executable algebraic operations or proving their stated properties. This page preserves the repository's C0–C3 notation and does not silently redefine the broader NCT framework.</p>
+<h3>Technical observations and limitations</h3>
+<ul><li>There is no parser or algebraic evaluator in the main implementation.</li><li>The “critical frontier” is a tanh transform of randomly assigned values, not a demonstrated critical-transition detector.</li><li><code>ascii_matrix()</code> resets NumPy's global random seed.</li><li>A constant input series gives zero standard deviation in <code>frontier_curve()</code> and can produce non-finite values.</li><li>This page does not claim an independent test run or external mathematical validation.</li><li>This release does not demonstrate a solver for Millennium Prize Problems, a unified equation, CQM memory or evolutionary quantum DNA.</li></ul>
+<h3>Reproduction</h3>
+<pre><code>git clone https://github.com/Hanzzel-corp/NCT_MILENIO_SOLVER.git
+cd NCT_MILENIO_SOLVER
+python -m venv .venv
+# Windows PowerShell:
+.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+python nct_visual_engine.py</code></pre>
+<h3>Primary sources</h3>
+<p><a href="https://github.com/Hanzzel-corp/NCT_MILENIO_SOLVER">Source repository</a> · <a href="https://github.com/Hanzzel-corp/NCT_MILENIO_SOLVER/blob/main/README.md">README</a> · <a href="https://github.com/Hanzzel-corp/NCT_MILENIO_SOLVER/blob/main/nct_visual_engine.py">Main source file</a> · <a href="https://github.com/Hanzzel-corp/NCT_MILENIO_SOLVER/tree/main/docs">Documentation</a>.</p>
+</section>
+<footer class="note">Ficha elaborada a partir del código y la documentación pública consultados. El estado vigente debe contrastarse con la rama principal y futuras versiones del repositorio.</footer>
+</main></body></html>
