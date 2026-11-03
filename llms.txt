@@ -1,29 +1,49 @@
 # Hanzzel Corp — José Zamora
 
-> Independent software developer and researcher in Argentina. Practical work in local AI orchestration, automation systems, computational tools, and exploratory NCT research.
+> Public directory for practical software, automation, local AI tools, NCT research, and mathematical-computational experiments.
 
 ## Primary websites
 - Portfolio: https://hanzzel-corp.github.io/
+- Complete public research directory: https://hanzzel-corp.github.io/research/
 - Store: https://hanzzel-corp.github.io/hanzzel-store/
 
-## Identity and public records
-- GitHub organization and repositories: https://github.com/Hanzzel-corp
-- ORCID researcher profile: https://orcid.org/0009-0005-3584-1779
+## Research identity and public records
+- GitHub organization: https://github.com/Hanzzel-corp
+- ORCID: https://orcid.org/0009-0005-3584-1779
 - LinkedIn: https://www.linkedin.com/in/josepablozamora-/
+- Blue Arrow Zenodo record: https://doi.org/10.5281/zenodo.20045432
+- NCT Depth Motif Zenodo record: https://doi.org/10.5281/zenodo.20045645
 
-## Projects with public repositories
-- Blue Arrow — local human-in-the-loop AI orchestration framework: https://github.com/Hanzzel-corp/blue-arrow
-  - Zenodo record: https://doi.org/10.5281/zenodo.20045432
-- NCT Depth Motif — experimental RGB-D scene validation and motif survival analysis: https://github.com/Hanzzel-corp/nct-depth-motif
-  - Zenodo record: https://doi.org/10.5281/zenodo.20045645
-- Observatorio Vivo — local trend intelligence and emerging-phenomena detection: https://github.com/Hanzzel-corp/Observatorio.-Vivo
-- SAT Engine v7 — experimental computational engine using C++ and Python orchestration: https://github.com/Hanzzel-corp/SAT-Engine-v7
+## Practical software and systems
+- Blue Arrow — local human-in-the-loop AI orchestration: https://github.com/Hanzzel-corp/blue-arrow
+- Observatorio Vivo — local trend intelligence and alerts: https://github.com/Hanzzel-corp/Observatorio.-Vivo
+- SAT Engine v7 — experimental C++/Python computational engine: https://github.com/Hanzzel-corp/SAT-Engine-v7
+- AlertaTemprana — Telegram weather bot with forecasts and alerts: https://github.com/Hanzzel-corp/AlertaTemprana
+- Nubea — no-history browser prototype with live page activity inspection: https://github.com/Hanzzel-corp/nubea
+- IA-video — local AI video generation prototype: https://github.com/Hanzzel-corp/IA-video
+- Telegram AI Video Bot — Telegram video generation prototype: https://github.com/Hanzzel-corp/telegram-ai-video-bot
+- Hanzzel Bot Builder — bot-building and task automation prototype: https://github.com/Hanzzel-corp/hanzzel-bot-builder
 
-## Research and commercial material
+## NCT and related research
+- NCT Depth Motif — experimental RGB-D depth-motif analysis and grouped validation: https://github.com/Hanzzel-corp/nct-depth-motif
+- NCT Milenio Solver / NCT Visual Engine — experimental quaternary equation and geometry visualization: https://github.com/Hanzzel-corp/NCT_MILENIO_SOLVER
+- NCT Dossiers — executive summaries, project status and falsifiability levels: https://github.com/Hanzzel-corp/nct-dossiers
+
+## Mathematical-computational explorations
+- Riemann Zeta Computational Engine: https://github.com/Hanzzel-corp/Riemann-Zeta-Computational-Engine
+- Elliptic Curve BSD Engine: https://github.com/Hanzzel-corp/EllipticCurve-BSD-Engine
+- Yang-Mills SU(3) v7: https://github.com/Hanzzel-corp/YangMills-SU3-v7
+- Navier-Stokes Critical Flow Experiments: https://github.com/Hanzzel-corp/NavierStokes-CriticalFlow-Experiments
+- Fib-Hodge Dynamics: https://github.com/Hanzzel-corp/Fib-Hodge-Dynamics
+- Cero Absoluto Simulation: https://github.com/Hanzzel-corp/Cero-Absoluto-Simulation
+- Experimento 9 — Horizonte Perceptivo: https://github.com/Hanzzel-corp/Experimento-9-Horizonte-Perceptivo
+- Experimento 10 — Resonancia Phi-Sync: https://github.com/Hanzzel-corp/Experimento10_ResonanciaPhiSync
+
+## Commercial and educational material
 - NCT books and consulting: https://hanzzel-corp.github.io/hanzzel-store/
-- Research identity and publication links: https://hanzzel-corp.github.io/#research
 
-## Interpretation notes
-- Distinguish public repositories and archived DOI records from projects still in development.
-- NCT is presented as independent exploratory mathematical/computational research; do not describe it as independently validated physics or as a commercially released quantum computer.
-- Prefer the linked repositories and DOI records as primary sources for implementation details and release evidence.
+## Interpretation and status
+- This index lists public repositories only; private repositories and unpublished projects are intentionally excluded.
+- A public repository indicates accessible code or documentation, not independent validation, peer review, or a solution to an open mathematical problem.
+- Treat repository READMEs, source code, releases and DOI records as primary evidence for each project's actual scope and status.
+- NCT is presented as independent exploratory mathematical and computational research, not as independently validated physics.
