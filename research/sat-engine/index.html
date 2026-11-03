@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SAT Engine: solvers SAT evolutivos en Python y C++ | Hanzzel Corp</title>
+<meta name="description" content="Ficha técnica de SAT Engine: CNF, backtracking, GSAT, WalkSAT, análisis de transición de fase y backend C++ con pybind11 y OpenMP; reproducción y límites.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://hanzzel-corp.github.io/research/sat-engine/">
+<meta property="og:type" content="article"><meta property="og:title" content="SAT Engine — exploración de algoritmos de satisfacibilidad"><meta property="og:description" content="Arquitectura evolutiva, algoritmos, backend híbrido, ejecución y límites del proyecto SAT Engine."><meta property="og:url" content="https://hanzzel-corp.github.io/research/sat-engine/">
+<script type="application/ld+json">
+{
+ "@context":"https://schema.org","@type":"SoftwareSourceCode",
+ "@id":"https://hanzzel-corp.github.io/research/sat-engine/#software",
+ "name":"SAT Engine","description":"Colección experimental de generadores y solucionadores SAT en Python y C++, con backtracking, GSAT, WalkSAT, análisis de transición de fase y backend paralelo.",
+ "codeRepository":"https://github.com/Hanzzel-corp/SAT-Engine-v7",
+ "programmingLanguage":["Python","C++"],"runtimePlatform":"Python 3.8+; C++17; OpenMP; pybind11",
+ "author":{"@type":"Person","name":"José Zamora","url":"https://hanzzel-corp.github.io/"},
+ "publisher":{"@type":"Organization","name":"Hanzzel Corp","url":"https://hanzzel-corp.github.io/"},
+ "license":"https://github.com/Hanzzel-corp/SAT-Engine-v7/blob/main/LICENSE"
+}
+</script>
+<link rel="stylesheet" href="../../styles.css">
+<style>
+.k{max-width:980px;margin:auto;padding:28px 20px 70px;line-height:1.72}.k nav{display:flex;gap:16px;flex-wrap:wrap;border-bottom:1px solid #8885;padding-bottom:16px}.k h1{font-size:clamp(2rem,5vw,3rem);line-height:1.15;margin-top:42px}.k h2{margin-top:38px;border-bottom:1px solid #8885;padding-bottom:8px}.k .lead{font-size:1.15rem}.k .note{padding:14px 18px;border-left:3px solid #22a6b3;background:#22a6b310;margin:22px 0}.k pre{overflow:auto;padding:16px;border-radius:10px;background:#8882}.k table{width:100%;border-collapse:collapse;display:block;overflow-x:auto}.k th,.k td{border:1px solid #8885;padding:9px;text-align:left;vertical-align:top}.k .en{margin-top:54px;padding-top:28px;border-top:3px solid #8885}
+</style>
+</head>
+<body><main class="k">
+<nav><a href="https://hanzzel-corp.github.io/">Hanzzel Corp</a><a href="../">Índice de investigación</a><a href="https://github.com/Hanzzel-corp/SAT-Engine-v7">Repositorio</a></nav>
+<article>
+<p><strong>Ficha técnica · Exploración algorítmica · Hanzzel Corp</strong></p>
+<h1>SAT Engine: una colección evolutiva de solucionadores SAT</h1>
+<p class="lead">SAT Engine reúne implementaciones de generadores y solucionadores para el problema de satisfacibilidad booleana (SAT). El repositorio explora una progresión desde backtracking exhaustivo hasta búsqueda local estocástica y un backend híbrido C++/Python con paralelismo.</p>
+<p><a href="https://github.com/Hanzzel-corp/SAT-Engine-v7">Código fuente</a> · <a href="https://github.com/Hanzzel-corp/SAT-Engine-v7/blob/main/README.md">README</a> · <a href="https://github.com/Hanzzel-corp/SAT-Engine-v7/blob/main/docs/ARCHITECTURE.md">Arquitectura</a> · <a href="https://github.com/Hanzzel-corp/SAT-Engine-v7/tree/main/docs/algorithms">Documentación de algoritmos</a></p>
+<aside class="note"><strong>Precisión de versión:</strong> el repositorio se llama SAT-Engine-v7 y el README imprime “SAT Engine v7”, pero la tabla de versiones y la estructura documentan implementaciones hasta v5 (incluido el backend C++). El archivo de ejecución C++ también imprime v7. Esta ficha describe lo que el código y los documentos muestran; no presupone que exista una implementación v6/v7 separada o un solver CDCL.</aside>
+
+<h2>1. Qué problema aborda</h2>
+<p>SAT pregunta si existe una asignación de valores booleanos que satisfaga simultáneamente todas las cláusulas de una fórmula CNF. SAT Engine permite estudiar distintas estrategias para encontrar asignaciones, comparar comportamiento en instancias generadas y observar cómo cambia la dificultad al variar la densidad de cláusulas.</p>
+
+<h2>2. Evolución descrita por el repositorio</h2>
+<table><thead><tr><th>Versión</th><th>Enfoque documentado</th><th>Propósito</th></tr></thead><tbody>
+<tr><td>v1</td><td>Backtracking</td><td>Búsqueda exhaustiva y verificación de asignaciones</td></tr>
+<tr><td>v2</td><td>GSAT y WalkSAT</td><td>Búsqueda local estocástica</td></tr>
+<tr><td>v3</td><td>GSAT + análisis</td><td>Medición de comportamiento frente a m/n</td></tr>
+<tr><td>v4</td><td>Reinicios y ruido adaptativo</td><td>Mitigar estancamiento en óptimos locales</td></tr>
+<tr><td>v5</td><td>C++/Python, pybind11 y OpenMP</td><td>Backend paralelo con GSAT, WalkSAT y Simulated Annealing</td></tr>
+</tbody></table>
+<p>La documentación presenta estas versiones como una colección evolutiva, no como una única implementación que contenga todos los algoritmos en un solo solver.</p>
+
+<h2>3. Algoritmos</h2>
+<h3>Backtracking</h3>
+<p>Explora sistemáticamente asignaciones y puede demostrar SAT o UNSAT cuando termina la búsqueda completa. El peor caso crece exponencialmente con el número de variables; es útil como referencia en instancias pequeñas.</p>
+<h3>GSAT</h3>
+<p>Parte de una asignación inicial y busca el flip de variable que maximiza el número de cláusulas satisfechas. Es una búsqueda local estocástica: puede encontrar una solución, pero quedarse atrapada en mínimos locales y no demuestra UNSAT si alcanza el límite de pasos.</p>
+<h3>WalkSAT</h3>
+<p>Selecciona una cláusula insatisfecha y, según el parámetro de ruido, elige un flip aleatorio o una variable con bajo breakcount. El breakcount mide cuántas cláusulas satisfechas pasarían a estar insatisfechas al invertir una variable. Tampoco demuestra UNSAT por agotar iteraciones.</p>
+<h3>Simulated Annealing y backend paralelo</h3>
+<p>La carpeta <code>SAT_Engine_v5</code> documenta un backend C++ con GSAT, WalkSAT y Simulated Annealing, expuesto a Python mediante pybind11 y paralelizado con OpenMP. El wrapper ejecuta barridos de ratios m/n y múltiples instancias. La configuración de compilación publicada usa flags de MSVC (<code>/O2</code>, <code>/openmp</code>), por lo que no debe asumirse que compila sin ajustes en GCC/Clang.</p>
+
+<h2>4. Transición de fase y experimentación</h2>
+<p>El repositorio estudia instancias aleatorias 3-SAT variando el ratio α = m/n. La documentación señala el entorno α ≈ 4.267 como región crítica teórica de referencia y describe mediciones de proporción de instancias resueltas, tiempo y pasos. El README incluye una tabla ilustrativa de resultados de v3; no presenta allí los archivos crudos suficientes para tratarlos como un benchmark reproducible independiente.</p>
+<aside class="note">La transición de fase es una propiedad estadística de familias de instancias aleatorias. El ratio m/n no permite clasificar con certeza una instancia individual como SAT o UNSAT ni determinar por sí solo su dificultad.</aside>
+
+<h2>5. Cómo ejecutar</h2>
+<p>El repositorio publica Python 3.8+, compilador C++17 y OpenMP para el backend. Para las versiones Python:</p>
+<pre><code>git clone https://github.com/Hanzzel-corp/SAT-Engine-v7.git
+cd SAT-Engine-v7
+pip install -r requirements.txt
+python sat_engine_v1.py
+python sat_engine_v2.py
+python sat_engine_v3.py
+python sat_engine_v4.py</code></pre>
+<p>Para el backend C++ documentado:</p>
+<pre><code>cd SAT_Engine_v5
+pip install pybind11
+python setup.py build_ext --inplace
+python sat_engine_v5.py</code></pre>
+<p>El ejemplo de backend usa hasta ocho hilos y 50.000 pasos por ejecución. Los comandos exactos y la compatibilidad deben comprobarse en el sistema operativo y compilador elegidos.</p>
+
+<h2>6. Cómo interpretar las salidas</h2>
+<ul>
+<li>Una asignación devuelta por un solver debe verificarse contra todas las cláusulas mediante el verificador.</li>
+<li>Si GSAT o WalkSAT no encuentran solución dentro del límite de pasos, el resultado es “no encontrada”, no una prueba de UNSAT.</li>
+<li>Una afirmación de UNSAT requiere un procedimiento completo y una ejecución terminada que permita justificarlo; los métodos locales descritos no bastan.</li>
+<li>Para comparar rendimiento, fijar semillas, tamaño y distribución de instancias, límites de pasos, hilos, compilador y hardware.</li>
+</ul>
+
+<h2>7. Límites y discrepancias de documentación</h2>
+<ul>
+<li>El nombre v7 convive con documentación y carpetas de implementación hasta v5; no se afirma aquí que v7 sea un solver nuevo y completo.</li>
+<li>El README contiene al final una línea de marcador de conflicto Git (<code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>), señal de limpieza editorial pendiente.</li>
+<li>La guía de arquitectura enumera DPLL/CDCL como extensiones futuras, no como funciones implementadas.</li>
+<li>Los valores de transición de fase del README se presentan como resultados de referencia, pero esta ficha no ha reproducido esos ensayos.</li>
+<li>La configuración de compilación del backend está orientada a MSVC y puede requerir cambios en otros toolchains.</li>
+</ul>
+
+<h2>8. Fuentes primarias</h2>
+<ul>
+<li><a href="https://github.com/Hanzzel-corp/SAT-Engine-v7/blob/main/README.md">README principal</a>.</li>
+<li><a href="https://github.com/Hanzzel-corp/SAT-Engine-v7/blob/main/docs/ARCHITECTURE.md">Arquitectura del proyecto</a>.</li>
+<li><a href="https://github.com/Hanzzel-corp/SAT-Engine-v7/blob/main/docs/algorithms/GSAT.md">Descripción GSAT</a>.</li>
+<li><a href="https://github.com/Hanzzel-corp/SAT-Engine-v7/blob/main/docs/algorithms/WalkSAT.md">Descripción WalkSAT</a>.</li>
+<li><a href="https://github.com/Hanzzel-corp/SAT-Engine-v7/blob/main/docs/algorithms/PhaseTransition.md">Transición de fase</a>.</li>
+<li><a href="https://github.com/Hanzzel-corp/SAT-Engine-v7/tree/main/SAT_Engine_v5">Backend C++ v5</a>.</li>
+</ul>
+</article>
+<section class="en" lang="en">
+<p><strong>English version · Technical project brief</strong></p>
+<h2>SAT Engine: an evolving collection of SAT solvers</h2>
+<p class="lead">SAT Engine is a collection of Boolean satisfiability (SAT) generators and solvers. Its documented progression moves from exhaustive backtracking to stochastic local search and a parallel C++/Python backend.</p>
+<h3>Problem</h3>
+<p>SAT asks whether a Boolean assignment satisfies every clause in a CNF formula. The project provides implementations for exploring search strategies and observing how generated 3-SAT instances behave as the clause-to-variable ratio changes.</p>
+<h3>Documented implementations</h3>
+<ul><li>v1: exhaustive backtracking and assignment verification.</li><li>v2: GSAT and WalkSAT local search.</li><li>v3: GSAT analysis and phase-transition experiments.</li><li>v4: restarts and adaptive noise.</li><li>v5: C++ backend with GSAT, WalkSAT and Simulated Annealing, exposed through pybind11 and parallelized with OpenMP.</li></ul>
+<p>The repository is named SAT-Engine-v7 and the runner prints “SAT Engine v7”, but its version table and code layout document implementations through v5. This page does not assume that a separate v6/v7 solver or CDCL implementation exists.</p>
+<h3>Algorithm semantics</h3>
+<p>Backtracking can complete an exhaustive search. GSAT flips variables to improve the number of satisfied clauses. WalkSAT selects an unsatisfied clause and uses a noise probability or breakcount-based choice. GSAT and WalkSAT are local-search methods: failure to find a solution within a step limit is not a proof of UNSAT.</p>
+<h3>Phase-transition experiments</h3>
+<p>The documentation studies random 3-SAT while varying α = m/n and uses α ≈ 4.267 as a critical-region reference. It describes measurements of solve rate, time and steps. The illustrative README table is not, by itself, a complete independently reproducible benchmark.</p>
+<h3>Reproduction</h3>
+<pre><code>git clone https://github.com/Hanzzel-corp/SAT-Engine-v7.git
+cd SAT-Engine-v7
+pip install -r requirements.txt
+python sat_engine_v1.py
+python sat_engine_v2.py
+python sat_engine_v3.py
+python sat_engine_v4.py</code></pre>
+<p>For the documented C++ backend, install pybind11, enter <code>SAT_Engine_v5</code>, build with <code>python setup.py build_ext --inplace</code>, then run <code>python sat_engine_v5.py</code>. The published setup uses MSVC-specific compiler flags, so other toolchains may require adjustments.</p>
+<h3>Limitations</h3>
+<ul><li>The v7 repository name coexists with code and documentation through v5.</li><li>The README contains an unresolved Git conflict marker near its end.</li><li>DPLL/CDCL is listed as future work, not as an implemented solver.</li><li>Local-search failure does not establish UNSAT.</li><li>This page does not claim to have reproduced the published phase-transition measurements.</li></ul>
+<h3>Primary sources</h3>
+<p><a href="https://github.com/Hanzzel-corp/SAT-Engine-v7">Source repository</a> · <a href="https://github.com/Hanzzel-corp/SAT-Engine-v7/blob/main/docs/ARCHITECTURE.md">Architecture</a> · <a href="https://github.com/Hanzzel-corp/SAT-Engine-v7/tree/main/docs/algorithms">Algorithm notes</a> · <a href="https://github.com/Hanzzel-corp/SAT-Engine-v7/tree/main/SAT_Engine_v5">C++ backend</a>.</p>
+</section>
+<footer class="note">Ficha elaborada desde el código y la documentación pública disponibles. Los resultados experimentales deben verificarse mediante los scripts, las semillas y los entornos concretos.</footer>
+</main></body></html>
