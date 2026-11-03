@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Observatorio Vivo: detección y trazabilidad de tendencias | Hanzzel Corp</title>
+<meta name="description" content="Documentación técnica de Observatorio Vivo: captura multi-fuente, scoring de señales, detección de brotes, trazabilidad, API FastAPI y persistencia SQLite.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://hanzzel-corp.github.io/research/observatorio-vivo/">
+<meta property="og:type" content="article"><meta property="og:title" content="Observatorio Vivo — detección y trazabilidad de tendencias"><meta property="og:description" content="Arquitectura, fuentes, algoritmo de brotes, API, ejecución y límites documentados."><meta property="og:url" content="https://hanzzel-corp.github.io/research/observatorio-vivo/">
+<script type="application/ld+json">
+{
+ "@context":"https://schema.org","@type":"SoftwareSourceCode",
+ "@id":"https://hanzzel-corp.github.io/research/observatorio-vivo/#software",
+ "name":"Observatorio Vivo","description":"Sistema local de inteligencia de tendencias que recopila señales públicas, calcula puntuaciones, detecta brotes y conserva trazabilidad de las fuentes.",
+ "codeRepository":"https://github.com/Hanzzel-corp/Observatorio.-Vivo",
+ "programmingLanguage":"Python","runtimePlatform":"Python 3.8+; FastAPI; SQLite",
+ "author":{"@type":"Person","name":"José Zamora","url":"https://hanzzel-corp.github.io/"},
+ "publisher":{"@type":"Organization","name":"Hanzzel Corp","url":"https://hanzzel-corp.github.io/"},
+ "license":"https://github.com/Hanzzel-corp/Observatorio.-Vivo/blob/main/LICENSE"
+}
+</script>
+<link rel="stylesheet" href="../../styles.css">
+<style>
+.k{max-width:980px;margin:auto;padding:28px 20px 70px;line-height:1.72}.k nav{display:flex;gap:16px;flex-wrap:wrap;border-bottom:1px solid #8885;padding-bottom:16px}.k h1{font-size:clamp(2rem,5vw,3rem);line-height:1.15;margin-top:42px}.k h2{margin-top:38px;border-bottom:1px solid #8885;padding-bottom:8px}.k .lead{font-size:1.15rem}.k .note{padding:14px 18px;border-left:3px solid #22a6b3;background:#22a6b310;margin:22px 0}.k pre{overflow:auto;padding:16px;border-radius:10px;background:#8882}.k table{width:100%;border-collapse:collapse;display:block;overflow-x:auto}.k th,.k td{border:1px solid #8885;padding:9px;text-align:left;vertical-align:top}.k .en{margin-top:54px;padding-top:28px;border-top:3px solid #8885}
+</style>
+</head>
+<body><main class="k">
+<nav><a href="https://hanzzel-corp.github.io/">Hanzzel Corp</a><a href="../">Índice de investigación</a><a href="https://github.com/Hanzzel-corp/Observatorio.-Vivo">Repositorio</a></nav>
+<article>
+<p><strong>Ficha técnica · Software práctico · Hanzzel Corp</strong></p>
+<h1>Observatorio Vivo: detectar señales emergentes y conservar su trazabilidad</h1>
+<p class="lead">Observatorio Vivo es un sistema backend local que recopila señales públicas de varias fuentes, extrae y normaliza términos, calcula puntuaciones de actividad, clasifica posibles brotes y mantiene registros que permiten rastrear el origen de las señales.</p>
+<p><a href="https://github.com/Hanzzel-corp/Observatorio.-Vivo">Código fuente</a> · <a href="https://github.com/Hanzzel-corp/Observatorio.-Vivo/blob/main/README.md">README principal</a> · <a href="https://github.com/Hanzzel-corp/Observatorio.-Vivo/tree/main/doc">Documentación técnica</a> · <a href="https://github.com/Hanzzel-corp/Observatorio.-Vivo/tree/main">Archivos del proyecto</a></p>
+<aside class="note"><strong>Nota de versiones:</strong> el README principal identifica la entrega como Observatorio Vivo v0.3.0 y el motor interno como v6.1.2; el README en inglés menciona v6.1.3. Esta ficha evita tratar esos identificadores como una única versión inequívoca. Conviene normalizar el versionado en el repositorio antes de usarlo como referencia de release.</aside>
+
+<h2>1. Problema y objetivo</h2>
+<p>Los sistemas de tendencias suelen mostrar rankings de popularidad, pero una posición alta no explica necesariamente si un tema es nuevo, si está acelerándose, si aparece en varias regiones o si la señal proviene de una sola fuente. Observatorio Vivo intenta combinar esas dimensiones para distinguir ruido, primeras apariciones y fenómenos con mayor persistencia o difusión.</p>
+<p>Su objetivo es ayudar a investigadores, periodistas y analistas a observar señales públicas tempranas. La puntuación es una heurística de priorización, no una probabilidad calibrada de que un fenómeno vaya a convertirse en tendencia.</p>
+
+<h2>2. Fuentes y flujo de datos</h2>
+<p>El README documenta colectores para Wikipedia Pageviews, Google Trends RSS, Reddit, Mastodon y Hacker News. Según la región elegida, se combinan países e idiomas. Las capturas se ejecutan de forma asíncrona y se registran con fecha, fuente y metadatos.</p>
+<pre><code>Fuentes públicas
+  → colectores asíncronos (httpx / asyncio)
+  → muestras y term_hits
+  → normalización, frases y aliases
+  → agregación temporal y geográfica
+  → detector de brotes / bandeja de observación
+  → dashboard, API, informes y alertas opcionales</code></pre>
+<p>Las variantes léxicas se pueden asociar a un término canónico mediante aliases, reduciendo la fragmentación de expresiones relacionadas. El sistema también contempla watchlists para seguir temas definidos por el usuario.</p>
+
+<h2>3. Scoring y clasificación</h2>
+<p>La documentación describe un score compuesto que combina novedad temporal, crecimiento, delta entre ejecuciones, cantidad de regiones y fuentes, repetición y cruce entre buckets lingüísticos. En el README principal se enumeran ocho contribuciones y umbrales para cinco estados:</p>
+<table><thead><tr><th>Estado</th><th>Condición resumida publicada</th><th>Lectura</th></tr></thead><tbody>
+<tr><td>EVENTO</td><td>3+ regiones, 3+ fuentes, 2+ runs y emergencia ≥70</td><td>Fenómeno con señales distribuidas y persistentes</td></tr>
+<tr><td>PROPAGACIÓN</td><td>2+ regiones o 3+ fuentes; emergencia ≥52</td><td>Expansión detectada</td></tr>
+<tr><td>BROTE</td><td>2+ runs, delta positivo y emergencia ≥38</td><td>Señal temprana repetida</td></tr>
+<tr><td>SEMILLA</td><td>Primera aparición reciente o un run</td><td>Señal inicial, todavía débil</td></tr>
+<tr><td>RUIDO</td><td>No cumple los estados anteriores</td><td>Señal insuficiente según las reglas</td></tr>
+</tbody></table>
+<p>El README de backend también describe niveles operativos de confianza y alerta: DETECTADO, OBSERVADO y ALERTADO. Son una capa distinta de la clasificación del fenómeno; no deben confundirse con EVENTO/BROTE/SEMILLA. El motor incluye filtros de términos genéricos y cooldown para reducir alertas repetidas.</p>
+
+<h2>4. Trazabilidad y almacenamiento</h2>
+<p>La persistencia usa SQLite con WAL. La documentación identifica tablas para ejecuciones/muestras, apariciones de términos, watchlist, aliases, alertas, bandeja de observación y configuración. El proyecto documenta una vista de origen de señal que permite inspeccionar las apariciones y fuentes que contribuyeron a un término. La trazabilidad es esencial para que el score no se lea como una afirmación sin respaldo.</p>
+
+<h2>5. Aplicación y API</h2>
+<p>El backend utiliza FastAPI y expone una interfaz web local. El README documenta endpoints para salud y estado, ejecutar una captura, consultar términos y brotes, ver el origen de una señal, administrar watchlists y aliases, consultar alertas y exportar JSON/CSV o informes de texto.</p>
+<table><thead><tr><th>Endpoint</th><th>Uso documentado</th></tr></thead><tbody>
+<tr><td><code>GET /api/health</code></td><td>Comprobación de salud</td></tr>
+<tr><td><code>GET /api/state</code></td><td>Estado y métricas del sistema</td></tr>
+<tr><td><code>POST /api/run?region=hispano</code></td><td>Iniciar captura para una región</td></tr>
+<tr><td><code>GET /api/terms</code></td><td>Ranking agregado de términos</td></tr>
+<tr><td><code>GET /api/outbreaks</code></td><td>Clasificación de brotes</td></tr>
+<tr><td><code>GET /api/signal-origin/{term}</code></td><td>Inspeccionar procedencia de una señal (README EN)</td></tr>
+<tr><td><code>GET /api/export/json</code> y <code>/api/export/csv</code></td><td>Exportación de datos</td></tr>
+</tbody></table>
+<p>La interfaz documenta pestañas para Radar, Brotes, Observación, Histórico, Watchlist, Configuración e Informe. Telegram es opcional y se configura localmente.</p>
+
+<h2>6. Instalación y uso</h2>
+<p>El README principal publica Python 3.8+ y dependencias FastAPI, Uvicorn, HTTPX y Pydantic. El README en inglés enumera Python 3.10+ como requisito, por lo que se debe comprobar la compatibilidad real con el entorno elegido. El arranque documentado es:</p>
+<pre><code>git clone https://github.com/Hanzzel-corp/Observatorio.-Vivo.git
+cd Observatorio.-Vivo/observatorio_v6_backend
+python -m venv .venv
+# Activar el entorno virtual
+pip install -r requirements.txt
+uvicorn app:app --reload --host 127.0.0.1 --port 8765</code></pre>
+<p>El repositorio también describe <code>run.sh</code> como método rápido. En Windows, puede ser necesario usar WSL o iniciar Uvicorn directamente desde el entorno Python. Verificar el directorio exacto de backend en la estructura actual antes de ejecutar.</p>
+
+<h2>7. Límites y validación pendiente</h2>
+<ul>
+<li>El score es una heurística diseñada por el proyecto; no equivale a una probabilidad predictiva calibrada.</li>
+<li>Las fuentes públicas tienen sesgos de cobertura, idioma, región, disponibilidad y cambios en sus APIs o feeds.</li>
+<li>El aumento de menciones o pageviews no demuestra por sí solo causalidad, relevancia social ni persistencia futura.</li>
+<li>La clasificación depende de ventanas, pesos, alias y umbrales configurados; deben evaluarse con históricos etiquetados.</li>
+<li>La documentación enumera tests y endpoints, pero esta ficha no afirma una ejecución independiente reciente ni un benchmark externo.</li>
+<li>La discrepancia de versiones y requisitos entre README ES/EN requiere aclaración en el repositorio.</li>
+</ul>
+
+<h2>8. Cómo evaluar el sistema</h2>
+<p>Una evaluación sólida debería conservar datasets de capturas con timestamp, fijar ventanas temporales, etiquetar eventos de forma independiente y medir precisión, recall, falsos positivos, tiempo de anticipación y estabilidad por región/fuente. También conviene comparar contra baselines simples —por ejemplo, ranking por volumen o crecimiento— para determinar qué aporta el scoring compuesto.</p>
+
+<h2>9. Fuentes primarias</h2>
+<ul>
+<li><a href="https://github.com/Hanzzel-corp/Observatorio.-Vivo/blob/main/README.md">README español</a> — visión general, algoritmo y uso.</li>
+<li><a href="https://github.com/Hanzzel-corp/Observatorio.-Vivo/blob/main/README_EN.md">README inglés</a> — resumen y endpoints adicionales.</li>
+<li><a href="https://github.com/Hanzzel-corp/Observatorio.-Vivo/blob/main/doc/app.md">Backend y algoritmo</a>.</li>
+<li><a href="https://github.com/Hanzzel-corp/Observatorio.-Vivo/blob/main/doc/api_reference.md">Referencia API</a>.</li>
+<li><a href="https://github.com/Hanzzel-corp/Observatorio.-Vivo/blob/main/doc/database.md">Esquema de base de datos</a>.</li>
+<li><a href="https://github.com/Hanzzel-corp/Observatorio.-Vivo/blob/main/test_core.py">Tests del núcleo</a>.</li>
+</ul>
+</article>
+<section class="en" lang="en">
+<p><strong>English version · Technical project brief</strong></p>
+<h2>Live Observatory: emerging-signal detection with source traceability</h2>
+<p class="lead">Live Observatory is a local backend that collects public signals from multiple sources, extracts and normalizes terms, scores activity, classifies potential outbreaks and stores records that help trace signals back to their sources.</p>
+<h3>Problem and objective</h3>
+<p>A popularity ranking alone does not explain whether a topic is new, accelerating, appearing across regions or supported by multiple independent sources. The project combines these dimensions to prioritize weak signals and emerging phenomena. Its score is a heuristic for triage, not a calibrated probability that a topic will become a trend.</p>
+<h3>Architecture and data flow</h3>
+<p>The repository documents collectors for Wikipedia Pageviews, Google Trends RSS, Reddit, Mastodon and Hacker News. Async collection feeds SQLite records; text normalization, phrase extraction and aliases feed aggregation; the outbreak detector then updates dashboards, reports and optional alerts.</p>
+<pre><code>Public sources → async collectors → SQLite samples / term_hits
+→ normalization and aliases → temporal/geographic aggregation
+→ outbreak detection → dashboard, API, reports and optional alerts</code></pre>
+<h3>Detection model</h3>
+<p>The documented score combines recency, growth, score delta, geographic spread, source diversity, repeated observations and cross-language presence. It classifies signals as EVENT, PROPAGATION, OUTBREAK, SEED or NOISE. A separate operational alert layer uses DETECTED, OBSERVED and ALERTED levels. These two classification layers should not be conflated.</p>
+<h3>Implementation</h3>
+<p>The backend uses Python, FastAPI, HTTPX and SQLite (WAL). The web dashboard exposes radar, outbreaks, observation, history, watchlist, settings and report views. Documented API operations cover health, state, collection runs, terms, outbreaks, signal origin, alerts and JSON/CSV exports. Telegram notifications are optional.</p>
+<h3>Version and requirements caveat</h3>
+<p>The Spanish README labels the release Observatorio Vivo v0.3.0 and the internal engine v6.1.2, while the English README mentions v6.1.3. The two READMEs also differ on the minimum Python version. This page preserves that discrepancy instead of presenting an unverified single release identifier.</p>
+<h3>Limitations</h3>
+<ul><li>The composite score is a project heuristic, not a calibrated forecast.</li><li>Public feeds and APIs have coverage, language, regional and availability biases.</li><li>Attention metrics do not establish causality or future persistence.</li><li>Weights, aliases, thresholds and time windows affect classifications.</li><li>This page does not claim a fresh independent test run or external benchmark.</li></ul>
+<h3>How to evaluate it</h3>
+<p>A robust evaluation should use timestamped historical captures, independently labeled events, fixed time windows, precision/recall, false-positive rates, lead time and stability by region/source. Compare the composite detector with simple volume- and growth-based baselines.</p>
+<h3>Primary sources</h3>
+<p><a href="https://github.com/Hanzzel-corp/Observatorio.-Vivo">Source repository</a> · <a href="https://github.com/Hanzzel-corp/Observatorio.-Vivo/blob/main/README.md">Spanish README</a> · <a href="https://github.com/Hanzzel-corp/Observatorio.-Vivo/blob/main/README_EN.md">English README</a> · <a href="https://github.com/Hanzzel-corp/Observatorio.-Vivo/tree/main/doc">Technical documentation</a> · <a href="https://github.com/Hanzzel-corp/Observatorio.-Vivo/blob/main/test_core.py">Core tests</a>.</p>
+</section>
+<footer class="note">Ficha elaborada a partir de la documentación pública del repositorio. Para el estado vigente, revisar código, releases y pruebas en GitHub.</footer>
+</main></body></html>
