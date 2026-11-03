@@ -215,3 +215,35 @@ Añade los estilos correspondientes en `styles.css`.
 - Email: hanzzelcorp@gmail.com
 - LinkedIn: https://www.linkedin.com/in/josepablozamora-/
 - GitHub: https://github.com/Hanzzel-corp
+
+## Hoja de ruta — visibilidad en buscadores e inteligencia artificial
+
+Este proyecto prioriza mejorar la capacidad de descubrimiento, rastreo, comprensión y representación correcta de Hanzzel Corp por parte de buscadores y sistemas de inteligencia artificial.
+
+### Prioridad actual: presencia y descubribilidad en IA
+
+- Revisar periódicamente el acceso de los crawlers relevantes y las directivas de `robots.txt`.
+- Auditar la estructura HTML, los títulos, las descripciones, los encabezados y los enlaces internos.
+- Mantener actualizados `llms.txt`, `sitemap.xml` y los metadatos de cada sitio cuando corresponda.
+- Mejorar la claridad semántica: quién es Hanzzel Corp, qué ofrece, qué proyectos desarrolla y dónde encontrar evidencia verificable.
+- Revisar datos estructurados y señales de identidad/autoría cuando aporten información real y verificable.
+- Comprobar que Portfolio, Store y Knowledge Map tengan contenido coherente, enlaces correctos y una función claramente diferenciada.
+- Realizar pruebas periódicas en buscadores y asistentes de IA para comprobar descubrimiento, interpretación y referencias. La aparición o recomendación por parte de una IA no está garantizada.
+
+### Segunda prioridad: auditoría y mejora continua de las páginas
+
+Revisar contenido, navegación, accesibilidad, rendimiento, experiencia móvil, enlaces, metadatos y consistencia entre las propiedades web. Registrar hallazgos y cambios verificables antes de dar una mejora por terminada.
+
+### Pendiente para una etapa posterior: analítica de tráfico
+
+La implementación de analítica queda expresamente pospuesta. No es el foco de la etapa actual.
+
+Cuando las páginas estén mejor preparadas para el descubrimiento por IA, evaluar una solución mínima y de bajo costo que permita conocer únicamente:
+
+- Volumen general de tráfico.
+- Actividad automatizada identificable (bots/crawlers) frente a actividad humana estimada.
+- Tendencia general de visitas a lo largo del tiempo.
+
+No se requiere identificación personal, edad, perfiles individuales ni seguimiento detallado del comportamiento. Antes de implementar herramientas o infraestructura, comprobar qué métricas se pueden obtener de GitHub Pages y de las herramientas existentes. Evitar servidores, servicios pagos o sistemas complejos si no son necesarios.
+
+**Estado:** POSPUESTO — no implementar durante la fase actual de mejoras de descubribilidad e IA.
