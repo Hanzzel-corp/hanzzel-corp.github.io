@@ -247,3 +247,11 @@ Cuando las páginas estén mejor preparadas para el descubrimiento por IA, evalu
 No se requiere identificación personal, edad, perfiles individuales ni seguimiento detallado del comportamiento. Antes de implementar herramientas o infraestructura, comprobar qué métricas se pueden obtener de GitHub Pages y de las herramientas existentes. Evitar servidores, servicios pagos o sistemas complejos si no son necesarios.
 
 **Estado:** POSPUESTO — no implementar durante la fase actual de mejoras de descubribilidad e IA.
+
+---
+
+## Dirección de investigación y autoría
+
+**José Zamora — Investigador principal independiente (Independent Principal Investigator), Hanzzel Corp.**
+
+Este repositorio es un proyecto individual del ecosistema Hanzzel Corp. Su pertenencia al ecosistema no implica integración técnica con NCT ni validación de resultados más allá de la evidencia documentada aquí.
