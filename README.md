@@ -98,18 +98,14 @@ npx serve .
 
 Este proyecto ya está alojado en `Hanzzel-corp/hanzzel-corp.github.io`; no crees un segundo repositorio con el mismo nombre. Si necesitás volver a configurar GitHub Pages, revisá **Settings > Pages** en ese repositorio y seleccioná la rama `main` y la carpeta `/ (root)` cuando esa sea la fuente que corresponda. Para actualizar el sitio, trabajá sobre el repositorio existente y subí los cambios aprobados.
 
+Si necesitás obtener una copia local nueva:
+
 ```bash
-git init
-git add index.html styles.css script.js logo.jpg favicon.png og-image.png Jose_Zamora_CV.pdf README.md
-git commit -m "Initial portfolio commit"
-git branch -M main
-git remote add origin https://github.com/Hanzzel-corp/hanzzel-corp.github.io.git
-git push -u origin main
+git clone https://github.com/Hanzzel-corp/hanzzel-corp.github.io.git
+cd hanzzel-corp.github.io
 ```
 
-3. Ve a **Settings > Pages** en el repositorio
-4. Selecciona la rama `main` y carpeta `/ (root)`
-5. El sitio estará disponible en `https://hanzzel-corp.github.io/`
+Para publicar cambios sobre el repositorio existente, editá los archivos, revisá el diff y realizá el commit y push correspondientes. No ejecutes `git init` ni agregues un remoto nuevo sobre una copia que ya sea un clon del repositorio.
 
 ### Actualización mediante GitHub Desktop o interfaz web
 
