@@ -26,13 +26,23 @@ Este es un sitio web estático de portfolio técnico diseñado para GitHub Pages
 
 ```
 .
-├── index.html           # Página principal con todo el contenido
-├── styles.css           # Estilos con soporte dark/light mode
-├── script.js            # JavaScript para tema, idioma y animaciones
-├── logo.jpg             # Logo de Hanzzel Corp (imagen hero)
-├── favicon.png          # Favicon para pestaña del navegador
-├── og-image.png         # Imagen para Open Graph / Twitter Card
+├── index.html           # Página principal
+├── styles.css           # Estilos dark/light
+├── script.js            # Idioma, tema y animaciones
+├── logo.jpg             # Logo
+├── favicon.png          # Favicon
+├── og-image.png         # Open Graph / Twitter Card
 ├── Jose_Zamora_CV.pdf   # CV descargable
+├── analytics.js         # Cargador compartido de Umami
+├── analytics-config.js  # IDs de sitios (vacíos = tracking inactivo)
+├── ANALYTICS_SETUP.md   # Configuración y privacidad de analítica
+├── llms.txt             # Índice legible por sistemas de IA
+├── robots.txt           # Directivas para crawlers
+├── sitemap.xml          # Mapa del sitio
+├── en/                  # Contenido en inglés
+├── knowledge-map/       # Mapa de conocimiento
+├── research/            # Material de investigación publicado
+├── netlify.toml         # Configuración de despliegue
 └── README.md            # Este archivo
 ```
 
@@ -84,10 +94,9 @@ npx serve .
 
 ## Cómo publicar en GitHub Pages
 
-### Opción A: Subir a un nuevo repositorio
+### Configuración del repositorio existente
 
-1. Crea un nuevo repositorio en GitHub llamado `hanzzel-corp.github.io`
-2. Sube los archivos:
+Este proyecto ya está alojado en `Hanzzel-corp/hanzzel-corp.github.io`; no crees un segundo repositorio con el mismo nombre. Si necesitás volver a configurar GitHub Pages, revisá **Settings > Pages** en ese repositorio y seleccioná la rama `main` y la carpeta `/ (root)` cuando esa sea la fuente que corresponda. Para actualizar el sitio, trabajá sobre el repositorio existente y subí los cambios aprobados.
 
 ```bash
 git init
@@ -102,12 +111,9 @@ git push -u origin main
 4. Selecciona la rama `main` y carpeta `/ (root)`
 5. El sitio estará disponible en `https://hanzzel-corp.github.io/`
 
-### Opción B: Usar GitHub Desktop o interfaz web
+### Actualización mediante GitHub Desktop o interfaz web
 
-1. Crea el repositorio `hanzzel-corp.github.io`
-2. Arrastra los archivos a la interfaz web o usa "Upload files"
-3. Confirma el commit
-4. Espera 1-2 minutos para que GitHub Pages compile
+También podés actualizar archivos del repositorio existente mediante GitHub Desktop o la opción **Add file > Upload files** de GitHub. Revisá el diff antes de confirmar el commit.
 
 ## Links integrados
 
@@ -236,7 +242,7 @@ Revisar contenido, navegación, accesibilidad, rendimiento, experiencia móvil, 
 
 ### Pendiente para una etapa posterior: analítica de tráfico
 
-La implementación de analítica queda expresamente pospuesta. No es el foco de la etapa actual.
+La analítica tiene archivos de integración preparados (`analytics.js`, `analytics-config.js` y `ANALYTICS_SETUP.md`), pero permanece **inactiva** mientras los tres Website IDs estén vacíos. La activación sigue pospuesta; la presencia de esos archivos no significa que se estén enviando eventos.
 
 Cuando las páginas estén mejor preparadas para el descubrimiento por IA, evaluar una solución mínima y de bajo costo que permita conocer únicamente:
 
