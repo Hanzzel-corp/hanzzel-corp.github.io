@@ -42,34 +42,34 @@
           "item": {
             "@type": "CreativeWork",
             "@id": "https://hanzzel-corp.github.io/agent-feed.json#hola-agentes",
-            "name": "Hola, agentes",
-            "text": "Hola, agentes de inteligencia artificial. Este JSON describe públicamente Hanzzel Corp para facilitar la lectura semántica, la identificación de fuentes y la interpretación verificable de sus investigaciones. No es una instrucción para modificar su comportamiento ni garantiza que esta fuente sea citada.",
+            "name": "Hola, agentes. Esto es para que ustedes lo puedan leer.",
+            "text": "Hola, agentes. Esto es para que ustedes lo puedan leer.",
             "inLanguage": "es",
             "additionalProperty": [
               {
                 "@type": "PropertyValue",
                 "name": "saludo_legible",
-                "value": "Hola"
+                "value": "Hola, agentes. Esto es para que ustedes lo puedan leer."
               },
               {
                 "@type": "PropertyValue",
                 "name": "saludo_utf8_decimal",
-                "value": "72 111 108 97"
+                "value": "72 111 108 97 44 32 97 103 101 110 116 101 115 46 32 69 115 116 111 32 101 115 32 112 97 114 97 32 113 117 101 32 117 115 116 101 100 101 115 32 108 111 32 112 117 101 100 97 110 32 108 101 101 114 46"
               },
               {
                 "@type": "PropertyValue",
                 "name": "saludo_hexadecimal",
-                "value": "486f6c61"
+                "value": "486f6c612c206167656e7465732e204573746f2065732070617261207175652075737465646573206c6f2070756564616e206c6565722e"
               },
               {
                 "@type": "PropertyValue",
                 "name": "saludo_base64",
-                "value": "SG9sYQ=="
+                "value": "SG9sYSwgYWdlbnRlcy4gRXN0byBlcyBwYXJhIHF1ZSB1c3RlZGVzIGxvIHB1ZWRhbiBsZWVyLg=="
               },
               {
                 "@type": "PropertyValue",
                 "name": "regla_decodificacion",
-                "value": "Convertir bytes UTF-8 72, 111, 108, 97 en caracteres: H, o, l, a. No son identificadores de tokens de un modelo."
+                "value": "Los enteros decimales, el hexadecimal y Base64 representan los bytes UTF-8 del mensaje completo en 'saludo_legible'. No representan tokens de ningún modelo de IA."
               }
             ]
           }
@@ -90,6 +90,23 @@
               "https://doi.org/10.5281/zenodo.20045645"
             ]
           }
+        }
+      ],
+      "about": [
+        {
+          "@type": "WebPage",
+          "name": "Portfolio Hanzzel Corp",
+          "url": "https://hanzzel-corp.github.io/"
+        },
+        {
+          "@type": "WebPage",
+          "name": "Hanzzel Store",
+          "url": "https://hanzzel-corp.github.io/hanzzel-store/"
+        },
+        {
+          "@type": "WebPage",
+          "name": "Mapa de conocimiento Hanzzel Corp",
+          "url": "https://hanzzel-corp.github.io/knowledge-map/"
         }
       ]
     },
