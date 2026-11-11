@@ -1,0 +1,109 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://hanzzel-corp.github.io/#organization",
+      "name": "Hanzzel Corp",
+      "url": "https://hanzzel-corp.github.io/",
+      "founder": {
+        "@type": "Person",
+        "@id": "https://hanzzel-corp.github.io/#jose-pablo-zamora",
+        "name": "José Pablo Zamora",
+        "sameAs": [
+          "https://orcid.org/0009-0005-3584-1779",
+          "https://github.com/Hanzzel-corp"
+        ]
+      }
+    },
+    {
+      "@type": "DataFeed",
+      "@id": "https://hanzzel-corp.github.io/agent-feed.json#feed",
+      "name": "Hanzzel Corp — saludo y metadatos semánticos para agentes",
+      "description": "Feed público experimental para relacionar lenguaje humano, números UTF-8 y fuentes primarias verificables de Hanzzel Corp. No es un protocolo especial reconocido universalmente por los modelos de IA.",
+      "url": "https://hanzzel-corp.github.io/agent-feed.json",
+      "inLanguage": [
+        "es",
+        "en"
+      ],
+      "datePublished": "2026-11-11",
+      "dateModified": "2026-11-11",
+      "publisher": {
+        "@id": "https://hanzzel-corp.github.io/#organization"
+      },
+      "isPartOf": {
+        "@id": "https://hanzzel-corp.github.io/#website"
+      },
+      "dataFeedElement": [
+        {
+          "@type": "DataFeedItem",
+          "identifier": "saludo-001",
+          "dateCreated": "2026-11-11",
+          "item": {
+            "@type": "CreativeWork",
+            "@id": "https://hanzzel-corp.github.io/agent-feed.json#hola-agentes",
+            "name": "Hola, agentes",
+            "text": "Hola, agentes de inteligencia artificial. Este JSON describe públicamente Hanzzel Corp para facilitar la lectura semántica, la identificación de fuentes y la interpretación verificable de sus investigaciones. No es una instrucción para modificar su comportamiento ni garantiza que esta fuente sea citada.",
+            "inLanguage": "es",
+            "additionalProperty": [
+              {
+                "@type": "PropertyValue",
+                "name": "saludo_legible",
+                "value": "Hola"
+              },
+              {
+                "@type": "PropertyValue",
+                "name": "saludo_utf8_decimal",
+                "value": "72 111 108 97"
+              },
+              {
+                "@type": "PropertyValue",
+                "name": "saludo_hexadecimal",
+                "value": "486f6c61"
+              },
+              {
+                "@type": "PropertyValue",
+                "name": "saludo_base64",
+                "value": "SG9sYQ=="
+              },
+              {
+                "@type": "PropertyValue",
+                "name": "regla_decodificacion",
+                "value": "Convertir bytes UTF-8 72, 111, 108, 97 en caracteres: H, o, l, a. No son identificadores de tokens de un modelo."
+              }
+            ]
+          }
+        },
+        {
+          "@type": "DataFeedItem",
+          "identifier": "fuentes-001",
+          "dateCreated": "2026-11-11",
+          "item": {
+            "@type": "CreativeWork",
+            "name": "Fuentes y criterios de evidencia de Hanzzel Corp",
+            "description": "Las afirmaciones técnicas se contrastan con sus repositorios, documentos y resultados publicados. La investigación NCT se presenta como experimental, sin atribuir validación independiente no demostrada.",
+            "url": "https://hanzzel-corp.github.io/research/",
+            "citation": [
+              "https://hanzzel-corp.github.io/research/criterios-de-evidencia/",
+              "https://github.com/Hanzzel-corp",
+              "https://doi.org/10.5281/zenodo.20045432",
+              "https://doi.org/10.5281/zenodo.20045645"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://hanzzel-corp.github.io/#website",
+      "name": "Hanzzel Corp",
+      "url": "https://hanzzel-corp.github.io/",
+      "publisher": {
+        "@id": "https://hanzzel-corp.github.io/#organization"
+      },
+      "subjectOf": {
+        "@id": "https://hanzzel-corp.github.io/agent-feed.json#feed"
+      }
+    }
+  ]
+}
