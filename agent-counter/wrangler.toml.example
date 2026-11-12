@@ -1,0 +1,10 @@
+# Copiar a wrangler.toml solo cuando se disponga de una cuenta Cloudflare propia.
+name = "hanzzel-agent-counter"
+main = "worker.mjs"
+compatibility_date = "2026-11-11"
+workers_dev = true
+
+[[d1_databases]]
+binding = "DB"
+database_name = "hanzzel-agent-counter"
+database_id = "REEMPLAZAR_ID_CREADO_EN_CLOUDFLARE"
