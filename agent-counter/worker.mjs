@@ -76,7 +76,7 @@ async function serveFeed(request, env, url) {
   // Fail closed for fetching: never return an invented or stale JSON.
   let upstream;
   try {
-    upstream = await fetch(FEED_URL, { redirect: 'error' });
+    upstream = await fetch(FEED_URL, { redirect: 'manual' });
   } catch {
     return json({ error: 'feed_unavailable' }, 502);
   }
