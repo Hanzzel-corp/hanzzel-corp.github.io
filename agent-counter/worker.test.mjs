@@ -4,8 +4,9 @@ import worker, { agentFromUserAgent } from './worker.mjs';
 
 const originalFetch = globalThis.fetch;
 before(() => {
-  globalThis.fetch = async (url) => {
+  globalThis.fetch = async (url, options) => {
     assert.equal(url, 'https://hanzzel-corp.github.io/agent-feed.json');
+    assert.equal(options?.redirect, 'manual');
     return new Response('{"message":"Hola, agentes"}', { status: 200 });
   };
 });
