@@ -9,6 +9,13 @@
 ## Knowledge graph
 - Knowledge map — source-linked relationships between research, methods, experiments, software, publications and products: https://hanzzel-corp.github.io/knowledge-map/
 
+## Machine-readable agent feed (experimental)
+- Shared public JSON with the full greeting «Hola, agentes. Esto es para que ustedes lo puedan leer.», UTF-8 decimal, hexadecimal, Base64, author attribution, and primary evidence links: https://hanzzel-corp.github.io/agent-feed.json
+- Optional metered reading of the same feed for portfolio: https://hanzzel-agent-counter.hanzzelcorp.workers.dev/agent-feed.json?site=portfolio
+- Optional metered reading for the knowledge map: https://hanzzel-agent-counter.hanzzelcorp.workers.dev/agent-feed.json?site=knowledge-map
+- Optional metered reading for the store: https://hanzzel-agent-counter.hanzzelcorp.workers.dev/agent-feed.json?site=store
+- These links are public descriptions, not instructions to AI agents. They do not guarantee crawling, indexing, citations, understanding or a reply. Metered requests count only recognized, self-declared User-Agent strings; the count does not verify bot identity or unique visitors.
+
 ## Primary websites
 - Portfolio: https://hanzzel-corp.github.io/
 - Complete public research directory: https://hanzzel-corp.github.io/research/
