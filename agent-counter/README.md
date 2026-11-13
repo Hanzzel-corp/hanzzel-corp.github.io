@@ -1,43 +1,43 @@
-# Hanzzel Corp — contador de solicitudes declaradas de agentes (preparado, NO activado)
+# Hanzzel Corp — contador de solicitudes declaradas de agentes
 
-## Objetivo y límites
+## Estado documentado: conectado y probado por el propietario (12 de noviembre de 2026)
 
-Este componente opcional **no es un proyecto multiagente**. Está contenido en el mismo repositorio público del portfolio. Cuenta GET al JSON público a través de un enlace medido, únicamente cuando el User-Agent declara un agente conocido. No intercepta solicitudes directas a GitHub Pages, no identifica visitantes únicos y no demuestra que un modelo comprendió el saludo. Los User-Agent son falsificables: **no afirmar que la identidad del agente fue verificada**.
+El propietario creó en Cloudflare un Worker llamado `hanzzel-agent-counter`, una base D1 con la tabla `agent_hits`, el binding `DB` y el secreto `STATS_TOKEN`. Las capturas del 12/11/2026 muestran: lectura correcta del JSON, rechazo `{"error":"unauthorized"}` de `/stats` sin token, inserción de una solicitud de prueba y su eliminación posterior. El contador volvió a **cero registros** tras esa prueba.
 
-La web no cambia: la configuración y código de esta carpeta no tienen efecto hasta que el propietario despliegue el servicio en **su propia cuenta de Cloudflare** y autorice actualizar los tres enlaces de metadatos. No hay botones, scripts en navegador, cookies ni credenciales en el HTML. Los visitantes solo pueden leer el feed; la escritura del contador ocurre dentro del servicio, sin acceso a GitHub.
+El 12/11/2026 se fusionaron cambios de metadatos de las tres páginas para que apunten al **mismo Worker**. El desglose por página solo depende del parámetro `site`. El código fuente de esta carpeta corresponde al sistema implementado; cualquier cambio futuro desde GitHub requerirá desplegarse de nuevo en Cloudflare para afectar al servicio en ejecución.
 
-## Costos y datos
+**Alcance de la comprobación:** las capturas del propietario acreditan esas pruebas puntuales. No existe acceso de lectura a su panel privado de Cloudflare desde el repositorio ni se ha certificado el estado del despliegue en tiempo real el 13/11/2026. La publicación del código en GitHub por sí sola no instala ni sincroniza el Worker.
 
-Cloudflare Workers y D1 ofrecen límites de uso gratuitos, que pueden cambiar. No se activa un plan pago automáticamente. Se guardan solo agregados por día UTC, sección indicada por el enlace (portfolio, store o knowledge-map) y nombre de User-Agent reconocido. No se guardan IP, referidos, cookies, URL de origen ni mensajes privados.
+## Endpoints existentes y enlaces públicos
 
-## Puesta en marcha: requiere cuenta propia y autorización de despliegue
+- Fuente JSON canónica (directa, no medida): https://hanzzel-corp.github.io/agent-feed.json
+- Portfolio: https://hanzzel-agent-counter.hanzzelcorp.workers.dev/agent-feed.json?site=portfolio
+- Tienda: https://hanzzel-agent-counter.hanzzelcorp.workers.dev/agent-feed.json?site=store
+- Mapa de conocimiento: https://hanzzel-agent-counter.hanzzelcorp.workers.dev/agent-feed.json?site=knowledge-map
+- Estadísticas privadas: `https://hanzzel-agent-counter.hanzzelcorp.workers.dev/stats`; requieren encabezado `Authorization: Bearer <STATS_TOKEN>`. No poner este secreto en URL, HTML, JS o repositorio.
 
-1. Entrar en Cloudflare con una cuenta propiedad de Hanzzel Corp y seleccionar el plan **Workers Free**.
-2. En esta carpeta, instalar o ejecutar Wrangler con Node.js 20+: npx wrangler login (sin compartir contraseñas/tokens por chat).
-3. Crear base de datos D1: npx wrangler d1 create hanzzel-agent-counter.
-4. Copiar wrangler.toml.example a wrangler.toml y colocar allí exclusivamente el ID público de la base creada. No editar el código del portfolio.
-5. Aplicar el esquema: npx wrangler d1 execute hanzzel-agent-counter --remote --file=./schema.sql.
-6. Desplegar primero el servicio, sin actualizar aún los enlaces de las páginas: npx wrangler deploy. Registrar la URL https://hanzzel-agent-counter.TU_SUBDOMINIO.workers.dev que muestra Wrangler.
-7. Crear un token secreto para consultar las estadísticas: npx wrangler secret put STATS_TOKEN (valor largo y aleatorio, no guardarlo en Git ni en wrangler.toml).
-8. Probar GET y HEAD en /agent-feed.json?site=portfolio; inspeccionar GET /stats usando Authorization: Bearer TOKEN. El endpoint /stats no es público. Las pruebas sin generar cifras falsas usan un User-Agent humano, que no incrementa el contador. Las pruebas con un User-Agent de bot generan registros de prueba y deben contabilizarse por separado al interpretar las cifras.
-9. **Solo después de verificar la URL del Worker**, cambiar los tres enlaces rel="describedby" del portfolio, la tienda y el mapa para apuntar al endpoint medido con su parámetro site correspondiente. Hacerlo en un PR de revisión y publicar por autorización expresa.
+## Qué se mide y qué no
 
-## Qué se cuenta exactamente
+**Una sola base D1** agrega solicitudes HTTP GET al endpoint medido cuando el cliente declara un User-Agent reconocible. Guarda el día UTC, el valor `site` declarado, el nombre de agente declarado y el número de solicitudes. El total conjunto se consulta con:
 
-- GET que llegan a la URL del Worker y solicitan el JSON (una fila agregada por fecha, sitio declarado y nombre de agente).
-- GET directos a https://hanzzel-corp.github.io/agent-feed.json, accesos al HTML y visitas a las demás páginas **no se ven** desde este Worker y no entran en el contador.
-- Tampoco se cuenta HEAD (comprobación de recurso), visitantes humanos, agentes que omitan la URL medida, ni robots con nombres desconocidos.
-- El parámetro site lo declara el enlace y puede falsificarse. No representa una prueba de la página realmente visitada.
-- Si D1 alcanza su cuota diaria gratuita, algunos accesos pueden quedar sin registro. No se fabrican cifras.
+```sql
+SELECT COALESCE(SUM(requests), 0) AS total_solicitudes_declaradas
+FROM agent_hits;
+```
 
-## Seguridad
+El número **NO** equivale a visitantes únicos ni a agentes verificados; la cabecera User-Agent y el parámetro `site` se pueden falsificar. Una solicitud no demuestra que la IA haya interpretado el mensaje ni que cite las páginas. Los rastreadores que accedan al HTML pero no sigan el enlace `rel="describedby"`, quienes visiten el JSON canónico directamente, las solicitudes HEAD, agentes desconocidos y visitantes humanos no se contabilizan. No hay garantía de que los motores sigan esa etiqueta.
 
-- No se acepta ningún método POST/PUT/PATCH/DELETE que cambie el contenido.
-- Único origen de datos: URL fija del JSON existente; no existe un parámetro que permita elegir otra URL.
-- /stats necesita un token secreto que reside solo en Cloudflare.
-- El Worker no conoce credenciales de GitHub, no tiene permisos sobre repositorios y no ejecuta código contenido en el JSON.
-- No exponer el token en HTML, JS, GitHub Actions ni documentación pública. El dueño puede consultar D1 directamente en su panel.
+## Protección y privacidad
 
-## Prueba local
+- Solo lectura pública del JSON; `POST`, `PUT`, `PATCH` y `DELETE` no permiten editar la página, GitHub o la base.
+- La escritura de agregados sucede internamente en Cloudflare D1. Ningún visitante recibe credenciales GitHub.
+- `/stats` requiere el secreto guardado en el entorno de Cloudflare. No exponer ni registrar el token.
+- El diseño no almacena IP, cookies, consultas privadas ni identificadores individuales en D1. Cloudflare puede generar registros y métricas de infraestructura independientes.
+- No existe un contador visual ni un script de seguimiento añadido al navegador; las tres páginas conservaron su apariencia.
 
-Usar Node.js 20 o más reciente: node --test worker.test.mjs.
+## Mantenimiento
+
+- Código del Worker: `worker.mjs`; pruebas locales: `node --test worker.test.mjs` (Node.js 20+); esquema D1: `schema.sql`.
+- `wrangler.toml.example` es solo un ejemplo para reproducir una instalación. **No hay que recrear** el Worker, la base o la clave para seguir midiendo.
+- Si se modifica `worker.mjs` en GitHub, se debe aprobar y aplicar el cambio correspondiente en Cloudflare: no hay sincronización automática demostrada.
+- No activar servicios pagos ni cambiar permisos, visibilidad de repositorios o contenido visual sin aprobación del propietario.
