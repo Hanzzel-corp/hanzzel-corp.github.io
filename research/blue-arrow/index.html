@@ -52,6 +52,20 @@
 .knowledge th,.knowledge td{border:1px solid #8885;padding:9px;text-align:left;vertical-align:top}
 .knowledge .lang{margin-top:54px;padding-top:28px;border-top:3px solid #8885}
 .knowledge .links{display:flex;gap:14px;flex-wrap:wrap;margin:20px 0}
+/* Blue Arrow — project-specific, responsive visual summary; portfolio untouched. */
+.ba-flow{margin:32px 0 40px;padding:26px;border:1px solid var(--border-color);border-radius:18px;background:linear-gradient(140deg,rgba(88,166,255,.10),transparent 62%),var(--bg-secondary)}
+.ba-flow__eyebrow{margin:0 0 8px;color:var(--accent-primary);font-size:.75rem;font-weight:800;letter-spacing:.11em;text-transform:uppercase}
+.ba-flow h2{margin:0 0 10px;padding:0;border:0;font-size:clamp(1.35rem,3vw,1.85rem);line-height:1.25}
+.ba-flow__intro{margin:0;color:var(--text-secondary);max-width:790px}
+.ba-flow__steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px;list-style:none;margin:24px 0 16px;padding:0;counter-reset:ba-step}
+.ba-flow__steps li{position:relative;min-width:0;padding:18px;border:1px solid var(--border-color);border-radius:13px;background:var(--bg-primary);counter-increment:ba-step}
+.ba-flow__steps li::before{content:counter(ba-step,decimal-leading-zero);display:inline-flex;align-items:center;justify-content:center;width:35px;height:35px;margin-bottom:12px;border-radius:10px;background:rgba(88,166,255,.14);border:1px solid var(--accent-primary);color:var(--accent-primary);font-family:var(--font-mono);font-size:.83rem;font-weight:800}
+.ba-flow__steps li:not(:nth-child(3n))::after{content:"→";position:absolute;z-index:1;right:-14px;top:45%;width:27px;text-align:center;background:var(--bg-secondary);color:var(--accent-primary);font-size:1.2rem;line-height:1.4}
+.ba-flow__steps strong{display:block;margin-bottom:4px;color:var(--text-primary);font-size:1rem;line-height:1.35}
+.ba-flow__steps span{display:block;color:var(--text-secondary);font-size:.9rem;line-height:1.5}
+.ba-flow figcaption{color:var(--text-muted);font-size:.82rem;line-height:1.5}
+@media(max-width:760px){.ba-flow__steps{grid-template-columns:repeat(2,minmax(0,1fr))}.ba-flow__steps li::after{display:none!important}}
+@media(max-width:520px){.ba-flow{padding:18px;margin:24px 0 32px}.ba-flow__steps{grid-template-columns:1fr;gap:11px}.ba-flow__steps li{padding:14px 16px}.ba-flow__steps li::before{width:30px;height:30px;margin-bottom:8px}}
 </style>
 </head>
 <body><main class="knowledge">
@@ -64,6 +78,21 @@
 <div class="links"><a href="https://github.com/Hanzzel-corp/blue-arrow">Código fuente en GitHub</a><a href="https://doi.org/10.5281/zenodo.20045432">Registro DOI en Zenodo</a><a href="https://github.com/Hanzzel-corp/blue-arrow/blob/main/README.md">README y documentación primaria</a></div>
 </header>
 <aside class="note"><strong>Estado y alcance.</strong> La documentación del repositorio describe una arquitectura modular operativa y una migración en curso desde un flujo token-based hacia un modelo state-driven. No debe interpretarse el diseño objetivo como una migración ya finalizada. La existencia del repositorio y del registro DOI tampoco equivale a una auditoría de seguridad independiente ni a una certificación de producción.</aside>
+
+<figure class="ba-flow" aria-labelledby="ba-flow-title">
+<p class="ba-flow__eyebrow">Blue Arrow · Arquitectura documentada</p>
+<h2 id="ba-flow-title">De una instrucción a una acción verificada</h2>
+<p class="ba-flow__intro">Una vista rápida del recorrido descrito en el repositorio: la IA puede asistir, pero la ejecución pasa por controles y aprobación humana.</p>
+<ol class="ba-flow__steps">
+<li><strong>Entrada</strong><span>Telegram o interfaz CLI</span></li>
+<li><strong>Interpretación</strong><span>Planner y Agent preparan el plan</span></li>
+<li><strong>Autorización</strong><span>Safety Guard y Approval controlan la acción</span></li>
+<li><strong>Ejecución</strong><span>Router distribuye tareas a los workers</span></li>
+<li><strong>Verificación</strong><span>Verifier comprueba resultados cuando corresponde</span></li>
+<li><strong>Cierre</strong><span>Supervisor coordina el estado y la respuesta</span></li>
+</ol>
+<figcaption>Esquema conceptual basado en la documentación pública, no una captura de una ejecución. La migración completa a state-driven continúa en desarrollo.</figcaption>
+</figure>
 
 <h2>1. Problema que aborda</h2>
 <p>Las automatizaciones que interpretan instrucciones en lenguaje natural y ejecutan acciones sobre un equipo pueden producir efectos no deseados si la interpretación, la autorización y la ejecución quedan mezcladas. Blue Arrow aborda ese problema separando la recepción de comandos, la planificación, los controles de seguridad, la aprobación, el enrutamiento a workers y la comprobación del resultado.</p>
