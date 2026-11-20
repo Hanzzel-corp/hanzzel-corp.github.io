@@ -54,6 +54,20 @@
 .knowledge th,.knowledge td{border:1px solid #8885;padding:9px;text-align:left;vertical-align:top}
 .knowledge .lang{margin-top:54px;padding-top:28px;border-top:3px solid #8885}
 .knowledge .links{display:flex;gap:14px;flex-wrap:wrap;margin:20px 0}
+/* Evidencia reproducible — valores publicados, no un resultado recalculado. */
+.nct-proof{margin:28px 0 38px;padding:24px;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:16px}
+.nct-proof h2{margin:0 0 8px;padding:0;border:0;font-size:clamp(1.4rem,3vw,1.9rem)}
+.nct-proof__lead{margin:0;color:var(--text-secondary)}
+.nct-proof__stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:20px 0}
+.nct-proof__stats div{padding:16px;min-width:0;border:1px solid var(--border-color);border-radius:12px;background:var(--bg-primary)}
+.nct-proof__stats dt{font-size:.85rem;color:var(--text-secondary);line-height:1.4}
+.nct-proof__stats dd{margin:8px 0 0;font-size:clamp(1.4rem,3vw,2rem);font-weight:800;font-variant-numeric:tabular-nums;color:var(--accent-secondary);line-height:1.2}
+.nct-proof figure{margin:0;background:var(--bg-primary);border:1px solid var(--border-color);border-radius:12px;overflow:hidden}
+.nct-proof figure img{display:block;width:100%;height:auto;background:#f6f8fa}
+.nct-proof figcaption{padding:14px 16px;color:var(--text-secondary);font-size:.89rem;line-height:1.55}
+.nct-proof__limitation{margin:16px 0 0;color:var(--text-secondary);font-size:.87rem}
+@media(max-width:680px){.nct-proof{padding:16px}.nct-proof__stats{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body><main class="knowledge">
@@ -66,6 +80,21 @@
 <div class="links"><a href="https://github.com/Hanzzel-corp/nct-depth-motif">Código fuente y resultados</a><a href="https://doi.org/10.5281/zenodo.20045645">Registro DOI en Zenodo</a><a href="https://github.com/Hanzzel-corp/nct-depth-motif/blob/main/docs/METHOD.md">Método detallado</a><a href="https://github.com/Hanzzel-corp/nct-depth-motif/blob/main/docs/INTERPRETATION.md">Interpretación de resultados</a></div>
 </header>
 <aside class="note"><strong>Estado:</strong> reporte técnico exploratorio, no revisado por pares. El repositorio informa resultados estadísticamente significativos frente a permutaciones aleatorias, pero de magnitud práctica modesta. No se ha presentado este experimento como un detector superior al estado del arte.</aside>
+
+<section class="nct-proof" aria-labelledby="nct-proof-title">
+<h2 id="nct-proof-title">Resultados concretos del experimento</h2>
+<p class="nct-proof__lead">Datos reportados en el README para <code>motif_survival_binary</code>, evaluación grouped split sobre NYU Depth V2 y comparación con 256 permutaciones aleatorias. No se ejecutaron pruebas nuevas para esta página.</p>
+<dl class="nct-proof__stats">
+<div><dt>Ejecuciones del grouped split</dt><dd>30</dd></div>
+<div><dt>ΔAUC frente a random</dt><dd>+0,0070</dd></div>
+<div><dt>ΔF1 frente a random</dt><dd>+0,0054</dd></div>
+</dl>
+<figure>
+<a href="https://github.com/Hanzzel-corp/nct-depth-motif/blob/main/docs/assets/scenes_auto_contact_sheet.png" target="_blank" rel="noopener noreferrer"><img src="https://raw.githubusercontent.com/Hanzzel-corp/nct-depth-motif/main/docs/assets/scenes_auto_contact_sheet.png" loading="lazy" decoding="async" alt="Lámina de ejemplos publicados de ocho clusters RGB automáticos, sin etiquetado semántico oficial"></a>
+<figcaption>Lámina de los ocho clusters RGB generados automáticamente para el análisis leave-one-cluster-out (24 ejecuciones). No equivalen a escenas semánticas oficialmente etiquetadas. <a href="https://github.com/Hanzzel-corp/nct-depth-motif/blob/main/docs/assets/scenes_auto_contact_sheet.png">Imagen original</a>.</figcaption>
+</figure>
+<p class="nct-proof__limitation"><strong>Alcance:</strong> las mejoras publicadas son pequeñas; faltan comparaciones con Canny, Sobel y HED, así como validación en otros datasets. <a href="https://github.com/Hanzzel-corp/nct-depth-motif/blob/main/README.md#resultados">Tablas originales y pasos de reproducción</a>.</p>
+</section>
 
 <h2>1. Pregunta experimental</h2>
 <p>La pregunta es si una tabla de pesos aprendida para motivos discretos contiene información útil para estimar discontinuidades geométricas en mapas de profundidad, y si su rendimiento en un conjunto de prueba independiente supera al de permutaciones aleatorias de esos mismos pesos.</p>
