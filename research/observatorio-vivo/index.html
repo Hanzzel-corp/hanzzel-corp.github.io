@@ -32,6 +32,19 @@
 <link rel="stylesheet" href="../../styles.css">
 <style>
 .k{max-width:980px;margin:auto;padding:28px 20px 70px;line-height:1.72}.k nav{display:flex;gap:16px;flex-wrap:wrap;border-bottom:1px solid #8885;padding-bottom:16px}.k h1{font-size:clamp(2rem,5vw,3rem);line-height:1.15;margin-top:42px}.k h2{margin-top:38px;border-bottom:1px solid #8885;padding-bottom:8px}.k .lead{font-size:1.15rem}.k .note{padding:14px 18px;border-left:3px solid #22a6b3;background:#22a6b310;margin:22px 0}.k pre{overflow:auto;padding:16px;border-radius:10px;background:#8882}.k table{width:100%;border-collapse:collapse;display:block;overflow-x:auto}.k th,.k td{border:1px solid #8885;padding:9px;text-align:left;vertical-align:top}.k .en{margin-top:54px;padding-top:28px;border-top:3px solid #8885}
+/* Capturas reales: presentación responsive del proyecto, no de la portada. */
+.ob-gallery{margin:28px 0 38px;padding:24px;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:16px}
+.ob-gallery h2{margin:0 0 8px;padding:0;border:0;font-size:clamp(1.4rem,3vw,1.9rem)}
+.ob-gallery__intro{margin:0 0 18px;color:var(--text-secondary)}
+.ob-gallery__grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.ob-gallery figure{margin:0;min-width:0;border:1px solid var(--border-color);border-radius:12px;overflow:hidden;background:var(--bg-primary)}
+.ob-gallery figure:first-child{grid-column:1/-1}
+.ob-gallery img{width:100%;height:auto;display:block;background:#f6f8fa}
+.ob-gallery figcaption{padding:12px 15px;color:var(--text-secondary);line-height:1.55;font-size:.89rem}
+.ob-gallery figcaption strong{display:block;color:var(--text-primary)}
+.ob-gallery__note{margin:17px 0 0;color:var(--text-muted);font-size:.85rem;line-height:1.55}
+@media(max-width:680px){.ob-gallery{padding:16px}.ob-gallery__grid{grid-template-columns:1fr}.ob-gallery figure:first-child{grid-column:auto}}
+
 </style>
 </head>
 <body><main class="k">
@@ -41,7 +54,18 @@
 <h1>Observatorio Vivo: detectar señales emergentes y conservar su trazabilidad</h1>
 <p class="lead">Observatorio Vivo es un sistema backend local que recopila señales públicas de varias fuentes, extrae y normaliza términos, calcula puntuaciones de actividad, clasifica posibles brotes y mantiene registros que permiten rastrear el origen de las señales.</p>
 <p><a href="https://github.com/Hanzzel-corp/Observatorio.-Vivo">Código fuente</a> · <a href="https://github.com/Hanzzel-corp/Observatorio.-Vivo/blob/main/README.md">README principal</a> · <a href="https://github.com/Hanzzel-corp/Observatorio.-Vivo/tree/main/doc">Documentación técnica</a> · <a href="https://github.com/Hanzzel-corp/Observatorio.-Vivo/tree/main">Archivos del proyecto</a></p>
-<aside class="note"><strong>Nota de versiones:</strong> el README principal identifica la entrega como Observatorio Vivo v0.3.0 y el motor interno como v6.1.2; el README en inglés menciona v6.1.3. Esta ficha evita tratar esos identificadores como una única versión inequívoca. Conviene normalizar el versionado en el repositorio antes de usarlo como referencia de release.</aside>
+<aside class="note"><strong>Nota de versiones:</strong> los README en español e inglés identifican la entrega como v0.3.0 y el motor interno como v6.1.5; las capturas publicadas muestran el encabezado v6.1.6. Se indican ambas referencias sin asumir que la versión de la interfaz corresponda a todos los componentes.</aside>
+
+<section class="ob-gallery" aria-labelledby="ob-gallery-title">
+<h2 id="ob-gallery-title">Así se ve Observatorio Vivo</h2>
+<p class="ob-gallery__intro">Capturas auténticas conservadas en el repositorio público. No son imágenes recreadas mediante IA.</p>
+<div class="ob-gallery__grid">
+<figure><a href="https://github.com/Hanzzel-corp/Observatorio.-Vivo/blob/main/Radar.png" target="_blank" rel="noopener noreferrer"><img src="https://raw.githubusercontent.com/Hanzzel-corp/Observatorio.-Vivo/main/Radar.png" loading="lazy" decoding="async" alt="Captura del radar con tarjetas de estado y términos detectados"></a><figcaption><strong>Radar de tendencias</strong>Vista de señales y términos capturados. <a href="https://github.com/Hanzzel-corp/Observatorio.-Vivo/blob/main/Radar.png">Original en GitHub</a>.</figcaption></figure>
+<figure><a href="https://github.com/Hanzzel-corp/Observatorio.-Vivo/blob/main/Bortes.png" target="_blank" rel="noopener noreferrer"><img src="https://raw.githubusercontent.com/Hanzzel-corp/Observatorio.-Vivo/main/Bortes.png" loading="lazy" decoding="async" alt="Captura de Observatorio Vivo con tabla de brotes y alertas"></a><figcaption><strong>Detección de brotes</strong>Tabla de fenómenos nacientes publicada por el proyecto. <a href="https://github.com/Hanzzel-corp/Observatorio.-Vivo/blob/main/Bortes.png">Original en GitHub</a>.</figcaption></figure>
+<figure><a href="https://github.com/Hanzzel-corp/Observatorio.-Vivo/blob/main/Observacion.png" target="_blank" rel="noopener noreferrer"><img src="https://raw.githubusercontent.com/Hanzzel-corp/Observatorio.-Vivo/main/Observacion.png" loading="lazy" decoding="async" alt="Captura de Observatorio Vivo con bandeja de observación y seguimiento"></a><figcaption><strong>Bandeja de observación</strong>Pantalla de clasificación y seguimiento de señales. <a href="https://github.com/Hanzzel-corp/Observatorio.-Vivo/blob/main/Observacion.png">Original en GitHub</a>.</figcaption></figure>
+</div>
+<p class="ob-gallery__note">Las imágenes muestran una interfaz publicada, no una ejecución nueva ni una validación independiente de resultados. El número visible en las capturas puede diferir del versionado declarado en los README.</p>
+</section>
 
 <h2>1. Problema y objetivo</h2>
 <p>Los sistemas de tendencias suelen mostrar rankings de popularidad, pero una posición alta no explica necesariamente si un tema es nuevo, si está acelerándose, si aparece en varias regiones o si la señal proviene de una sola fuente. Observatorio Vivo intenta combinar esas dimensiones para distinguir ruido, primeras apariciones y fenómenos con mayor persistencia o difusión.</p>
