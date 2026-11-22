@@ -24,3 +24,12 @@
   .evidence-lightbox figure img{max-height:63dvh}
 }
 @media(prefers-reduced-motion:reduce){.ob-gallery__grid{scroll-behavior:auto}}
+
+/* Source trail accompanying NCT Depth Motif's published, non-independent metrics. */
+.nct-proof__method{margin:2px 0 18px;color:var(--text-secondary);font-size:.9rem;line-height:1.65}
+.nct-proof__method strong{color:var(--text-primary)}
+.nct-proof__sources{display:flex;flex-wrap:wrap;gap:9px;margin-top:14px}
+.nct-proof__sources a{display:inline-flex;align-items:center;min-height:42px;padding:8px 12px;border:1px solid var(--border-color);border-radius:9px;color:var(--text-primary);background:var(--bg-primary);text-decoration:none;font-weight:600;font-size:.85rem;line-height:1.4}
+.nct-proof__sources a:hover,.nct-proof__sources a:focus-visible{border-color:var(--accent-primary);color:var(--accent-primary)}
+.nct-proof__sources a:focus-visible{outline:2px solid var(--accent-primary);outline-offset:2px}
+@media(max-width:520px){.nct-proof__sources{display:grid;grid-template-columns:1fr 1fr}.nct-proof__sources a:last-child{grid-column:1/-1}.nct-proof__sources a{justify-content:center;text-align:center}}
