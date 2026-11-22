@@ -301,8 +301,8 @@
         <div class="tiny muted">Display mode</div>
         <div class="row" style="margin-top:8px; align-items:center;">
           <span id="currentCategoryBadge" class="badge badge-strong">all</span>
-          <span id="pathBadge" class="badge">ruta 0</span>
-          <span id="modeBadge" class="badge">red</span>
+          <span id="pathBadge" class="badge">path 0</span>
+          <span id="modeBadge" class="badge">graph</span>
         </div>
       </div>
     </div>
@@ -323,7 +323,7 @@
       <div class="block">
         <div class="section-title">
           <h2>Module inspector</h2>
-          <span class="badge" id="moduleDegreeBadge">grado 0</span>
+          <span class="badge" id="moduleDegreeBadge">degree 0</span>
         </div>
         <div class="stats">
           <div class="stat-card"><div class="label">Inputs</div><div class="value" id="selectedIn">0</div></div>
@@ -1090,7 +1090,7 @@
         if (!state.selectedNodeId && state.graph.nodes.length) {
           state.selectedNodeId = state.graph.nodes[0].id;
         }
-        el.pathList.innerHTML = '<div class="empty">No hay directed path con la selección actual. Se muestra la red completa temporalmente.</div>';
+        el.pathList.innerHTML = '<div class="empty">No directed route exists for the current selection. Showing the complete graph temporarily.</div>';
         updateSelectedPanel();
         updateHeaderBadges();
         return;
