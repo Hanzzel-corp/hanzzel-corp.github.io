@@ -7,6 +7,9 @@
 <meta name="description" content="Ficha técnica del experimento NCT Depth Motif: descriptores locales Sx, Sy, Sz, cuatro estados discretos, 64 motivos, validación grouped split y leave-one-cluster-out sobre NYU Depth V2, resultados y limitaciones.">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://hanzzel-corp.github.io/research/nct-depth-motif/">
+<link rel="alternate" hreflang="es" href="https://hanzzel-corp.github.io/research/nct-depth-motif/">
+<link rel="alternate" hreflang="en" href="https://hanzzel-corp.github.io/en/research/nct-depth-motif/">
+<link rel="alternate" hreflang="x-default" href="https://hanzzel-corp.github.io/research/nct-depth-motif/">
 <meta property="og:type" content="article">
 <meta property="og:title" content="NCT Depth Motif — validación experimental de motivos discretos">
 <meta property="og:description" content="Método, resultados cuantitativos, reproducción y límites de un reporte técnico exploratorio sobre mapas RGB-D.">
@@ -71,7 +74,7 @@
 </style>
 </head>
 <body><main class="knowledge">
-<nav aria-label="Navegación"><a href="https://hanzzel-corp.github.io/">Hanzzel Corp</a><a href="../">Índice de investigación</a><a href="https://github.com/Hanzzel-corp/nct-depth-motif">Repositorio</a><a href="https://doi.org/10.5281/zenodo.20045645">Registro Zenodo / DOI</a></nav>
+<nav aria-label="Navegación"><a href="https://hanzzel-corp.github.io/">Hanzzel Corp</a><a href="../">Índice de investigación</a><a href="https://github.com/Hanzzel-corp/nct-depth-motif">Repositorio</a><a href="https://doi.org/10.5281/zenodo.20045645">Registro Zenodo / DOI</a><a href="https://hanzzel-corp.github.io/research/nct-depth-motif/" lang="es" aria-current="page">ES</a> <a href="https://hanzzel-corp.github.io/en/research/nct-depth-motif/" hreflang="en" lang="en">EN</a></nav>
 <article>
 <header>
 <p><strong>Ficha técnica de investigación · Experimento computacional · NCT</strong></p>
@@ -179,22 +182,6 @@ python3 src/motif_survival_grouped.py \
 <p>El proyecto se originó en el marco simbólico NCT desarrollado por su autor. Para este experimento específico, lo que se evalúa es una representación discreta concreta y su procedimiento de validación. El propio README contextualiza sus equivalencias técnicas —producto cartesiano finito, cuantización vectorial y clasificación mediante tabla de consulta— y aclara que el resultado validado aquí no debe presentarse como una nueva matemática demostrada.</p>
 </article>
 
-<section class="lang" lang="en">
-<p><strong>English version · Technical research brief</strong></p>
-<h2>NCT Depth Motif: experimental validation of discrete motifs on depth maps</h2>
-<p class="lead">NCT Depth Motif evaluates a discrete symbolic representation of local depth descriptors on NYU Depth V2. Each pixel is represented by a three-component motif — horizontal gradient, vertical gradient and local Laplacian — quantized into four states: <code>{+, −, 0, ~}</code>, yielding 64 possible motifs.</p>
-<h3>Research question and method</h3>
-<p>The experiment asks whether weights learned for discrete motifs carry useful information for estimating geometric discontinuities on depth maps, and whether they outperform random permutations of those weights on independent test data. The pipeline computes Sx, Sy and Sz, discretizes each component into four states, estimates a 64-entry weight table with shrinkage, and applies a gated residual correction:</p>
-<pre><code>score = delta + alpha * ambiguity_gate * weight_table[motif]</code></pre>
-<h3>Reported results</h3>
-<p>The repository reports a grouped numeric block split with 30 runs (3 alpha values × 10 seeds), 654 NYU Depth V2 test frames and 256 random baselines. For <code>motif_survival</code>, reported p-values are 0.0039 (F1), 0.0079 (AUC) and 0.0039 (Spearman), with ΔAUC +0.0038 and ΔF1 +0.0052 versus random. The binary variant reports p-values 0.0039, 0.0039 and 0.0039, with ΔAUC +0.0070 and ΔF1 +0.0054.</p>
-<p>A leave-one-cluster-out experiment reports 24 runs across eight automatically generated RGB clusters. The main and binary models report p-values below 0.017 for the listed metrics. These are repository-reported results, not an independent reproduction performed by this page.</p>
-<h3>Interpretation and limitations</h3>
-<p>The reported permutation tests show a consistent statistical signal against the specified random baselines, but the absolute effect is small. The project has not been directly compared with Canny, Sobel or HED in the same benchmark; uses only NYU Depth V2; uses RGB k-means clusters rather than official semantic scene labels; and derives its rupture target from the depth map itself rather than manually annotated edges. The report is exploratory and not peer-reviewed. It does not establish state-of-the-art performance, cross-dataset generalization or a proven new mathematical theory.</p>
-<h3>Reproduction</h3>
-<p>The dataset is not included. Obtain NYU Depth V2 from its <a href="https://cs.nyu.edu/~silberman/datasets/nyu_depth_v2.html">official source</a>, follow the setup and commands in the <a href="https://github.com/Hanzzel-corp/nct-depth-motif">repository README</a>, and inspect the <a href="https://github.com/Hanzzel-corp/nct-depth-motif/tree/main/src">source scripts</a>, <a href="https://github.com/Hanzzel-corp/nct-depth-motif/tree/main/results">result files</a> and <a href="https://github.com/Hanzzel-corp/nct-depth-motif/tree/main/docs">technical documents</a>.</p>
-<h3>Primary records</h3>
-<p><a href="https://github.com/Hanzzel-corp/nct-depth-motif">GitHub repository</a> · <a href="https://doi.org/10.5281/zenodo.20045645">Zenodo DOI record</a> · <a href="https://github.com/Hanzzel-corp/nct-depth-motif/blob/main/docs/METHOD.md">Method</a> · <a href="https://github.com/Hanzzel-corp/nct-depth-motif/blob/main/docs/INTERPRETATION.md">Results interpretation</a>.</p>
-</section>
+
 <footer class="note">Esta ficha distingue resultados informados por el repositorio de validaciones independientes. Para auditar el experimento, utilizar los scripts, CSV y documentos originales.</footer>
 </main></body></html>
