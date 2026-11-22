@@ -42,6 +42,16 @@ document.addEventListener('DOMContentLoaded', () => {
         : (lang === 'es' ? 'Esta asignación todavía no satisface toda la fórmula.' : 'This assignment does not yet satisfy the entire formula.');
     }
     controls.forEach(input => input.addEventListener('change', render));
+    lab.querySelectorAll('button[data-sat-action]').forEach(button => {
+      button.addEventListener('click', () => {
+        // Example satisfying assignment for this fixed demonstration only: A=true, B=false, C=false.
+        const showExample = button.dataset.satAction === 'example';
+        controls.forEach(input => {
+          input.checked = showExample && input.dataset.satVariable === 'A';
+        });
+        render();
+      });
+    });
     render();
   });
 });
