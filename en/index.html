@@ -95,6 +95,20 @@
           <li><a href="#research" data-en="Research" data-es="Investigación">Research</a></li>
           <li><a href="#contact" data-en="Contact" data-es="Contacto">Contact</a></li>
         </ul>
+        <details class="mobile-nav">
+          <summary><span class="mobile-nav__icon" aria-hidden="true">☰</span><span>Menu</span></summary>
+          <div class="mobile-nav__panel" role="navigation" aria-label="Sections and pages">
+            <a href="#about">About</a>
+            <a href="#services">Build</a>
+            <a href="#projects">Projects</a>
+            <a href="#research">Research</a>
+            <a href="#contact">Contact</a>
+            <div class="mobile-nav__divider" aria-hidden="true"></div>
+            <a href="/en/research/">Research and projects</a>
+            <a href="/en/knowledge-map/">Knowledge map</a>
+            <a href="/hanzzel-store/en/">Store</a>
+          </div>
+        </details>
         <div class="nav-controls">
           <button class="lang-toggle" id="langToggle" aria-label="Toggle language">
             <span class="lang-icon">🌐</span>
@@ -456,5 +470,6 @@
   </footer>
 
   <script src="/script.js"></script>
+  <script src="/mobile-nav.js" defer></script>
 </body>
 </html>
