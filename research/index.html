@@ -7,6 +7,9 @@
   <meta name="description" content="Índice público de investigaciones, experimentos computacionales y herramientas de software de José Pablo Zamora / Hanzzel Corp. NCT, IA local, automatización y modelos computacionales.">
   <meta name="robots" content="index,follow,max-image-preview:large">
   <link rel="canonical" href="https://hanzzel-corp.github.io/research/">
+<link rel="alternate" hreflang="es" href="https://hanzzel-corp.github.io/research/">
+<link rel="alternate" hreflang="en" href="https://hanzzel-corp.github.io/en/research/">
+<link rel="alternate" hreflang="x-default" href="https://hanzzel-corp.github.io/research/">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Investigaciones y proyectos | Hanzzel Corp">
   <meta property="og:description" content="Un índice de software práctico, investigación NCT y exploraciones matemático-computacionales.">
@@ -63,7 +66,7 @@
         <a href="https://hanzzel-corp.github.io/hanzzel-store/" data-es="Tienda" data-en="Store">Tienda</a>
         <a href="../knowledge-map/" data-es="Mapa de conocimiento" data-en="Knowledge map">Mapa de conocimiento</a>
         <a href="https://orcid.org/0009-0005-3584-1779">ORCID</a>
-        <button id="researchLang" type="button" aria-label="Switch language">EN</button>
+        <a id="researchLang" href="/en/research/" hreflang="en" lang="en" aria-label="Read in English">EN</a>
       </nav>
     </header>
 
@@ -127,22 +130,5 @@
       </footer>
     </main>
   </div>
-  <script>
-    const langButton = document.getElementById('researchLang');
-    let lang = localStorage.getItem('hanzzel-research-lang') || 'es';
-    function setLang(next) {
-      lang = next;
-      document.documentElement.lang = next;
-      document.querySelectorAll('[data-es][data-en]').forEach(el => {
-        const value = el.getAttribute('data-' + next);
-        if (value) el.innerHTML = value;
-      });
-      langButton.textContent = next === 'es' ? 'EN' : 'ES';
-      langButton.setAttribute('aria-label', next === 'es' ? 'Switch to English' : 'Cambiar a español');
-      localStorage.setItem('hanzzel-research-lang', next);
-    }
-    langButton.addEventListener('click', () => setLang(lang === 'es' ? 'en' : 'es'));
-    setLang(lang);
-  </script>
-</body>
+  </body>
 </html>

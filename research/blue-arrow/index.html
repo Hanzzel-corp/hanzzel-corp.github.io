@@ -7,6 +7,9 @@
 <meta name="description" content="Documentación técnica de Blue Arrow: orquestación local de acciones de escritorio, terminal, navegador y documentos mediante Telegram, módulos desacoplados, aprobación humana y verificación de ejecución.">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://hanzzel-corp.github.io/research/blue-arrow/">
+<link rel="alternate" hreflang="es" href="https://hanzzel-corp.github.io/research/blue-arrow/">
+<link rel="alternate" hreflang="en" href="https://hanzzel-corp.github.io/en/research/blue-arrow/">
+<link rel="alternate" hreflang="x-default" href="https://hanzzel-corp.github.io/research/blue-arrow/">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Blue Arrow — Orquestación local con control humano">
 <meta property="og:description" content="Arquitectura, flujo de ejecución, tecnologías, casos de uso y límites documentados del framework Blue Arrow.">
@@ -69,7 +72,7 @@
 </style>
 </head>
 <body><main class="knowledge">
-<nav aria-label="Navegación"><a href="https://hanzzel-corp.github.io/">Hanzzel Corp</a><a href="../">Índice de investigación</a><a href="https://github.com/Hanzzel-corp/blue-arrow">Repositorio</a><a href="https://doi.org/10.5281/zenodo.20045432">Registro Zenodo / DOI</a></nav>
+<nav aria-label="Navegación"><a href="https://hanzzel-corp.github.io/">Hanzzel Corp</a><a href="../">Índice de investigación</a><a href="https://github.com/Hanzzel-corp/blue-arrow">Repositorio</a><a href="https://doi.org/10.5281/zenodo.20045432">Registro Zenodo / DOI</a><a href="https://hanzzel-corp.github.io/research/blue-arrow/" lang="es" aria-current="page">ES</a> <a href="https://hanzzel-corp.github.io/en/research/blue-arrow/" hreflang="en" lang="en">EN</a></nav>
 <article>
 <header>
 <p><strong>Ficha técnica de proyecto · Software práctico · Hanzzel Corp</strong></p>
@@ -176,29 +179,6 @@ npm run test:all</code></pre>
 </ul>
 </article>
 
-<section class="lang" lang="en">
-<p><strong>English version · Project technical brief</strong></p>
-<h2>Blue Arrow: local action orchestration with human control</h2>
-<p class="lead">Blue Arrow is a local orchestration framework for controlling desktop, terminal, browser, system and document actions through Telegram. Its central principle is <strong>human-in-the-loop execution</strong>: AI may assist with interpretation and planning, while real actions pass through safety checks, approval flows, workers and execution verification.</p>
-<h3>Problem and objective</h3>
-<p>The project separates command intake, planning, safety checks, approval, worker routing and result verification. This separation is intended to reduce the risk of mixing natural-language interpretation with unrestricted execution. The human remains the final decision-maker.</p>
-<h3>Architecture</h3>
-<p>The repository documents a central Node.js runtime, specialized Node.js/Python modules, a declarative JSON blueprint and JSON Lines messaging over stdin/stdout. The high-level path is:</p>
-<pre><code>Telegram / CLI → Planner → Agent → Safety Guard / Approval
-→ Router → Workers → Verifier (where applicable)
-→ Supervisor → interface response</code></pre>
-<p>Documented workers cover desktop, terminal, browser and system tasks. The project also describes optional Ollama/LLaMA integration, Playwright browser automation, and LibreOffice Writer workflows.</p>
-<h3>Current status and limitations</h3>
-<p>The repository describes a migration from a token-based flow toward a state-driven architecture as work in progress. The target design must not be mistaken for a completed migration. Published tests, health checks and CI workflows are inspectable in the source repository; this page does not claim a fresh test run or independent security certification.</p>
-<h3>How to inspect the project</h3>
-<p>Start with the <a href="https://github.com/Hanzzel-corp/blue-arrow">source repository</a>, its <a href="https://github.com/Hanzzel-corp/blue-arrow/blob/main/README.md">README</a>, <a href="https://github.com/Hanzzel-corp/blue-arrow/tree/main/docs">technical documentation</a>, <a href="https://github.com/Hanzzel-corp/blue-arrow/tree/main/tests">tests</a> and <a href="https://github.com/Hanzzel-corp/blue-arrow/actions">GitHub Actions</a>. The project has a <a href="https://doi.org/10.5281/zenodo.20045432">Zenodo DOI record</a>.</p>
-<h3>Reproduction commands</h3>
-<pre><code>git clone https://github.com/Hanzzel-corp/blue-arrow.git
-cd blue-arrow
-npm start
-npm run health
-npm run test:all</code></pre>
-<p>These commands are listed by the project README. Environment setup and prerequisites must be checked in the repository documentation. No new execution is claimed by this page.</p>
-</section>
+
 <footer class="note">Esta ficha resume documentación y recursos públicos del repositorio. Para cambios, versiones y evidencia actualizada, la fuente primaria es GitHub.</footer>
 </main></body></html>

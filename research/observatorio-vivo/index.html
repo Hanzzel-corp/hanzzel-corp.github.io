@@ -6,6 +6,9 @@
 <meta name="description" content="Documentación técnica de Observatorio Vivo: captura multi-fuente, scoring de señales, detección de brotes, trazabilidad, API FastAPI y persistencia SQLite.">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://hanzzel-corp.github.io/research/observatorio-vivo/">
+<link rel="alternate" hreflang="es" href="https://hanzzel-corp.github.io/research/observatorio-vivo/">
+<link rel="alternate" hreflang="en" href="https://hanzzel-corp.github.io/en/research/observatorio-vivo/">
+<link rel="alternate" hreflang="x-default" href="https://hanzzel-corp.github.io/research/observatorio-vivo/">
 <meta property="og:type" content="article"><meta property="og:title" content="Observatorio Vivo — detección y trazabilidad de tendencias"><meta property="og:description" content="Arquitectura, fuentes, algoritmo de brotes, API, ejecución y límites documentados."><meta property="og:url" content="https://hanzzel-corp.github.io/research/observatorio-vivo/">
 <meta name="author" content="José Pablo Zamora">
 <meta property="og:site_name" content="Hanzzel Corp">
@@ -48,7 +51,7 @@
 </style>
 </head>
 <body><main class="k">
-<nav><a href="https://hanzzel-corp.github.io/">Hanzzel Corp</a><a href="../">Índice de investigación</a><a href="https://github.com/Hanzzel-corp/Observatorio.-Vivo">Repositorio</a></nav>
+<nav><a href="https://hanzzel-corp.github.io/">Hanzzel Corp</a><a href="../">Índice de investigación</a><a href="https://github.com/Hanzzel-corp/Observatorio.-Vivo">Repositorio</a><a href="https://hanzzel-corp.github.io/research/observatorio-vivo/" aria-current="page" lang="es">ES</a> <a href="https://hanzzel-corp.github.io/en/research/observatorio-vivo/" hreflang="en" lang="en">EN</a></nav>
 <article>
 <p><strong>Ficha técnica · Software práctico · Hanzzel Corp</strong></p>
 <h1>Observatorio Vivo: detectar señales emergentes y conservar su trazabilidad</h1>
@@ -142,29 +145,6 @@ uvicorn app:app --reload --host 127.0.0.1 --port 8765</code></pre>
 <li><a href="https://github.com/Hanzzel-corp/Observatorio.-Vivo/blob/main/test_core.py">Tests del núcleo</a>.</li>
 </ul>
 </article>
-<section class="en" lang="en">
-<p><strong>English version · Technical project brief</strong></p>
-<h2>Live Observatory: emerging-signal detection with source traceability</h2>
-<p class="lead">Live Observatory is a local backend that collects public signals from multiple sources, extracts and normalizes terms, scores activity, classifies potential outbreaks and stores records that help trace signals back to their sources.</p>
-<h3>Problem and objective</h3>
-<p>A popularity ranking alone does not explain whether a topic is new, accelerating, appearing across regions or supported by multiple independent sources. The project combines these dimensions to prioritize weak signals and emerging phenomena. Its score is a heuristic for triage, not a calibrated probability that a topic will become a trend.</p>
-<h3>Architecture and data flow</h3>
-<p>The repository documents collectors for Wikipedia Pageviews, Google Trends RSS, Reddit, Mastodon and Hacker News. Async collection feeds SQLite records; text normalization, phrase extraction and aliases feed aggregation; the outbreak detector then updates dashboards, reports and optional alerts.</p>
-<pre><code>Public sources → async collectors → SQLite samples / term_hits
-→ normalization and aliases → temporal/geographic aggregation
-→ outbreak detection → dashboard, API, reports and optional alerts</code></pre>
-<h3>Detection model</h3>
-<p>The documented score combines recency, growth, score delta, geographic spread, source diversity, repeated observations and cross-language presence. It classifies signals as EVENT, PROPAGATION, OUTBREAK, SEED or NOISE. A separate operational alert layer uses DETECTED, OBSERVED and ALERTED levels. These two classification layers should not be conflated.</p>
-<h3>Implementation</h3>
-<p>The backend uses Python, FastAPI, HTTPX and SQLite (WAL). The web dashboard exposes radar, outbreaks, observation, history, watchlist, settings and report views. Documented API operations cover health, state, collection runs, terms, outbreaks, signal origin, alerts and JSON/CSV exports. Telegram notifications are optional.</p>
-<h3>Version and requirements caveat</h3>
-<p>The Spanish README labels the release Observatorio Vivo v0.3.0 and the internal engine v6.1.2, while the English README mentions v6.1.3. The two READMEs also differ on the minimum Python version. This page preserves that discrepancy instead of presenting an unverified single release identifier.</p>
-<h3>Limitations</h3>
-<ul><li>The composite score is a project heuristic, not a calibrated forecast.</li><li>Public feeds and APIs have coverage, language, regional and availability biases.</li><li>Attention metrics do not establish causality or future persistence.</li><li>Weights, aliases, thresholds and time windows affect classifications.</li><li>This page does not claim a fresh independent test run or external benchmark.</li></ul>
-<h3>How to evaluate it</h3>
-<p>A robust evaluation should use timestamped historical captures, independently labeled events, fixed time windows, precision/recall, false-positive rates, lead time and stability by region/source. Compare the composite detector with simple volume- and growth-based baselines.</p>
-<h3>Primary sources</h3>
-<p><a href="https://github.com/Hanzzel-corp/Observatorio.-Vivo">Source repository</a> · <a href="https://github.com/Hanzzel-corp/Observatorio.-Vivo/blob/main/README.md">Spanish README</a> · <a href="https://github.com/Hanzzel-corp/Observatorio.-Vivo/blob/main/README_EN.md">English README</a> · <a href="https://github.com/Hanzzel-corp/Observatorio.-Vivo/tree/main/doc">Technical documentation</a> · <a href="https://github.com/Hanzzel-corp/Observatorio.-Vivo/blob/main/test_core.py">Core tests</a>.</p>
-</section>
+
 <footer class="note">Ficha elaborada a partir de la documentación pública del repositorio. Para el estado vigente, revisar código, releases y pruebas en GitHub.</footer>
 </main></body></html>
