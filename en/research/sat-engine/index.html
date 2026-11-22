@@ -14,7 +14,11 @@
 <div class="sat-lab__grid">
 <div class="sat-lab__controls"><fieldset><legend>Boolean assignment</legend><label class="sat-lab__toggle"><b>A</b><output>False</output><input type="checkbox" data-sat-variable="A" aria-label="A"></label>
 <label class="sat-lab__toggle"><b>B</b><output>False</output><input type="checkbox" data-sat-variable="B" aria-label="B"></label>
-<label class="sat-lab__toggle"><b>C</b><output>False</output><input type="checkbox" data-sat-variable="C" aria-label="C"></label></fieldset></div>
+<label class="sat-lab__toggle"><b>C</b><output>False</output><input type="checkbox" data-sat-variable="C" aria-label="C"></label></fieldset>
+<div class="sat-lab__actions" role="group" aria-label="Example controls">
+<button type="button" data-sat-action="example">Show example solution</button>
+<button type="button" data-sat-action="reset">Reset variables</button>
+</div></div>
 <div class="sat-lab__result"><div class="sat-lab__clause" data-sat-clause="0" data-satisfied="false"><code>A ∨ B ∨ C</code><span data-sat-status>Unsatisfied</span></div>
 <div class="sat-lab__clause" data-sat-clause="1" data-satisfied="true"><code>¬A ∨ B ∨ ¬C</code><span data-sat-status>Satisfied</span></div>
 <div class="sat-lab__clause" data-sat-clause="2" data-satisfied="true"><code>A ∨ ¬B ∨ C</code><span data-sat-status>Satisfied</span></div>
