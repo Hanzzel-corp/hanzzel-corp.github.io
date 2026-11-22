@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Blue Arrow — Local AI Orchestration with Human Control | Hanzzel Corp</title><meta name="description" content="Blue Arrow public technical overview: local AI orchestration, approval flows, workers, verification, tests and scope limitations."><meta name="robots" content="index,follow,max-image-preview:large"><link rel="canonical" href="https://hanzzel-corp.github.io/en/research/blue-arrow/">
+<link rel="alternate" hreflang="es" href="https://hanzzel-corp.github.io/research/blue-arrow/">
+<link rel="alternate" hreflang="en" href="https://hanzzel-corp.github.io/en/research/blue-arrow/">
+<link rel="alternate" hreflang="x-default" href="https://hanzzel-corp.github.io/research/blue-arrow/"><meta property="og:title" content="Blue Arrow — Local AI Orchestration with Human Control"><meta property="og:url" content="https://hanzzel-corp.github.io/en/research/blue-arrow/"><meta property="og:locale" content="en_US"><meta property="og:image" content="https://hanzzel-corp.github.io/og-image.png"><meta property="og:site_name" content="Hanzzel Corp"><link rel="stylesheet" href="/styles.css"><style>
+.knowledge{max-width:980px;margin:auto;padding:28px 20px 70px;line-height:1.72}
+.knowledge nav{display:flex;gap:16px;flex-wrap:wrap;border-bottom:1px solid #8885;padding-bottom:16px}
+.knowledge h1{font-size:clamp(2rem,5vw,3rem);line-height:1.15;margin-top:42px}
+.knowledge h2{margin-top:38px;border-bottom:1px solid #8885;padding-bottom:8px}
+.knowledge h3{margin-top:24px}
+.knowledge .lead{font-size:1.15rem;max-width:850px}
+.knowledge .note{padding:14px 18px;border-left:3px solid #22a6b3;background:#22a6b310;margin:22px 0}
+.knowledge pre{overflow:auto;padding:16px;border-radius:10px;background:#8882}
+.knowledge code{overflow-wrap:anywhere}
+.knowledge table{width:100%;border-collapse:collapse;display:block;overflow-x:auto}
+.knowledge th,.knowledge td{border:1px solid #8885;padding:9px;text-align:left;vertical-align:top}
+.knowledge .lang{margin-top:54px;padding-top:28px;border-top:3px solid #8885}
+.knowledge .links{display:flex;gap:14px;flex-wrap:wrap;margin:20px 0}
+/* Blue Arrow — project-specific, responsive visual summary; portfolio untouched. */
+.ba-flow{margin:32px 0 40px;padding:26px;border:1px solid var(--border-color);border-radius:18px;background:linear-gradient(140deg,rgba(88,166,255,.10),transparent 62%),var(--bg-secondary)}
+.ba-flow__eyebrow{margin:0 0 8px;color:var(--accent-primary);font-size:.75rem;font-weight:800;letter-spacing:.11em;text-transform:uppercase}
+.ba-flow h2{margin:0 0 10px;padding:0;border:0;font-size:clamp(1.35rem,3vw,1.85rem);line-height:1.25}
+.ba-flow__intro{margin:0;color:var(--text-secondary);max-width:790px}
+.ba-flow__steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px;list-style:none;margin:24px 0 16px;padding:0;counter-reset:ba-step}
+.ba-flow__steps li{position:relative;min-width:0;padding:18px;border:1px solid var(--border-color);border-radius:13px;background:var(--bg-primary);counter-increment:ba-step}
+.ba-flow__steps li::before{content:counter(ba-step,decimal-leading-zero);display:inline-flex;align-items:center;justify-content:center;width:35px;height:35px;margin-bottom:12px;border-radius:10px;background:rgba(88,166,255,.14);border:1px solid var(--accent-primary);color:var(--accent-primary);font-family:var(--font-mono);font-size:.83rem;font-weight:800}
+.ba-flow__steps li:not(:nth-child(3n))::after{content:"→";position:absolute;z-index:1;right:-14px;top:45%;width:27px;text-align:center;background:var(--bg-secondary);color:var(--accent-primary);font-size:1.2rem;line-height:1.4}
+.ba-flow__steps strong{display:block;margin-bottom:4px;color:var(--text-primary);font-size:1rem;line-height:1.35}
+.ba-flow__steps span{display:block;color:var(--text-secondary);font-size:.9rem;line-height:1.5}
+.ba-flow figcaption{color:var(--text-muted);font-size:.82rem;line-height:1.5}
+@media(max-width:760px){.ba-flow__steps{grid-template-columns:repeat(2,minmax(0,1fr))}.ba-flow__steps li::after{display:none!important}}
+@media(max-width:520px){.ba-flow{padding:18px;margin:24px 0 32px}.ba-flow__steps{grid-template-columns:1fr;gap:11px}.ba-flow__steps li{padding:14px 16px}.ba-flow__steps li::before{width:30px;height:30px;margin-bottom:8px}}
+</style></head><body><main class="knowledge"><nav aria-label="Main navigation"><a href="/en/">Hanzzel Corp</a><a href="/en/research/">Research directory</a><a href="https://github.com/Hanzzel-corp/blue-arrow">Source repository</a><a href="https://hanzzel-corp.github.io/research/blue-arrow/" lang="es" hreflang="es">ES</a><a href="https://hanzzel-corp.github.io/en/research/blue-arrow/" aria-current="page" lang="en">EN</a></nav><article><h1>Blue Arrow: local action orchestration with human control</h1>
+<p class="lead">Blue Arrow is a local orchestration framework for controlling desktop, terminal, browser, system and document actions through Telegram. Its central principle is <strong>human-in-the-loop execution</strong>: AI may assist with interpretation and planning, while real actions pass through safety checks, approval flows, workers and execution verification.</p>
+<h2>Problem and objective</h2>
+<p>The project separates command intake, planning, safety checks, approval, worker routing and result verification. This separation is intended to reduce the risk of mixing natural-language interpretation with unrestricted execution. The human remains the final decision-maker.</p>
+<h2>Architecture</h2>
+<p>The repository documents a central Node.js runtime, specialized Node.js/Python modules, a declarative JSON blueprint and JSON Lines messaging over stdin/stdout. The high-level path is:</p>
+<pre><code>Telegram / CLI → Planner → Agent → Safety Guard / Approval
+→ Router → Workers → Verifier (where applicable)
+→ Supervisor → interface response</code></pre>
+<p>Documented workers cover desktop, terminal, browser and system tasks. The project also describes optional Ollama/LLaMA integration, Playwright browser automation, and LibreOffice Writer workflows.</p>
+<h2>Current status and limitations</h2>
+<p>The repository describes a migration from a token-based flow toward a state-driven architecture as work in progress. The target design must not be mistaken for a completed migration. Published tests, health checks and CI workflows are inspectable in the source repository; this page does not claim a fresh test run or independent security certification.</p>
+<h2>How to inspect the project</h2>
+<p>Start with the <a href="https://github.com/Hanzzel-corp/blue-arrow">source repository</a>, its <a href="https://github.com/Hanzzel-corp/blue-arrow/blob/main/README.md">README</a>, <a href="https://github.com/Hanzzel-corp/blue-arrow/tree/main/docs">technical documentation</a>, <a href="https://github.com/Hanzzel-corp/blue-arrow/tree/main/tests">tests</a> and <a href="https://github.com/Hanzzel-corp/blue-arrow/actions">GitHub Actions</a>. The project has a <a href="https://doi.org/10.5281/zenodo.20045432">Zenodo DOI record</a>.</p>
+<h2>Reproduction commands</h2>
+<pre><code>git clone https://github.com/Hanzzel-corp/blue-arrow.git
+cd blue-arrow
+npm start
+npm run health
+npm run test:all</code></pre>
+<p>These commands are listed by the project README. Environment setup and prerequisites must be checked in the repository documentation. No new execution is claimed by this page.</p><figure class="ba-flow" aria-labelledby="ba-en-flow"><p class="ba-flow__eyebrow">Documented architecture</p><h2 id="ba-en-flow">From request to verified outcome</h2><p class="ba-flow__intro">Conceptual stages drawn from the public source documentation, not a newly executed test.</p><ol class="ba-flow__steps"><li><strong>Input</strong><span>Telegram or CLI</span></li><li><strong>Planning</strong><span>Planner and Agent</span></li><li><strong>Approval</strong><span>Safety checks and human approval</span></li><li><strong>Execution</strong><span>Router and workers</span></li><li><strong>Verification</strong><span>Result checks where applicable</span></li><li><strong>Closure</strong><span>Supervisor response</span></li></ol><figcaption>Target architecture and documented components; the state-driven migration remains ongoing.</figcaption></figure></article><footer class="note">This technical brief describes public project documentation and reported results. Consult GitHub for current source code, versions and limitations; no independent validation is claimed.</footer></main></body></html>
