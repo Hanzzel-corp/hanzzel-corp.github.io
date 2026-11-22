@@ -30,6 +30,21 @@
 .ba-flow figcaption{color:var(--text-muted);font-size:.82rem;line-height:1.5}
 @media(max-width:760px){.ba-flow__steps{grid-template-columns:repeat(2,minmax(0,1fr))}.ba-flow__steps li::after{display:none!important}}
 @media(max-width:520px){.ba-flow{padding:18px;margin:24px 0 32px}.ba-flow__steps{grid-template-columns:1fr;gap:11px}.ba-flow__steps li{padding:14px 16px}.ba-flow__steps li::before{width:30px;height:30px;margin-bottom:8px}}
+
+/* Authentic Blue Arrow viewer preview: isolated from the global portfolio design. */
+.ba-realviewer{margin:26px 0 34px;padding:22px;border:1px solid var(--border-color);border-radius:16px;background:linear-gradient(135deg,rgba(34,211,238,.085),transparent 72%),var(--bg-secondary)}
+.ba-realviewer__tag{color:var(--accent-primary);letter-spacing:.09em;text-transform:uppercase;font-size:.76rem;font-weight:750}
+.ba-realviewer h2{margin:8px 0 10px;padding:0;border:0;font-size:clamp(1.25rem,3vw,1.7rem)}
+.ba-realviewer p{margin:0 0 12px;color:var(--text-secondary);line-height:1.65}
+.ba-realviewer__actions{display:flex;gap:10px;flex-wrap:wrap;margin:15px 0}
+.ba-realviewer__actions a{display:inline-flex;align-items:center;min-height:42px;padding:9px 13px;border-radius:10px;border:1px solid var(--accent-primary);text-decoration:none;font-weight:650}
+.ba-realviewer__actions a:first-child{color:var(--bg-primary);background:var(--accent-primary)}
+.ba-realviewer details{border:1px solid var(--border-color);border-radius:10px;overflow:hidden;background:var(--bg-primary)}
+.ba-realviewer summary{cursor:pointer;padding:14px 16px;color:var(--text-primary);font-weight:650}
+.ba-realviewer summary:focus-visible{outline:2px solid var(--accent-primary);outline-offset:-3px}
+.ba-realviewer iframe{display:block;width:100%;height:560px;border:0;background:#020617}
+.ba-realviewer__foot{margin:13px 0 0!important;font-size:.85rem}
+@media(max-width:660px){.ba-realviewer{padding:16px}.ba-realviewer iframe{height:540px}.ba-realviewer__actions a{width:100%;justify-content:center}}
 </style></head><body><main class="knowledge"><nav aria-label="Main navigation"><a href="/en/">Hanzzel Corp</a><a href="/en/research/">Research directory</a><a href="https://github.com/Hanzzel-corp/blue-arrow">Source repository</a><a href="https://hanzzel-corp.github.io/research/blue-arrow/" lang="es" hreflang="es">ES</a><a href="https://hanzzel-corp.github.io/en/research/blue-arrow/" aria-current="page" lang="en">EN</a></nav><article><h1>Blue Arrow: local action orchestration with human control</h1>
 <p class="lead">Blue Arrow is a local orchestration framework for controlling desktop, terminal, browser, system and document actions through Telegram. Its central principle is <strong>human-in-the-loop execution</strong>: AI may assist with interpretation and planning, while real actions pass through safety checks, approval flows, workers and execution verification.</p>
 <h2>Problem and objective</h2>
@@ -50,4 +65,13 @@ cd blue-arrow
 npm start
 npm run health
 npm run test:all</code></pre>
-<p>These commands are listed by the project README. Environment setup and prerequisites must be checked in the repository documentation. No new execution is claimed by this page.</p><figure class="ba-flow" aria-labelledby="ba-en-flow"><p class="ba-flow__eyebrow">Documented architecture</p><h2 id="ba-en-flow">From request to verified outcome</h2><p class="ba-flow__intro">Conceptual stages drawn from the public source documentation, not a newly executed test.</p><ol class="ba-flow__steps"><li><strong>Input</strong><span>Telegram or CLI</span></li><li><strong>Planning</strong><span>Planner and Agent</span></li><li><strong>Approval</strong><span>Safety checks and human approval</span></li><li><strong>Execution</strong><span>Router and workers</span></li><li><strong>Verification</strong><span>Result checks where applicable</span></li><li><strong>Closure</strong><span>Supervisor response</span></li></ol><figcaption>Target architecture and documented components; the state-driven migration remains ongoing.</figcaption></figure></article><footer class="note">This technical brief describes public project documentation and reported results. Consult GitHub for current source code, versions and limitations; no independent validation is claimed.</footer></main></body></html>
+<p>These commands are listed by the project README. Environment setup and prerequisites must be checked in the repository documentation. No new execution is claimed by this page.</p>
+<section class="ba-realviewer" aria-labelledby="ba-realviewer-title">
+<div class="ba-realviewer__tag">Authentic source-repository asset</div>
+<h2 id="ba-realviewer-title">Explore Blue Arrow's architecture in 3D</h2>
+<p>Blue Arrow includes an original <strong>Blueprint 3D Viewer</strong> for examining modules, connections, routes and Mermaid diagrams. The linked tool uses the project's public source code and its static example; it is not an invented screenshot or a real desktop-automation session.</p>
+<div class="ba-realviewer__actions"><a href="/research/blue-arrow/visor/" target="_blank" rel="noopener">Open the original 3D viewer</a><a href="https://github.com/Hanzzel-corp/blue-arrow/blob/main/viewer.html">Inspect viewer source</a></div>
+<details><summary>Show viewer here (loads interactive 3D)</summary><iframe title="Original Blue Arrow Blueprint 3D Viewer (Spanish UI)" src="/research/blue-arrow/visor/" loading="lazy" sandbox="allow-scripts" referrerpolicy="no-referrer"></iframe></details>
+<p class="ba-realviewer__foot">The source viewer's interface is currently in Spanish and loads external JavaScript libraries. It displays an example architecture, does not connect to a local computer, Telegram or live workers, and requires WebGL. Live browser/mobile behavior still needs verification.</p>
+</section>
+<figure class="ba-flow" aria-labelledby="ba-en-flow"><p class="ba-flow__eyebrow">Documented architecture</p><h2 id="ba-en-flow">From request to verified outcome</h2><p class="ba-flow__intro">Conceptual stages drawn from the public source documentation, not a newly executed test.</p><ol class="ba-flow__steps"><li><strong>Input</strong><span>Telegram or CLI</span></li><li><strong>Planning</strong><span>Planner and Agent</span></li><li><strong>Approval</strong><span>Safety checks and human approval</span></li><li><strong>Execution</strong><span>Router and workers</span></li><li><strong>Verification</strong><span>Result checks where applicable</span></li><li><strong>Closure</strong><span>Supervisor response</span></li></ol><figcaption>Target architecture and documented components; the state-driven migration remains ongoing.</figcaption></figure></article><footer class="note">This technical brief describes public project documentation and reported results. Consult GitHub for current source code, versions and limitations; no independent validation is claimed.</footer></main></body></html>

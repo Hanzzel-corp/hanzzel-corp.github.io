@@ -36,6 +36,7 @@
 <style>
 .k{max-width:980px;margin:auto;padding:28px 20px 70px;line-height:1.72}.k nav{display:flex;gap:16px;flex-wrap:wrap;border-bottom:1px solid #8885;padding-bottom:16px}.k h1{font-size:clamp(2rem,5vw,3rem);line-height:1.15;margin-top:42px}.k h2{margin-top:38px;border-bottom:1px solid #8885;padding-bottom:8px}.k .lead{font-size:1.15rem}.k .note{padding:14px 18px;border-left:3px solid #22a6b3;background:#22a6b310;margin:22px 0}.k pre{overflow:auto;padding:16px;border-radius:10px;background:#8882}.k table{width:100%;border-collapse:collapse;display:block;overflow-x:auto}.k th,.k td{border:1px solid #8885;padding:9px;text-align:left;vertical-align:top}.k .en{margin-top:54px;padding-top:28px;border-top:3px solid #8885}
 </style>
+<link rel="stylesheet" href="/research/sat-engine/sat-lab.css">
 </head>
 <body><main class="k">
 <nav><a href="https://hanzzel-corp.github.io/">Hanzzel Corp</a><a href="../">Índice de investigación</a><a href="https://github.com/Hanzzel-corp/SAT-Engine-v7">Repositorio</a><a href="https://hanzzel-corp.github.io/research/sat-engine/" aria-current="page" lang="es">ES</a> <a href="https://hanzzel-corp.github.io/en/research/sat-engine/" hreflang="en" lang="en">EN</a></nav>
@@ -45,6 +46,26 @@
 <p class="lead">SAT Engine reúne implementaciones de generadores y solucionadores para el problema de satisfacibilidad booleana (SAT). El repositorio explora una progresión desde backtracking exhaustivo hasta búsqueda local estocástica y un backend híbrido C++/Python con paralelismo.</p>
 <p><a href="https://github.com/Hanzzel-corp/SAT-Engine-v7">Código fuente</a> · <a href="https://github.com/Hanzzel-corp/SAT-Engine-v7/blob/main/README.md">README</a> · <a href="https://github.com/Hanzzel-corp/SAT-Engine-v7/blob/main/docs/ARCHITECTURE.md">Arquitectura</a> · <a href="https://github.com/Hanzzel-corp/SAT-Engine-v7/tree/main/docs/algorithms">Documentación de algoritmos</a></p>
 <aside class="note"><strong>Precisión de versión:</strong> el repositorio se llama SAT-Engine-v7 y el README imprime “SAT Engine v7”, pero la tabla de versiones y la estructura documentan implementaciones hasta v5 (incluido el backend C++). El archivo de ejecución C++ también imprime v7. Esta ficha describe lo que el código y los documentos muestran; no presupone que exista una implementación v6/v7 separada o un solver CDCL.</aside>
+
+
+<section class="sat-lab" data-sat-lab data-sat-lang="es" aria-labelledby="sat-mini-es">
+<p class="sat-lab__eyebrow">Mini laboratorio interactivo · Ejemplo didáctico</p>
+<h2 id="sat-mini-es">Probá cómo se satisface una fórmula SAT</h2>
+<p class="sat-lab__intro">Activá o desactivá A, B y C. Cada cláusula se cumple cuando al menos uno de sus términos es verdadero. Para que la fórmula completa sea SAT, deben cumplirse las cuatro cláusulas al mismo tiempo.</p>
+<div class="sat-lab__grid">
+<div class="sat-lab__controls"><fieldset><legend>Asignación booleana</legend><label class="sat-lab__toggle"><b>A</b><output>Falso</output><input type="checkbox" data-sat-variable="A" aria-label="A"></label>
+<label class="sat-lab__toggle"><b>B</b><output>Falso</output><input type="checkbox" data-sat-variable="B" aria-label="B"></label>
+<label class="sat-lab__toggle"><b>C</b><output>Falso</output><input type="checkbox" data-sat-variable="C" aria-label="C"></label></fieldset></div>
+<div class="sat-lab__result"><div class="sat-lab__clause" data-sat-clause="0" data-satisfied="false"><code>A ∨ B ∨ C</code><span data-sat-status>No cumple</span></div>
+<div class="sat-lab__clause" data-sat-clause="1" data-satisfied="true"><code>¬A ∨ B ∨ ¬C</code><span data-sat-status>Cumple</span></div>
+<div class="sat-lab__clause" data-sat-clause="2" data-satisfied="true"><code>A ∨ ¬B ∨ C</code><span data-sat-status>Cumple</span></div>
+<div class="sat-lab__clause" data-sat-clause="3" data-satisfied="true"><code>¬A ∨ ¬B ∨ ¬C</code><span data-sat-status>Cumple</span></div>
+<div class="sat-lab__score"><strong>Cláusulas satisfechas</strong><output data-sat-count>3 / 4</output></div>
+<progress value="3" max="4" aria-label="Cláusulas satisfechas">3 / 4</progress>
+<p class="sat-lab__summary" data-sat-summary aria-live="polite">Esta asignación todavía no satisface toda la fórmula.</p>
+</div></div>
+<p class="sat-lab__note">Ejemplo 3-CNF creado para explicar el problema de satisfacibilidad. <strong>No ejecuta los solucionadores reales del repositorio</strong>, no representa mediciones de transición de fase ni demuestra el rendimiento de SAT Engine. El README menciona una imagen de transición de fase cuyo archivo no está publicado en la ruta indicada. <a href="https://github.com/Hanzzel-corp/SAT-Engine-v7/blob/main/sat_engine_v1.py">Examinar backtracking (v1)</a> · <a href="https://github.com/Hanzzel-corp/SAT-Engine-v7/blob/main/sat_engine_v3.py">Examinar generador y gráficos (v3)</a>.</p>
+</section>
 
 <h2>1. Qué problema aborda</h2>
 <p>SAT pregunta si existe una asignación de valores booleanos que satisfaga simultáneamente todas las cláusulas de una fórmula CNF. SAT Engine permite estudiar distintas estrategias para encontrar asignaciones, comparar comportamiento en instancias generadas y observar cómo cambia la dificultad al variar la densidad de cláusulas.</p>
@@ -118,4 +139,5 @@ python sat_engine_v5.py</code></pre>
 </article>
 
 <footer class="note">Ficha elaborada desde el código y la documentación pública disponibles. Los resultados experimentales deben verificarse mediante los scripts, las semillas y los entornos concretos.</footer>
-</main></body></html>
+</main><script src="/research/sat-engine/sat-lab.js" defer></script>
+</body></html>
