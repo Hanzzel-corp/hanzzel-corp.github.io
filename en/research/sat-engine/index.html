@@ -3,8 +3,29 @@
 <link rel="alternate" hreflang="en" href="https://hanzzel-corp.github.io/en/research/sat-engine/">
 <link rel="alternate" hreflang="x-default" href="https://hanzzel-corp.github.io/research/sat-engine/"><meta property="og:title" content="SAT Engine — SAT Solvers in Python and C++"><meta property="og:url" content="https://hanzzel-corp.github.io/en/research/sat-engine/"><meta property="og:locale" content="en_US"><meta property="og:image" content="https://hanzzel-corp.github.io/og-image.png"><meta property="og:site_name" content="Hanzzel Corp"><link rel="stylesheet" href="/styles.css"><style>
 .k{max-width:980px;margin:auto;padding:28px 20px 70px;line-height:1.72}.k nav{display:flex;gap:16px;flex-wrap:wrap;border-bottom:1px solid #8885;padding-bottom:16px}.k h1{font-size:clamp(2rem,5vw,3rem);line-height:1.15;margin-top:42px}.k h2{margin-top:38px;border-bottom:1px solid #8885;padding-bottom:8px}.k .lead{font-size:1.15rem}.k .note{padding:14px 18px;border-left:3px solid #22a6b3;background:#22a6b310;margin:22px 0}.k pre{overflow:auto;padding:16px;border-radius:10px;background:#8882}.k table{width:100%;border-collapse:collapse;display:block;overflow-x:auto}.k th,.k td{border:1px solid #8885;padding:9px;text-align:left;vertical-align:top}.k .en{margin-top:54px;padding-top:28px;border-top:3px solid #8885}
-</style></head><body><main class="k"><nav aria-label="Main navigation"><a href="/en/">Hanzzel Corp</a><a href="/en/research/">Research directory</a><a href="https://github.com/Hanzzel-corp/SAT-Engine-v7">Source repository</a><a href="https://hanzzel-corp.github.io/research/sat-engine/" lang="es" hreflang="es">ES</a><a href="https://hanzzel-corp.github.io/en/research/sat-engine/" lang="en" aria-current="page">EN</a></nav><article><h1>SAT Engine: an evolving collection of SAT solvers</h1>
+</style><link rel="stylesheet" href="/research/sat-engine/sat-lab.css">
+</head><body><main class="k"><nav aria-label="Main navigation"><a href="/en/">Hanzzel Corp</a><a href="/en/research/">Research directory</a><a href="https://github.com/Hanzzel-corp/SAT-Engine-v7">Source repository</a><a href="https://hanzzel-corp.github.io/research/sat-engine/" lang="es" hreflang="es">ES</a><a href="https://hanzzel-corp.github.io/en/research/sat-engine/" lang="en" aria-current="page">EN</a></nav><article><h1>SAT Engine: an evolving collection of SAT solvers</h1>
 <p class="lead">SAT Engine is a collection of Boolean satisfiability (SAT) generators and solvers. Its documented progression moves from exhaustive backtracking to stochastic local search and a parallel C++/Python backend.</p>
+
+<section class="sat-lab" data-sat-lab data-sat-lang="en" aria-labelledby="sat-mini-en">
+<p class="sat-lab__eyebrow">Interactive mini lab · Teaching example</p>
+<h2 id="sat-mini-en">Try satisfying a SAT formula</h2>
+<p class="sat-lab__intro">Toggle A, B and C. A clause is satisfied whenever at least one of its literals is true. The whole formula is SAT only when all four clauses are satisfied at once.</p>
+<div class="sat-lab__grid">
+<div class="sat-lab__controls"><fieldset><legend>Boolean assignment</legend><label class="sat-lab__toggle"><b>A</b><output>False</output><input type="checkbox" data-sat-variable="A" aria-label="A"></label>
+<label class="sat-lab__toggle"><b>B</b><output>False</output><input type="checkbox" data-sat-variable="B" aria-label="B"></label>
+<label class="sat-lab__toggle"><b>C</b><output>False</output><input type="checkbox" data-sat-variable="C" aria-label="C"></label></fieldset></div>
+<div class="sat-lab__result"><div class="sat-lab__clause" data-sat-clause="0" data-satisfied="false"><code>A ∨ B ∨ C</code><span data-sat-status>Unsatisfied</span></div>
+<div class="sat-lab__clause" data-sat-clause="1" data-satisfied="true"><code>¬A ∨ B ∨ ¬C</code><span data-sat-status>Satisfied</span></div>
+<div class="sat-lab__clause" data-sat-clause="2" data-satisfied="true"><code>A ∨ ¬B ∨ C</code><span data-sat-status>Satisfied</span></div>
+<div class="sat-lab__clause" data-sat-clause="3" data-satisfied="true"><code>¬A ∨ ¬B ∨ ¬C</code><span data-sat-status>Satisfied</span></div>
+<div class="sat-lab__score"><strong>Satisfied clauses</strong><output data-sat-count>3 / 4</output></div>
+<progress value="3" max="4" aria-label="Satisfied clauses">3 / 4</progress>
+<p class="sat-lab__summary" data-sat-summary aria-live="polite">This assignment does not yet satisfy the entire formula.</p>
+</div></div>
+<p class="sat-lab__note">This small 3-CNF example explains Boolean satisfiability. <strong>It does not run the repository's actual SAT solvers</strong>, reproduce phase-transition measurements or benchmark SAT Engine. The README references a phase-transition picture whose file is not published at the specified path. <a href="https://github.com/Hanzzel-corp/SAT-Engine-v7/blob/main/sat_engine_v1.py">Inspect backtracking (v1)</a> · <a href="https://github.com/Hanzzel-corp/SAT-Engine-v7/blob/main/sat_engine_v3.py">Inspect generator and plots (v3)</a>.</p>
+</section>
+
 <h2>Problem</h2>
 <p>SAT asks whether a Boolean assignment satisfies every clause in a CNF formula. The project provides implementations for exploring search strategies and observing how generated 3-SAT instances behave as the clause-to-variable ratio changes.</p>
 <h2>Documented implementations</h2>
@@ -26,4 +47,5 @@ python sat_engine_v4.py</code></pre>
 <h2>Limitations</h2>
 <ul><li>The v7 repository name coexists with code and documentation through v5.</li><li>The README contains an unresolved Git conflict marker near its end.</li><li>DPLL/CDCL is listed as future work, not as an implemented solver.</li><li>Local-search failure does not establish UNSAT.</li><li>This page does not claim to have reproduced the published phase-transition measurements.</li></ul>
 <h2>Primary sources</h2>
-<p><a href="https://github.com/Hanzzel-corp/SAT-Engine-v7">Source repository</a> · <a href="https://github.com/Hanzzel-corp/SAT-Engine-v7/blob/main/docs/ARCHITECTURE.md">Architecture</a> · <a href="https://github.com/Hanzzel-corp/SAT-Engine-v7/tree/main/docs/algorithms">Algorithm notes</a> · <a href="https://github.com/Hanzzel-corp/SAT-Engine-v7/tree/main/SAT_Engine_v5">C++ backend</a>.</p></article><footer class="note">This page summarizes documented source code and public project material, not a new functional test or independent certification.</footer></main></body></html>
+<p><a href="https://github.com/Hanzzel-corp/SAT-Engine-v7">Source repository</a> · <a href="https://github.com/Hanzzel-corp/SAT-Engine-v7/blob/main/docs/ARCHITECTURE.md">Architecture</a> · <a href="https://github.com/Hanzzel-corp/SAT-Engine-v7/tree/main/docs/algorithms">Algorithm notes</a> · <a href="https://github.com/Hanzzel-corp/SAT-Engine-v7/tree/main/SAT_Engine_v5">C++ backend</a>.</p></article><footer class="note">This page summarizes documented source code and public project material, not a new functional test or independent certification.</footer></main><script src="/research/sat-engine/sat-lab.js" defer></script>
+</body></html>
