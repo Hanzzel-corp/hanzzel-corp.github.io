@@ -69,6 +69,21 @@
 .ba-flow figcaption{color:var(--text-muted);font-size:.82rem;line-height:1.5}
 @media(max-width:760px){.ba-flow__steps{grid-template-columns:repeat(2,minmax(0,1fr))}.ba-flow__steps li::after{display:none!important}}
 @media(max-width:520px){.ba-flow{padding:18px;margin:24px 0 32px}.ba-flow__steps{grid-template-columns:1fr;gap:11px}.ba-flow__steps li{padding:14px 16px}.ba-flow__steps li::before{width:30px;height:30px;margin-bottom:8px}}
+
+/* Authentic Blue Arrow viewer preview: isolated from the global portfolio design. */
+.ba-realviewer{margin:26px 0 34px;padding:22px;border:1px solid var(--border-color);border-radius:16px;background:linear-gradient(135deg,rgba(34,211,238,.085),transparent 72%),var(--bg-secondary)}
+.ba-realviewer__tag{color:var(--accent-primary);letter-spacing:.09em;text-transform:uppercase;font-size:.76rem;font-weight:750}
+.ba-realviewer h2{margin:8px 0 10px;padding:0;border:0;font-size:clamp(1.25rem,3vw,1.7rem)}
+.ba-realviewer p{margin:0 0 12px;color:var(--text-secondary);line-height:1.65}
+.ba-realviewer__actions{display:flex;gap:10px;flex-wrap:wrap;margin:15px 0}
+.ba-realviewer__actions a{display:inline-flex;align-items:center;min-height:42px;padding:9px 13px;border-radius:10px;border:1px solid var(--accent-primary);text-decoration:none;font-weight:650}
+.ba-realviewer__actions a:first-child{color:var(--bg-primary);background:var(--accent-primary)}
+.ba-realviewer details{border:1px solid var(--border-color);border-radius:10px;overflow:hidden;background:var(--bg-primary)}
+.ba-realviewer summary{cursor:pointer;padding:14px 16px;color:var(--text-primary);font-weight:650}
+.ba-realviewer summary:focus-visible{outline:2px solid var(--accent-primary);outline-offset:-3px}
+.ba-realviewer iframe{display:block;width:100%;height:560px;border:0;background:#020617}
+.ba-realviewer__foot{margin:13px 0 0!important;font-size:.85rem}
+@media(max-width:660px){.ba-realviewer{padding:16px}.ba-realviewer iframe{height:540px}.ba-realviewer__actions a{width:100%;justify-content:center}}
 </style>
 </head>
 <body><main class="knowledge">
@@ -82,6 +97,15 @@
 </header>
 <aside class="note"><strong>Estado y alcance.</strong> La documentación del repositorio describe una arquitectura modular operativa y una migración en curso desde un flujo token-based hacia un modelo state-driven. No debe interpretarse el diseño objetivo como una migración ya finalizada. La existencia del repositorio y del registro DOI tampoco equivale a una auditoría de seguridad independiente ni a una certificación de producción.</aside>
 
+
+<section class="ba-realviewer" aria-labelledby="ba-realviewer-title">
+<div class="ba-realviewer__tag">Recurso auténtico del repositorio</div>
+<h2 id="ba-realviewer-title">Explorá Blue Arrow en un visor 3D</h2>
+<p>Blue Arrow publica un <strong>Blueprint 3D Viewer</strong>: una herramienta estática para inspeccionar módulos, conexiones, rutas y el diagrama Mermaid. Esta versión se sirve desde el archivo original del repositorio público, no es una imagen inventada ni una sesión real de automatización.</p>
+<div class="ba-realviewer__actions"><a href="/research/blue-arrow/visor/" target="_blank" rel="noopener">Abrir visor de arquitectura 3D</a><a href="https://github.com/Hanzzel-corp/blue-arrow/blob/main/viewer.html">Ver código original del visor</a></div>
+<details><summary>Mostrar visor aquí (carga visualización 3D)</summary><iframe title="Blueprint 3D Viewer original de Blue Arrow" src="/research/blue-arrow/visor/" loading="lazy" sandbox="allow-scripts" referrerpolicy="no-referrer"></iframe></details>
+<p class="ba-realviewer__foot">El visor utiliza un diagrama de demostración y bibliotecas JavaScript externas; no se conecta a tu PC, Telegram ni a los workers. Requiere navegador compatible con WebGL. La función del visor y su apariencia en teléfonos todavía deben comprobarse en navegador real.</p>
+</section>
 <figure class="ba-flow" aria-labelledby="ba-flow-title">
 <p class="ba-flow__eyebrow">Blue Arrow · Arquitectura documentada</p>
 <h2 id="ba-flow-title">De una instrucción a una acción verificada</h2>
