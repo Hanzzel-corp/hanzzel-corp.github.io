@@ -21,3 +21,9 @@
 .sat-lab__note{font-size:.86rem;line-height:1.6;color:var(--text-secondary);margin:0}
 .sat-lab a{overflow-wrap:anywhere}
 @media(max-width:650px){.sat-lab{padding:16px}.sat-lab__grid{grid-template-columns:1fr;gap:12px}}
+
+.sat-lab__actions{display:flex;flex-direction:column;gap:8px;margin-top:14px}
+.sat-lab__actions button{min-height:44px;padding:10px 13px;border:1px solid var(--border-color);border-radius:10px;color:var(--text-primary);background:var(--bg-secondary);cursor:pointer;text-align:center;font-size:.92rem;font-weight:650}
+.sat-lab__actions button:first-child{color:var(--bg-primary);background:var(--accent-primary);border-color:var(--accent-primary)}
+.sat-lab__actions button:hover{border-color:var(--accent-primary)}
+.sat-lab__actions button:focus-visible{outline:2px solid var(--accent-primary);outline-offset:2px}
