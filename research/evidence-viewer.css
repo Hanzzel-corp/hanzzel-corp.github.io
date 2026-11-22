@@ -1,4 +1,8 @@
 /* Evidence zoom and mobile evidence galleries; isolated to project pages. */
+/* Four authentic screenshots form a balanced 2×2 layout on larger screens. */
+.ob-gallery__grid figure:first-child{grid-column:auto}
+.ob-gallery__grid img{max-height:420px;object-fit:contain;object-position:top;background:#0b1424}
+
 .evidence-zoom{cursor:zoom-in}
 .evidence-zoom:focus-visible{outline:3px solid var(--accent-primary,#22d3ee);outline-offset:3px}
 .evidence-lightbox{box-sizing:border-box;max-width:min(96vw,1200px);width:100%;max-height:95dvh;margin:auto;padding:16px;background:#101827;color:#f8fafc;border:1px solid #475569;border-radius:16px;box-shadow:0 25px 70px rgba(0,0,0,.65)}
