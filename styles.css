@@ -918,6 +918,32 @@ section {
   color: var(--text-muted);
 }
 
+/* Compact mobile navigation: no change to desktop navigation or original hero. */
+.mobile-nav { display: none; }
+@media (max-width: 768px) {
+  .nav { position: relative; gap: 8px; }
+  .nav .logo { font-size: 1.02rem; white-space: nowrap; }
+  .mobile-nav { display: block; margin-left: auto; }
+  .mobile-nav summary { display: flex; align-items: center; gap: 7px; min-height: 40px; padding: 6px 10px; cursor: pointer; list-style: none; color: var(--text-primary); font-size: .87rem; font-weight: 600; border: 1px solid var(--border-color); border-radius: var(--radius-md); }
+  .mobile-nav summary::-webkit-details-marker { display: none; }
+  .mobile-nav summary:hover, .mobile-nav[open] summary { border-color: var(--accent-primary); background: var(--bg-hover); }
+  .mobile-nav summary:focus-visible { outline: 2px solid var(--accent-primary); outline-offset: 2px; }
+  .mobile-nav__icon { font-size: 1.1rem; line-height: 1; }
+  .mobile-nav__panel { position: absolute; z-index: 110; top: calc(100% - 1px); left: 0; right: 0; display: flex; flex-direction: column; gap: 2px; max-height: calc(100dvh - 85px); overflow-y: auto; padding: 12px; background: var(--bg-primary); border: 1px solid var(--border-color); border-radius: 0 0 12px 12px; box-shadow: 0 16px 28px rgba(0, 0, 0, .2); }
+  .mobile-nav__panel a { display: flex; align-items: center; min-height: 44px; padding: 9px 13px; border-radius: 8px; text-decoration: none; color: var(--text-primary); font-weight: 500; font-size: .92rem; }
+  .mobile-nav__panel a:hover, .mobile-nav__panel a:focus-visible { background: var(--bg-hover); color: var(--accent-primary); }
+  .mobile-nav__divider { height: 1px; margin: 4px 0; background: var(--border-color); }
+  .nav-controls { flex-shrink: 0; }
+  .lang-toggle, .theme-toggle { padding: 6px 8px; }
+  main section[id] { scroll-margin-top: 88px; }
+}
+@media (max-width: 365px) {
+  .nav .logo { font-size: .88rem; }
+  .mobile-nav summary { padding: 6px 8px; }
+  .mobile-nav summary span:last-child { font-size: .78rem; }
+  .mobile-nav__icon { font-size: 1rem; }
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   :root {
