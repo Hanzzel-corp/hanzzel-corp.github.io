@@ -6,6 +6,9 @@
 <meta name="description" content="Ficha técnica del NCT Milenio Solver: generador de expresiones C0–C3, visualización ASCII 21×21, curva tanh y exportación JSON/TXT. Alcance y límites del código público.">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://hanzzel-corp.github.io/research/nct-milenio-solver/">
+<link rel="alternate" hreflang="es" href="https://hanzzel-corp.github.io/research/nct-milenio-solver/">
+<link rel="alternate" hreflang="en" href="https://hanzzel-corp.github.io/en/research/nct-milenio-solver/">
+<link rel="alternate" hreflang="x-default" href="https://hanzzel-corp.github.io/research/nct-milenio-solver/">
 <meta property="og:type" content="article"><meta property="og:title" content="NCT Milenio Solver — NCT Visual Engine"><meta property="og:description" content="Implementación, flujo de ejecución, código, reproducibilidad y límites de la versión pública."><meta property="og:url" content="https://hanzzel-corp.github.io/research/nct-milenio-solver/">
 <meta name="author" content="José Pablo Zamora">
 <meta property="og:site_name" content="Hanzzel Corp">
@@ -36,7 +39,7 @@
 </style>
 </head>
 <body><main class="k">
-<nav><a href="https://hanzzel-corp.github.io/">Hanzzel Corp</a><a href="../">Índice de investigación</a><a href="https://github.com/Hanzzel-corp/NCT_MILENIO_SOLVER">Repositorio</a></nav>
+<nav><a href="https://hanzzel-corp.github.io/">Hanzzel Corp</a><a href="../">Índice de investigación</a><a href="https://github.com/Hanzzel-corp/NCT_MILENIO_SOLVER">Repositorio</a><a href="https://hanzzel-corp.github.io/research/nct-milenio-solver/" lang="es" aria-current="page">ES</a> <a href="https://hanzzel-corp.github.io/en/research/nct-milenio-solver/" lang="en" hreflang="en">EN</a></nav>
 <article>
 <p><strong>Ficha técnica · Investigación NCT · Hanzzel Corp</strong></p>
 <h1>NCT Milenio Solver: qué implementa realmente el NCT Visual Engine</h1>
@@ -109,36 +112,6 @@ python nct_visual_engine.py</code></pre>
 <li><a href="https://github.com/Hanzzel-corp/NCT_MILENIO_SOLVER/blob/main/docs/arquitectura.md">Arquitectura</a>, <a href="https://github.com/Hanzzel-corp/NCT_MILENIO_SOLVER/blob/main/docs/api.md">API</a> y <a href="https://github.com/Hanzzel-corp/NCT_MILENIO_SOLVER/blob/main/docs/nct-framework.md">documento del marco NCT</a>.</li>
 </ul>
 </article>
-<section class="en" lang="en">
-<p><strong>English version · Technical project brief</strong></p>
-<h2>NCT Milenio Solver: what the public NCT Visual Engine actually implements</h2>
-<p class="lead">The public NCT_MILENIO_SOLVER repository contains an experimental implementation named NCT Visual Engine. Its Python code generates symbolic expressions using C0–C3 labels, renders a 21×21 ASCII matrix, applies a hyperbolic-tangent transform to numeric values, and exports records to JSON and text. The README explicitly states that this release does not include a real quaternary solver.</p>
-<h3>Name, scope and attribution clarification</h3>
-<p>Although the repository is named “NCT Milenio Solver”, its README calls the implementation “NCT Visual Engine” and describes it as demonstrative and conceptual. It explicitly lists a real quaternary solver, CQM memory, evolutionary quantum DNA and a complete unified equation as not included. The repository name must not be read as a claim that the Millennium Prize Problems have been solved.</p>
-<p>The author confirms his full name as “José Pablo Zamora”. The source repository uses abbreviated or inconsistent forms (“Pablo Zamora” in the README and “José Zamora” in the source header); this page uses the author-confirmed full name. The source files should also be normalized for consistent attribution.</p>
-<h3>Implemented components</h3>
-<ul><li><code>generate_equation()</code> randomly selects three coefficients, three C0–C3 labels and two operators, then returns a formatted string. It does not evaluate the expression.</li><li><code>ascii_matrix(seed_val)</code> generates a NumPy 21×21 normal-distribution matrix and maps normalized values to ASCII characters.</li><li><code>frontier_curve(history)</code> applies <code>tanh(values / standard_deviation)</code> to the history's numeric values.</li><li><code>save_json()</code> serializes the generated history; <code>linkedin_export()</code> writes the expressions to a text file.</li></ul>
-<h3>Execution flow</h3>
-<pre><code>Generate 40 random symbolic expressions
-→ assign an independent random value to each record
-→ render a seeded 21×21 ASCII matrix
-→ transform the values with tanh
-→ export JSON and TXT</code></pre>
-<p>The numeric values are generated independently with <code>random.uniform(-3, 3)</code>; they are not computed by evaluating the corresponding expression. The matrix is seeded from the last record's value and is not calculated from the expression's symbolic structure.</p>
-<h3>Symbolic vocabulary</h3>
-<p>This repository defines <code>C0</code> through <code>C3</code> and the operator strings <code>⊕</code>, <code>⊗</code>, <code>+</code> and <code>−</code>. The documentation assigns conceptual meanings to them, but the main Python file inserts the operators into strings rather than implementing executable algebraic operations or proving their stated properties. This page preserves the repository's C0–C3 notation and does not silently redefine the broader NCT framework.</p>
-<h3>Technical observations and limitations</h3>
-<ul><li>There is no parser or algebraic evaluator in the main implementation.</li><li>The “critical frontier” is a tanh transform of randomly assigned values, not a demonstrated critical-transition detector.</li><li><code>ascii_matrix()</code> resets NumPy's global random seed.</li><li>A constant input series gives zero standard deviation in <code>frontier_curve()</code> and can produce non-finite values.</li><li>This page does not claim an independent test run or external mathematical validation.</li><li>This release does not demonstrate a solver for Millennium Prize Problems, a unified equation, CQM memory or evolutionary quantum DNA.</li></ul>
-<h3>Reproduction</h3>
-<pre><code>git clone https://github.com/Hanzzel-corp/NCT_MILENIO_SOLVER.git
-cd NCT_MILENIO_SOLVER
-python -m venv .venv
-# Windows PowerShell:
-.venv\Scripts\Activate.ps1
-pip install -r requirements.txt
-python nct_visual_engine.py</code></pre>
-<h3>Primary sources</h3>
-<p><a href="https://github.com/Hanzzel-corp/NCT_MILENIO_SOLVER">Source repository</a> · <a href="https://github.com/Hanzzel-corp/NCT_MILENIO_SOLVER/blob/main/README.md">README</a> · <a href="https://github.com/Hanzzel-corp/NCT_MILENIO_SOLVER/blob/main/nct_visual_engine.py">Main source file</a> · <a href="https://github.com/Hanzzel-corp/NCT_MILENIO_SOLVER/tree/main/docs">Documentation</a>.</p>
-</section>
+
 <footer class="note">Ficha elaborada a partir del código y la documentación pública consultados. El estado vigente debe contrastarse con la rama principal y futuras versiones del repositorio.</footer>
 </main></body></html>
