@@ -72,6 +72,7 @@
 @media(max-width:680px){.nct-proof{padding:16px}.nct-proof__stats{grid-template-columns:1fr}}
 
 </style>
+<link rel="stylesheet" href="/research/evidence-viewer.css">
 </head>
 <body><main class="knowledge">
 <nav aria-label="Navegación"><a href="https://hanzzel-corp.github.io/">Hanzzel Corp</a><a href="../">Índice de investigación</a><a href="https://github.com/Hanzzel-corp/nct-depth-motif">Repositorio</a><a href="https://doi.org/10.5281/zenodo.20045645">Registro Zenodo / DOI</a><a href="https://hanzzel-corp.github.io/research/nct-depth-motif/" lang="es" aria-current="page">ES</a> <a href="https://hanzzel-corp.github.io/en/research/nct-depth-motif/" hreflang="en" lang="en">EN</a></nav>
@@ -91,13 +92,18 @@
 <div><dt>Ejecuciones del grouped split</dt><dd>30</dd></div>
 <div><dt>ΔAUC frente a random</dt><dd>+0,0070</dd></div>
 <div><dt>ΔF1 frente a random</dt><dd>+0,0054</dd></div>
-</dl>
+</dl><p class="nct-proof__method"><strong>Cómo se obtuvieron estos números:</strong> 30 evaluaciones agrupadas (3 valores de α × 10 semillas), 654 fotogramas del conjunto de prueba NYU Depth V2 y 256 permutaciones aleatorias para el contraste empírico, según el proyecto. Tocá la lámina para ampliarla.</p>
 <figure>
-<a href="https://github.com/Hanzzel-corp/nct-depth-motif/blob/main/docs/assets/scenes_auto_contact_sheet.png" target="_blank" rel="noopener noreferrer"><img src="https://raw.githubusercontent.com/Hanzzel-corp/nct-depth-motif/main/docs/assets/scenes_auto_contact_sheet.png" loading="lazy" decoding="async" alt="Lámina de ejemplos publicados de ocho clusters RGB automáticos, sin etiquetado semántico oficial"></a>
+<a data-evidence-zoom href="https://github.com/Hanzzel-corp/nct-depth-motif/blob/main/docs/assets/scenes_auto_contact_sheet.png" target="_blank" rel="noopener noreferrer"><img src="https://raw.githubusercontent.com/Hanzzel-corp/nct-depth-motif/main/docs/assets/scenes_auto_contact_sheet.png" loading="lazy" decoding="async" alt="Lámina de ejemplos publicados de ocho clusters RGB automáticos, sin etiquetado semántico oficial"></a>
 <figcaption>Lámina de los ocho clusters RGB generados automáticamente para el análisis leave-one-cluster-out (24 ejecuciones). No equivalen a escenas semánticas oficialmente etiquetadas. <a href="https://github.com/Hanzzel-corp/nct-depth-motif/blob/main/docs/assets/scenes_auto_contact_sheet.png">Imagen original</a>.</figcaption>
-</figure>
+</figure><div class="nct-proof__sources" aria-label="Documentación original de respaldo"><a href="https://github.com/Hanzzel-corp/nct-depth-motif/blob/main/docs/METHOD.md">Método</a><a href="https://github.com/Hanzzel-corp/nct-depth-motif/blob/main/README.md#resultados">Resultados reportados</a><a href="https://github.com/Hanzzel-corp/nct-depth-motif/blob/main/docs/INTERPRETATION.md">Interpretación y límites</a></div>
 <p class="nct-proof__limitation"><strong>Alcance:</strong> las mejoras publicadas son pequeñas; faltan comparaciones con Canny, Sobel y HED, así como validación en otros datasets. <a href="https://github.com/Hanzzel-corp/nct-depth-motif/blob/main/README.md#resultados">Tablas originales y pasos de reproducción</a>.</p>
 </section>
+<dialog class="evidence-lightbox" data-evidence-dialog aria-label="Ampliar imagen original del proyecto">
+<div class="evidence-lightbox__bar"><strong>Imagen original · Repositorio fuente</strong><button type="button" data-evidence-close aria-label="Cerrar imagen ampliada">Cerrar ×</button></div>
+<figure><img data-evidence-image alt=""><figcaption data-evidence-caption></figcaption></figure>
+<p class="evidence-lightbox__link"><a data-evidence-source href="#" target="_blank" rel="noopener noreferrer">Ver el archivo original en GitHub</a></p>
+</dialog>
 
 <h2>1. Pregunta experimental</h2>
 <p>La pregunta es si una tabla de pesos aprendida para motivos discretos contiene información útil para estimar discontinuidades geométricas en mapas de profundidad, y si su rendimiento en un conjunto de prueba independiente supera al de permutaciones aleatorias de esos mismos pesos.</p>
@@ -184,4 +190,5 @@ python3 src/motif_survival_grouped.py \
 
 
 <footer class="note">Esta ficha distingue resultados informados por el repositorio de validaciones independientes. Para auditar el experimento, utilizar los scripts, CSV y documentos originales.</footer>
-</main></body></html>
+</main><script src="/research/evidence-viewer.js" defer></script>
+</body></html>
